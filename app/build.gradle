@@ -1,0 +1,78 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
+    defaultConfig {
+        applicationId "io.github.tonnyl.mango"
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+ext {
+    supportLibVersion = '26.0.0-beta2'
+    gsonVersion = '2.8.0'
+    retrofitVersion = '2.2.0'
+    rxJavaVersion = '2.1.0'
+    rxAndroidVersion = '2.0.1'
+    retrofitVersion = '2.3.0'
+    frescoVersion = '1.3.0'
+    flexboxVersion = '0.3.0-alpha4'
+    archRoomVersion = '1.0.0-alpha3'
+    daggerVersion = '2.11'
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    // Kotlin lib
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+
+    // Support series
+    implementation "com.android.support:appcompat-v7:${supportLibVersion}"
+    implementation "com.android.support:support-v4:${supportLibVersion}"
+    implementation "com.android.support:design:${supportLibVersion}"
+
+    // ReactiveX series
+    implementation "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
+    implementation "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}"
+
+    // Retrofit series
+    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+
+    // Fresco
+    implementation "com.facebook.fresco:imagepipeline-okhttp3:${frescoVersion}"
+    implementation "com.facebook.fresco:fresco:${frescoVersion}"
+    implementation "com.facebook.fresco:animated-gif:${frescoVersion}"
+
+    // Flexbox
+    implementation "com.google.android:flexbox:${flexboxVersion}"
+
+    // Room
+    implementation "android.arch.persistence.room:runtime:${archRoomVersion}"
+    implementation "android.arch.persistence.room:rxjava2:${archRoomVersion}"
+    kapt "android.arch.persistence.room:compiler:${archRoomVersion}"
+
+    // Dagger2
+    implementation "com.google.dagger:dagger:${daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
+
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testImplementation 'junit:junit:4.12'
+}

@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Mango</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="label_auth">Log in</string>
+    <string name="request_refresh_token_failed">Request refresh token failed</string>
+    <string name="request_user_info_failed">Request user info failed</string>
+    <string name="welcome_to_mango">WELCOME TO MANGO</string>
+    <string name="get_started">GET STARTED</string>
+
+    <string name="popular">POPULAR</string>
+    <string name="following">FOLLOWING</string>
+    <string name="recent">RECENT</string>
+    <string name="debuts">DEBUTS</string>
+
+
+
+</resources>

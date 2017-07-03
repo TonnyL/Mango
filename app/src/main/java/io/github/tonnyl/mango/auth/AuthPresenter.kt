@@ -1,0 +1,87 @@
+package io.github.tonnyl.mango.auth
+
+import android.text.TextUtils
+import io.github.tonnyl.mango.R
+import io.github.tonnyl.mango.data.repository.AccessTokenRepository
+import io.github.tonnyl.mango.data.repository.UserRepository
+import io.github.tonnyl.mango.util.AccountManager
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+
+/**
+ * Created by lizhaotailang on 2017/6/24.
+ */
+
+class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
+
+    private val mView: AuthContract.View = view
+    private val mCompositeDisposable: CompositeDisposable
+
+    init {
+        mView.setPresenter(this)
+        mCompositeDisposable = CompositeDisposable()
+    }
+
+    override fun subscribe() {
+
+    }
+
+    override fun unsubscribe() {
+        mCompositeDisposable.clear()
+    }
+
+    override fun requestAccessToken(code: String) {
+        mCompositeDisposable.clear()
+        AccessTokenRepository.getAccessToken(null, code)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ token ->
+                    if (token.accessToken != "" && !TextUtils.isEmpty(token.accessToken)) {
+                        // Update the access token of AccountManager
+                        AccountManager.accessToken = token
+
+                        // Save the access token to database
+                        AccessTokenRepository.saveAccessToken(token)
+
+                        requestUserInfo()
+                    } else {
+                        if (mView.isActive()) {
+                            mView.setLoginIndicator(false)
+                            mView.showMessage(R.string.request_refresh_token_failed)
+                        }
+                    }
+                }, { _ ->
+                    if (mView.isActive()) {
+                        mView.setLoginIndicator(false)
+                        mView.showMessage(R.string.request_refresh_token_failed)
+                    }
+                })
+    }
+
+    private fun requestUserInfo() {
+        UserRepository.getAuthenticatedUser(null)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ user ->
+                    if (user.id != 0L) {
+                        // Update the user id in access token
+                        AccountManager.accessToken!!.id = user.id
+
+                        // Update the user of account manager
+                        AccountManager.authenticatedUser = user
+
+                        // Save the user info to database
+                        UserRepository.saveAuthenticatedUser(user)
+
+                        mView.updateLoginStatus(AccountManager.accessToken!!)
+                    }
+                }, { _ ->
+                    if (mView.isActive()) {
+                        mView.setLoginIndicator(false)
+                        mView.showMessage(R.string.request_user_info_failed)
+                    }
+                })
+    }
+
+}
