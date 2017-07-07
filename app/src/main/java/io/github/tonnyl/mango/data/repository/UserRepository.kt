@@ -5,7 +5,12 @@ import io.github.tonnyl.mango.data.User
 import io.github.tonnyl.mango.data.datasource.UserDataSource
 import io.github.tonnyl.mango.data.local.UserLocalDataSource
 import io.github.tonnyl.mango.data.remote.UserRemoteDataSource
+import io.github.tonnyl.mango.retrofit.RetrofitClient
+import io.github.tonnyl.mango.retrofit.UserService
+import io.github.tonnyl.mango.util.AccountManager
 import io.reactivex.Observable
+import retrofit2.Response
+import retrofit2.http.Body
 
 
 /**
@@ -14,7 +19,7 @@ import io.reactivex.Observable
 
 object UserRepository: UserDataSource {
 
-    private var mCachedAuthenticatedUsers: HashMap<Long, User>? = null
+    private val mUserService = RetrofitClient.createService(UserService::class.java, AccountManager.accessToken)
 
     override fun init(context: Context) {
         UserLocalDataSource.init(context)
@@ -44,9 +49,20 @@ object UserRepository: UserDataSource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getUser(id: Long): Observable<User> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getUser(id: Long): Observable<Response<User>> {
+        return mUserService.getUser(id)
     }
 
+    override fun checkFollowing(userId: Long): Observable<Response<Body>> {
+        return mUserService.checkFollowing(userId)
+    }
+
+    override fun follow(userId: Long): Observable<Response<Body>> {
+        return mUserService.follow(userId)
+    }
+
+    override fun unfollow(userId: Long): Observable<Response<Body>> {
+        return mUserService.unfollow(userId)
+    }
 
 }

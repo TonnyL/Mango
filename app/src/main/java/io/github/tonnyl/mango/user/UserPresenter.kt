@@ -5,7 +5,8 @@ import io.reactivex.disposables.CompositeDisposable
 /**
  * Created by lizhaotailang on 2017/6/28.
  */
-class UserPresenter(view: UserContract.View): UserContract.Presenter {
+
+class UserPresenter(view: UserContract.View) : UserContract.Presenter {
 
     private var mView: UserContract.View = view
     private var mCompositeDisposable: CompositeDisposable
@@ -22,4 +23,13 @@ class UserPresenter(view: UserContract.View): UserContract.Presenter {
     override fun unsubscribe() {
         mCompositeDisposable.clear()
     }
+
+    override fun checkFollowing() {
+
+    }
+
+    override fun toggleFollow() {
+
+    }
+
 }

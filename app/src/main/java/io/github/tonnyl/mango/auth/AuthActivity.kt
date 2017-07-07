@@ -2,7 +2,6 @@ package io.github.tonnyl.mango.auth
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import io.github.tonnyl.mango.R
@@ -16,7 +15,7 @@ import io.github.tonnyl.mango.util.Constants
 
 class AuthActivity: AppCompatActivity() {
 
-    private var mFragment: AuthFragment? = null
+    private lateinit var mFragment: AuthFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +34,7 @@ class AuthActivity: AppCompatActivity() {
         setContentView(R.layout.container)
 
         if (savedInstanceState != null) {
-            mFragment = supportFragmentManager.getFragment(savedInstanceState, AuthFragment::class.java.simpleName) as AuthFragment?
+            mFragment = supportFragmentManager.getFragment(savedInstanceState, AuthFragment::class.java.simpleName) as AuthFragment
         } else {
             mFragment = AuthFragment.newInstance()
         }
@@ -43,19 +42,19 @@ class AuthActivity: AppCompatActivity() {
                 .add(R.id.container, mFragment, AuthFragment::class.java.simpleName)
                 .commit()
 
-        AuthPresenter(mFragment!!)
+        AuthPresenter(mFragment)
 
-        mFragment!!.handleAuthCallback(intent)
+        mFragment.handleAuthCallback(intent)
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        mFragment!!.handleAuthCallback(intent)
+        mFragment.handleAuthCallback(intent)
     }
 
-    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
-        super.onSaveInstanceState(outState, outPersistentState)
-        if (mFragment!!.isAdded) {
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        if (mFragment.isAdded) {
             supportFragmentManager.putFragment(outState, AuthFragment::class.java.simpleName, mFragment)
         }
     }

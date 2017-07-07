@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import com.facebook.drawee.view.SimpleDraweeView
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Shot
-import io.github.tonnyl.mango.interfaze.OnRecyclerViewItemClickListener
 import io.github.tonnyl.mango.util.FrescoLoader
 
 import kotlinx.android.synthetic.main.item_shot.view.*
@@ -17,15 +16,11 @@ import kotlinx.android.synthetic.main.item_shot.view.*
  * Created by lizhaotailang on 2017/6/29.
  */
 
-class ShotItemAdapter(context: Context, list: MutableList<Shot>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ShotsAdapter(context: Context, list: MutableList<Shot>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var mContext = context
     private var mList = list
-    private var mListener: OnRecyclerViewItemClickListener? = null
-
-    override fun getItemCount(): Int {
-        return mList.size
-    }
+    private var mListener: ((View, Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         return ShotViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_shot, parent, false), mListener)
@@ -37,7 +32,11 @@ class ShotItemAdapter(context: Context, list: MutableList<Shot>) : RecyclerView.
         FrescoLoader.loadNormal(mContext, viewHolder.mDraweeView, shot.images.normal, shot.images.teaser)
     }
 
-    fun setItemClickListener(listener: OnRecyclerViewItemClickListener?) {
+    override fun getItemCount(): Int {
+        return mList.size
+    }
+
+    fun setItemClickListener(listener: ((view: View, position: Int) -> Unit)?) {
         mListener = listener
     }
 
@@ -47,21 +46,19 @@ class ShotItemAdapter(context: Context, list: MutableList<Shot>) : RecyclerView.
         notifyDataSetChanged()
     }
 
-    class ShotViewHolder(itemView: View, listener: OnRecyclerViewItemClickListener?) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    class ShotViewHolder(itemView: View, listener: ((view : View, position: Int) -> Unit)?) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         val mListener = listener
         val mDraweeView: SimpleDraweeView
 
         init {
             itemView.setOnClickListener(this)
-            mDraweeView = itemView.draweeView
+            mDraweeView = itemView.simple_drawee_view
         }
 
         override fun onClick(p0: View?) {
-            if (mListener != null && p0 != null) {
-                p0.setOnClickListener {
-                    mListener.OnItemClick(p0, layoutPosition)
-                }
+            if (p0 != null && mListener != null) {
+                mListener.invoke(p0, layoutPosition)
             }
         }
 

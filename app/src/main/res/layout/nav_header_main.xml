@@ -13,23 +13,24 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/avatarDrawee"
-        android:layout_width="@dimen/avatar_width"
-        android:layout_height="@dimen/avatar_height"
+        android:id="@+id/avatar_drawee"
+        android:layout_width="@dimen/avatar_width_primary"
+        android:layout_height="@dimen/avatar_height_primary"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         fresco:roundAsCircle="true"
+        fresco:actualImageScaleType="focusCrop"
         fresco:placeholderImage="@drawable/ic_avatar_placeholder"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textViewName"
+        android:id="@+id/text_view_name"
         android:maxLines="1"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/textViewUserName"
+        android:id="@+id/text_view_user_name"
         android:maxLines="2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

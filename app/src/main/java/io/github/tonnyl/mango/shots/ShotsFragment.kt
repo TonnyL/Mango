@@ -16,8 +16,8 @@ import kotlinx.android.synthetic.main.fragment_shots.*
  */
 class ShotsFragment : Fragment(), ShotsContract.View {
 
-    private var toggle: ActionBarDrawerToggle? = null
-    private var mPresenter: ShotsContract.Presenter? = null
+    private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var mPresenter: ShotsContract.Presenter
 
     companion object {
         fun newInstance(): ShotsFragment {
@@ -36,15 +36,16 @@ class ShotsFragment : Fragment(), ShotsContract.View {
     }
 
     override fun initViews() {
+
         toggle = ActionBarDrawerToggle(
-                activity, activity.drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        activity.drawerLayout.addDrawerListener(toggle!!)
-        toggle!!.syncState()
+                activity, activity.drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        activity.drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
 
-        viewPager.adapter = ShotsPagerAdapter(context, childFragmentManager)
-        viewPager.offscreenPageLimit = 4
+        view_pager.adapter = ShotsPagerAdapter(context, childFragmentManager)
+        view_pager.offscreenPageLimit = 4
 
-        tabLayout.setupWithViewPager(viewPager)
+        tab_layout.setupWithViewPager(view_pager)
     }
 
     override fun isActive(): Boolean {
@@ -58,10 +59,10 @@ class ShotsFragment : Fragment(), ShotsContract.View {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (hidden) {
-            activity.drawerLayout.removeDrawerListener(toggle!!)
+            activity.drawer_layout.removeDrawerListener(toggle)
         } else {
-            activity.drawerLayout.addDrawerListener(toggle!!)
-            toggle!!.syncState()
+            activity.drawer_layout.addDrawerListener(toggle)
+            toggle.syncState()
         }
     }
 

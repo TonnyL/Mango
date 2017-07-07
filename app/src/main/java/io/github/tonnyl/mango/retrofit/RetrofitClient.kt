@@ -15,7 +15,6 @@ object RetrofitClient {
     private var mLastToken: String? = null
     private var mRetrofit: Retrofit? = null
 
-
     fun <T> createService(serviceClass: Class<T>, accessToken: AccessToken?): T {
         val currentToken: String = accessToken?.accessToken ?: ApiConstants.CLIENT_ACCESS_TOKEN
 
@@ -31,6 +30,7 @@ object RetrofitClient {
                 val request = requestBuilder.build()
                 chain.proceed(request)
             }
+
             val retrofitBuilder = Retrofit.Builder()
                     .baseUrl(ApiConstants.DRIBBBLE_V1_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())

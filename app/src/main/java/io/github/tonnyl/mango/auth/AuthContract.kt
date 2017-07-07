@@ -5,7 +5,6 @@ import android.support.annotation.StringRes
 import io.github.tonnyl.mango.BasePresenter
 import io.github.tonnyl.mango.BaseView
 import io.github.tonnyl.mango.data.AccessToken
-import io.github.tonnyl.mango.data.User
 
 /**
  * Created by lizhaotailang on 2017/6/24.

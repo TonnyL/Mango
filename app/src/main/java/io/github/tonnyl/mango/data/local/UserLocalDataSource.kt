@@ -6,6 +6,8 @@ import io.github.tonnyl.mango.data.datasource.UserDataSource
 import io.github.tonnyl.mango.database.AppDatabase
 import io.github.tonnyl.mango.database.DatabaseCreator
 import io.reactivex.Observable
+import retrofit2.Response
+import retrofit2.http.Body
 
 /**
  * Created by lizhaotailang on 2017/6/28.
@@ -65,7 +67,19 @@ object UserLocalDataSource: UserDataSource {
         mDatabase!!.userDao().delete(user)
     }
 
-    override fun getUser(id: Long): Observable<User> {
+    override fun getUser(id: Long): Observable<Response<User>> {
         return Observable.just(null)
+    }
+
+    override fun checkFollowing(userId: Long): Observable<Response<Body>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun follow(userId: Long): Observable<Response<Body>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun unfollow(userId: Long): Observable<Response<Body>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

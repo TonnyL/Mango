@@ -23,6 +23,7 @@ android {
 }
 
 ext {
+    ankoLibVersion = "0.10.1"
     supportLibVersion = '26.0.0-beta2'
     gsonVersion = '2.8.0'
     retrofitVersion = '2.2.0'
@@ -40,36 +41,41 @@ dependencies {
     // Kotlin lib
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
+    // Anko lib
+    implementation "org.jetbrains.anko:anko-commons:$ankoLibVersion"
+
     // Support series
-    implementation "com.android.support:appcompat-v7:${supportLibVersion}"
-    implementation "com.android.support:support-v4:${supportLibVersion}"
-    implementation "com.android.support:design:${supportLibVersion}"
+    implementation "com.android.support:appcompat-v7:$supportLibVersion"
+    implementation "com.android.support:support-v4:$supportLibVersion"
+    implementation "com.android.support:design:$supportLibVersion"
+    implementation "com.android.support:customtabs:$supportLibVersion"
+    implementation "com.android.support:palette-v7:$supportLibVersion"
 
     // ReactiveX series
-    implementation "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
-    implementation "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
 
     // Retrofit series
-    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
-    implementation "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
     // Fresco
-    implementation "com.facebook.fresco:imagepipeline-okhttp3:${frescoVersion}"
-    implementation "com.facebook.fresco:fresco:${frescoVersion}"
-    implementation "com.facebook.fresco:animated-gif:${frescoVersion}"
+    implementation "com.facebook.fresco:imagepipeline-okhttp3:$frescoVersion"
+    implementation "com.facebook.fresco:fresco:$frescoVersion"
+    implementation "com.facebook.fresco:animated-gif:$frescoVersion"
 
     // Flexbox
-    implementation "com.google.android:flexbox:${flexboxVersion}"
+    implementation "com.google.android:flexbox:$flexboxVersion"
 
     // Room
-    implementation "android.arch.persistence.room:runtime:${archRoomVersion}"
-    implementation "android.arch.persistence.room:rxjava2:${archRoomVersion}"
-    kapt "android.arch.persistence.room:compiler:${archRoomVersion}"
+    implementation "android.arch.persistence.room:runtime:$archRoomVersion"
+    implementation "android.arch.persistence.room:rxjava2:$archRoomVersion"
+    kapt "android.arch.persistence.room:compiler:$archRoomVersion"
 
     // Dagger2
-    implementation "com.google.dagger:dagger:${daggerVersion}"
-    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
 
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

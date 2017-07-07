@@ -42,13 +42,15 @@ class ShotsPagePresenter(view: ShotsPageContract.View, type: Int) : ShotsPageCon
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ response ->
-                        if (response.body() != null && mView.isActive()) {
-                            mView.showResults(response.body()!!.toMutableList())
-                            mView.setLoadingIndicator(false)
+                        response.body()?.let {
+                            if (mView.isActive()) {
+                                mView.showResults(it.toMutableList())
+                                mView.setLoadingIndicator(false)
+                            }
                         }
                     }, { error ->
                         if (mView.isActive()) {
-                            mView.showMessage(error.message!!)
+                            error.message?.let { mView.showMessage(it) }
                             mView.setLoadingIndicator(false)
                         }
                     })
@@ -57,13 +59,15 @@ class ShotsPagePresenter(view: ShotsPageContract.View, type: Int) : ShotsPageCon
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ response ->
-                        if (response.body() != null && mView.isActive()) {
-                            mView.showResults(response.body()!!.toMutableList())
-                            mView.setLoadingIndicator(false)
+                        response.body()?.let {
+                            if (mView.isActive()) {
+                                mView.showResults(it.toMutableList())
+                                mView.setLoadingIndicator(false)
+                            }
                         }
                     }, { error ->
                         if (mView.isActive()) {
-                            mView.showMessage(error.message!!)
+                            error.message?.let { mView.showMessage(it) }
                             mView.setLoadingIndicator(false)
                         }
                     })

@@ -7,6 +7,8 @@ import io.github.tonnyl.mango.retrofit.RetrofitClient
 import io.github.tonnyl.mango.retrofit.UserService
 import io.github.tonnyl.mango.util.AccountManager
 import io.reactivex.Observable
+import retrofit2.Response
+import retrofit2.http.Body
 
 /**
  * Created by lizhaotailang on 2017/6/28.
@@ -40,7 +42,19 @@ object UserRemoteDataSource: UserDataSource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getUser(id: Long): Observable<User> {
+    override fun getUser(id: Long): Observable<Response<User>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun checkFollowing(userId: Long): Observable<Response<Body>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun follow(userId: Long): Observable<Response<Body>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun unfollow(userId: Long): Observable<Response<Body>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

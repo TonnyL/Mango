@@ -25,7 +25,7 @@
         <Button
             android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:id="@+id/buttonGetStarted"
+            android:id="@+id/button_get_started"
             android:layout_gravity="center"
             android:text="@string/get_started"
             android:textColor="@android:color/white"
@@ -34,7 +34,7 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/progressBar"
+            android:id="@+id/progress_bar"
             android:layout_gravity="center"
             style="?android:attr/progressBarStyleInverse"
             android:visibility="gone"/>

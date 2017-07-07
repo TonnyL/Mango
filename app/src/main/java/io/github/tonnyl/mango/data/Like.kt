@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * Created by lizhaotailang on 2017/6/30.
  */
+
 class Like {
 
     @SerializedName("id")

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:id="@+id/refreshLayout"
+    android:id="@+id/refresh_layout"
     tools:context=".shots.MainActivity">
 
     <FrameLayout
@@ -15,7 +15,7 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/recyclerView"
+            android:id="@+id/recycler_view"
             android:scrollbars="vertical"
             android:scrollbarFadeDuration="1"
             android:fadeScrollbars="true"
@@ -25,8 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:id="@+id/emptyView"
-            android:visibility="visible"
+            android:id="@+id/empty_view"
+            android:visibility="gone"
             android:gravity="center"
             android:clickable="true"
             android:focusable="true">
@@ -34,7 +34,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_favorite_black_24dp"
+                android:src="@drawable/ic_favorite_white_24dp"
                 android:tint="@color/colorAccent"
                 android:importantForAccessibility="no"
                 android:hapticFeedbackEnabled="true"/>
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:text="Oops...nothing here"
+                android:text="@string/empty_content"
                 android:textColor="@color/colorAccent"
                 android:textAlignment="center"/>
 

@@ -13,7 +13,7 @@ import io.github.tonnyl.mango.R
 
 class BucketsFragment: Fragment(), BucketsContract.View {
 
-    private var mPresenter: BucketsContract.Presenter? = null
+    private lateinit var mPresenter: BucketsContract.Presenter
 
     companion object {
         fun newInstance(): BucketsFragment {
@@ -22,7 +22,7 @@ class BucketsFragment: Fragment(), BucketsContract.View {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_buckets, container, false)
+        return inflater?.inflate(R.layout.fragment_buckets, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {

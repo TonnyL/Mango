@@ -2,12 +2,24 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin_half">8dp</dimen>
+    <dimen name="activity_vertical_margin_half">8dp</dimen>
+
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
+
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="avatar_width">72dp</dimen>
-    <dimen name="avatar_height">72dp</dimen>
+    <dimen name="avatar_width_primary">72dp</dimen>
+    <dimen name="avatar_height_primary">72dp</dimen>
+    <dimen name="avatar_width_secondary">36dp</dimen>
+    <dimen name="avatar_height_secondary">36dp</dimen>
 
     <dimen name="shot_item_padding">8dp</dimen>
+    <dimen name="app_bar_height">320dp</dimen>
+
+    <dimen name="add_comment_elevation">8dp</dimen>
+    <dimen name="add_comment_text_size">13sp</dimen>
+    <dimen name="add_comment_height">48dp</dimen>
+
 </resources>

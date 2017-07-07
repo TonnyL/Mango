@@ -1,6 +1,5 @@
 package io.github.tonnyl.mango.auth
 
-import android.text.TextUtils
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.repository.AccessTokenRepository
 import io.github.tonnyl.mango.data.repository.UserRepository
@@ -37,7 +36,7 @@ class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ token ->
-                    if (token.accessToken != "" && !TextUtils.isEmpty(token.accessToken)) {
+                    if (token.accessToken.isNullOrEmpty()) {
                         // Update the access token of AccountManager
                         AccountManager.accessToken = token
 
@@ -66,7 +65,7 @@ class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
                 .subscribe({ user ->
                     if (user.id != 0L) {
                         // Update the user id in access token
-                        AccountManager.accessToken!!.id = user.id
+                        AccountManager.authenticatedUser?.let { it.id = user.id }
 
                         // Update the user of account manager
                         AccountManager.authenticatedUser = user

@@ -10,7 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Shot
-import io.github.tonnyl.mango.interfaze.OnRecyclerViewItemClickListener
+import io.github.tonnyl.mango.shot.ShotActivity
+import io.github.tonnyl.mango.shot.ShotFragment
+
+import org.jetbrains.anko.startActivity
 
 import kotlinx.android.synthetic.main.fragment_shots_page.*
 
@@ -20,15 +23,13 @@ import kotlinx.android.synthetic.main.fragment_shots_page.*
 
 class ShotsPageFragment : Fragment(), ShotsPageContract.View {
 
-    private var mPresenter: ShotsPageContract.Presenter? = null
-    private var mAdapter: ShotItemAdapter? = null
+    private lateinit var mPresenter: ShotsPageContract.Presenter
+    private var mAdapter: ShotsAdapter? = null
 
     companion object {
-
         fun newInstance(): ShotsPageFragment {
             return ShotsPageFragment()
         }
-
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -37,19 +38,19 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mPresenter?.subscribe()
+        mPresenter.subscribe()
 
         initViews()
 
-        refreshLayout.setOnRefreshListener {
-            mPresenter?.listShots()
+        refresh_layout.setOnRefreshListener {
+            mPresenter.listShots()
         }
 
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        mPresenter?.unsubscribe()
+        mPresenter.unsubscribe()
     }
 
     override fun setPresenter(presenter: ShotsPageContract.Presenter) {
@@ -57,8 +58,8 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
     }
 
     override fun initViews() {
-        refreshLayout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))
-        recyclerView.layoutManager = GridLayoutManager(context, 2)
+        refresh_layout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))
+        recycler_view.layoutManager = GridLayoutManager(context, 2)
     }
 
     override fun isActive(): Boolean {
@@ -66,25 +67,23 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
     }
 
     override fun setLoadingIndicator(loading: Boolean) {
-        refreshLayout.post({
-            refreshLayout.isRefreshing = loading
+        refresh_layout.post({
+            refresh_layout.isRefreshing = loading
         })
     }
 
     override fun showResults(results: MutableList<Shot>) {
         if (mAdapter == null) {
-            mAdapter = ShotItemAdapter(context, results)
-            mAdapter?.setItemClickListener(object : OnRecyclerViewItemClickListener {
-                override fun OnItemClick(v: View, position: Int) {
-
-                }
-            })
-            recyclerView.adapter = mAdapter
+            mAdapter = ShotsAdapter(context, results)
+            mAdapter?.setItemClickListener { _, position ->
+                context.startActivity<ShotActivity>(ShotFragment.KEY_SHOT_ID to results[position].id)
+            }
+            recycler_view.adapter = mAdapter
         } else {
             mAdapter?.updateData(results)
         }
 
-        emptyView.visibility = if (results.isEmpty()) {
+        empty_view.visibility = if (results.isEmpty()) {
             View.VISIBLE
         } else {
             View.GONE
@@ -93,7 +92,7 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
     }
 
     override fun showMessage(message: String) {
-        Snackbar.make(recyclerView, message, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(recycler_view, message, Snackbar.LENGTH_SHORT).show()
     }
 
 }

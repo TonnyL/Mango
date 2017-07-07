@@ -18,14 +18,17 @@ import io.github.tonnyl.mango.shots.MainActivity
 import io.github.tonnyl.mango.util.Constants
 
 import kotlinx.android.synthetic.main.fragment_auth.*
+import org.jetbrains.anko.clearTask
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.newTask
 
 /**
  * Created by lizhaotailang on 2017/6/24.
  */
 
-class AuthFragment: Fragment(), AuthContract.View {
+class AuthFragment : Fragment(), AuthContract.View {
 
-    var mPresenter: AuthContract.Presenter? = null
+    private lateinit var mPresenter: AuthContract.Presenter
 
     companion object {
         fun newInstance(): AuthFragment {
@@ -34,13 +37,14 @@ class AuthFragment: Fragment(), AuthContract.View {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_auth, container, false)
+        return inflater?.inflate(R.layout.fragment_auth, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mPresenter.subscribe()
 
-        buttonGetStarted.setOnClickListener {
+        button_get_started.setOnClickListener {
             val intent: Intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(ApiConstants.DRIBBBLE_AUTHORIZE_URL
                     + "?client_id=" + ApiConstants.CLIENT_ID
@@ -51,14 +55,9 @@ class AuthFragment: Fragment(), AuthContract.View {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        mPresenter?.subscribe()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mPresenter?.unsubscribe()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mPresenter.unsubscribe()
     }
 
     override fun setPresenter(presenter: AuthContract.Presenter) {
@@ -70,9 +69,7 @@ class AuthFragment: Fragment(), AuthContract.View {
     }
 
     private fun navigateToMainActivity() {
-        val intent = Intent(context, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
+        context.startActivity(context.intentFor<MainActivity>().newTask().clearTask())
     }
 
     override fun updateLoginStatus(accessToken: AccessToken) {
@@ -90,7 +87,7 @@ class AuthFragment: Fragment(), AuthContract.View {
                 && !TextUtils.isEmpty(intent.data.authority)
                 && (ApiConstants.DRIBBBLE_AUTHORIZE_CALLBACK_URI_HOST == intent.data.authority)) {
             setLoginIndicator(true)
-            mPresenter!!.requestAccessToken(intent.data.getQueryParameter("code"))
+            mPresenter.requestAccessToken(intent.data.getQueryParameter("code"))
         }
     }
 
@@ -100,11 +97,11 @@ class AuthFragment: Fragment(), AuthContract.View {
 
     override fun setLoginIndicator(isLoading: Boolean) {
         if (isLoading) {
-            progressBar.visibility = View.VISIBLE
-            buttonGetStarted.visibility = View.GONE
+            progress_bar.visibility = View.VISIBLE
+            button_get_started.visibility = View.GONE
         } else {
-            progressBar.visibility = View.GONE
-            buttonGetStarted.visibility = View.VISIBLE
+            progress_bar.visibility = View.GONE
+            button_get_started.visibility = View.VISIBLE
         }
     }
 

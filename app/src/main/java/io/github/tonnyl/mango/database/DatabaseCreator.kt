@@ -18,7 +18,7 @@ object DatabaseCreator {
     private var mIsDbCreated: AtomicBoolean = AtomicBoolean(false)
 
     fun createDb(context: Context) {
-        Log.d("DatabaseCreator", "Creating DB from " + Thread.currentThread().getName());
+        Log.d("DatabaseCreator", "Creating DB from " + Thread.currentThread().name)
 
         if (!mInitializing.compareAndSet(true, false)) {
             return
