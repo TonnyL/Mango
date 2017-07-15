@@ -1,5 +1,7 @@
 package io.github.tonnyl.mango.data
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -7,7 +9,7 @@ import com.google.gson.annotations.SerializedName
  * Created by lizhaotailang on 2017/6/30.
  */
 
-class Team {
+class Team() : Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -129,5 +131,84 @@ class Team {
     @Expose
     var updatedAt: String = ""
 
+    constructor(parcel: Parcel) : this() {
+        id = parcel.readLong()
+        name = parcel.readString()
+        username = parcel.readString()
+        htmlUrl = parcel.readString()
+        avatarUrl = parcel.readString()
+        bio = parcel.readString()
+        location = parcel.readString()
+        links = parcel.readParcelable(Links::class.java.classLoader)
+        bucketsCount = parcel.readInt()
+        commentsReceivedCount = parcel.readInt()
+        followersCount = parcel.readInt()
+        followingsCount = parcel.readInt()
+        likesCount = parcel.readInt()
+        likesReceivedCount = parcel.readInt()
+        membersCount = parcel.readInt()
+        projectsCount = parcel.readInt()
+        reboundsReceivedCount = parcel.readInt()
+        shotsCount = parcel.readInt()
+        canUploadShot = parcel.readByte() != 0.toByte()
+        type = parcel.readString()
+        pro = parcel.readByte() != 0.toByte()
+        bucketsUrl = parcel.readString()
+        followersUrl = parcel.readString()
+        followingUrl = parcel.readString()
+        likesUrl = parcel.readString()
+        membersUrl = parcel.readString()
+        shotsUrl = parcel.readString()
+        teamShotsUrl = parcel.readString()
+        createdAt = parcel.readString()
+        updatedAt = parcel.readString()
+    }
+
+    companion object CREATOR : Parcelable.Creator<Team> {
+        override fun createFromParcel(parcel: Parcel): Team {
+            return Team(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Team?> {
+            return arrayOfNulls(size)
+        }
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeLong(id)
+        parcel.writeString(name)
+        parcel.writeString(username)
+        parcel.writeString(htmlUrl)
+        parcel.writeString(avatarUrl)
+        parcel.writeString(bio)
+        parcel.writeString(location)
+        parcel.writeParcelable(links, flags)
+        parcel.writeInt(bucketsCount)
+        parcel.writeInt(commentsReceivedCount)
+        parcel.writeInt(followersCount)
+        parcel.writeInt(followingsCount)
+        parcel.writeInt(likesCount)
+        parcel.writeInt(likesReceivedCount)
+        parcel.writeInt(membersCount)
+        parcel.writeInt(projectsCount)
+        parcel.writeInt(reboundsReceivedCount)
+        parcel.writeInt(shotsCount)
+        parcel.writeByte(if (canUploadShot) 1.toByte() else 0.toByte())
+        parcel.writeString(type)
+        parcel.writeByte(if (pro) 1.toByte() else 0.toByte())
+        parcel.writeString(bucketsUrl)
+        parcel.writeString(followersUrl)
+        parcel.writeString(followingUrl)
+        parcel.writeString(likesUrl)
+        parcel.writeString(membersUrl)
+        parcel.writeString(shotsUrl)
+        parcel.writeString(teamShotsUrl)
+        parcel.writeString(createdAt)
+        parcel.writeString(updatedAt)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
 
 }

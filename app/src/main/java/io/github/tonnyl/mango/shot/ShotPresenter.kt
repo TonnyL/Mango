@@ -16,8 +16,8 @@ class ShotPresenter(view: ShotContract.View) : ShotContract.Presenter {
     private val mCompositeDisposable: CompositeDisposable
     private var mIsLikeChecked = false
     private var mIsLike = false
-    private var mShotId: Long = 0L
-    private var mShot: Shot? = null
+
+    private lateinit var mShot: Shot
 
     init {
         mView.setPresenter(this)
@@ -25,17 +25,8 @@ class ShotPresenter(view: ShotContract.View) : ShotContract.Presenter {
     }
 
     override fun subscribe() {
-        ShotRepository.getShot(mShotId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ response ->
-                    if (response.body() != null) {
-                        mShot = response.body()
-                        mShot?.let { mView.show(it) }
-                    }
-                })
-
-        ShotRepository.checkLikeOfShot(mShotId)
+        mView.show(mShot)
+        val disposable = ShotRepository.checkLike(mShot.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
@@ -43,76 +34,59 @@ class ShotPresenter(view: ShotContract.View) : ShotContract.Presenter {
                     mIsLike = (response.body() != null)
                     mView.setLikeStatus(mIsLike)
                 })
+        mCompositeDisposable.add(disposable)
     }
 
     override fun unsubscribe() {
         mCompositeDisposable.clear()
     }
 
-    override fun setShotId(shotId: Long) {
-        mShotId = shotId
+    override fun setShot(shot: Shot) {
+        mShot = shot
     }
 
     override fun toggleLike() {
-        if (mShotId != 0L && mShot != null) {
-            if (mIsLike) {
-                ShotRepository.unlikeShot(mShotId)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({
-                            mShot?.let {
-                                it.likesCount--
-                                mView.updateLikeCount(it.likesCount)
-                            }
-                            mView.setLikeStatus(false)
-                            mIsLike = !mIsLike
-                        }, { error ->
-                            mView.showMessage(error.message)
-                        })
-            } else {
-                ShotRepository.likeShot(mShotId)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({
-                            mShot?.let {
-                                it.likesCount++
-                                mView.updateLikeCount(it.likesCount)
-                            }
-                            mView.setLikeStatus(true)
-                            mIsLike = !mIsLike
-                        }, { error ->
-                            mView.showMessage(error.message)
-                        })
-            }
+        if (mIsLike) {
+
+            val disposable = ShotRepository
+                    .unlikeShot(mShot.id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        mShot.likesCount--
+                        mView.updateLikeCount(mShot.likesCount)
+                        mView.setLikeStatus(false)
+                        mIsLike = !mIsLike
+                    }, { error ->
+                        mView.showMessage(error.message)
+                    })
+            mCompositeDisposable.add(disposable)
+        } else {
+            val disposable = ShotRepository.likeShot(mShot.id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        mShot.likesCount++
+                        mView.updateLikeCount(mShot.likesCount)
+                        mView.setLikeStatus(true)
+                        mIsLike = !mIsLike
+                    }, { error ->
+                        mView.showMessage(error.message)
+                    })
+            mCompositeDisposable.add(disposable)
         }
     }
 
     override fun navigateToUserProfile() {
-        mShot?.let { mView.navigateToUserProfile(it.id) }
+        mView.navigateToUserProfile(mShot.id)
     }
 
     override fun navigateToComments() {
-        if (mShotId != 0L) {
-            mView.navigateToComments(mShotId)
-        }
-    }
-
-    override fun navigateToBuckets() {
-        if (mShotId != 0L) {
-            mView.navigateToBuckets(mShotId)
-        }
+        mView.navigateToComments(mShot.id)
     }
 
     override fun navigateToLikes() {
-        if (mShotId != 0L) {
-            mView.navigateToLikes(mShotId)
-        }
-    }
-
-    override fun navigateToAttachments() {
-        if (mShotId != 0L) {
-            mView.navigateToAttachments(mShotId)
-        }
+        mView.navigateToLikes(mShot.id)
     }
 
 }

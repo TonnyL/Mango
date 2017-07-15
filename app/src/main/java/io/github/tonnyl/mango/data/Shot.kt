@@ -1,5 +1,7 @@
 package io.github.tonnyl.mango.data
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -111,7 +113,7 @@ import com.google.gson.annotations.SerializedName
  * }
  */
 
-class Shot {
+class Shot() : Parcelable {
 
     @SerializedName("id")
     var id: Long = 0L
@@ -211,5 +213,75 @@ class Shot {
     @SerializedName("team")
     @Expose
     var team: Team? = Team()
+
+    constructor(parcel: Parcel) : this() {
+        id = parcel.readLong()
+        title = parcel.readString()
+        description = parcel.readString()
+        width = parcel.readInt()
+        height = parcel.readInt()
+        images = parcel.readParcelable(Images::class.java.classLoader)
+        viewsCount = parcel.readInt()
+        likesCount = parcel.readInt()
+        commentsCount = parcel.readInt()
+        attachmentsCount = parcel.readInt()
+        reboundsCount = parcel.readInt()
+        bucketsCount = parcel.readInt()
+        createdAt = parcel.readString()
+        updatedAt = parcel.readString()
+        htmlUrl = parcel.readString()
+        attachmentsUrl = parcel.readString()
+        bucketsUrl = parcel.readString()
+        commentsUrl = parcel.readString()
+        likesUrl = parcel.readString()
+        projectsUrl = parcel.readString()
+        reboundsUrl = parcel.readString()
+        animated = parcel.readByte() != 0.toByte()
+        tags = parcel.createStringArrayList()
+        user = parcel.readParcelable(User::class.java.classLoader)
+        team = parcel.readParcelable(Team::class.java.classLoader)
+    }
+
+    companion object CREATOR : Parcelable.Creator<Shot> {
+        override fun createFromParcel(parcel: Parcel): Shot {
+            return Shot(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Shot?> {
+            return arrayOfNulls(size)
+        }
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeLong(id)
+        parcel.writeString(title)
+        parcel.writeString(description)
+        parcel.writeInt(width)
+        parcel.writeInt(height)
+        parcel.writeParcelable(images, flags)
+        parcel.writeInt(viewsCount)
+        parcel.writeInt(likesCount)
+        parcel.writeInt(commentsCount)
+        parcel.writeInt(attachmentsCount)
+        parcel.writeInt(reboundsCount)
+        parcel.writeInt(bucketsCount)
+        parcel.writeString(createdAt)
+        parcel.writeString(updatedAt)
+        parcel.writeString(htmlUrl)
+        parcel.writeString(attachmentsUrl)
+        parcel.writeString(bucketsUrl)
+        parcel.writeString(commentsUrl)
+        parcel.writeString(likesUrl)
+        parcel.writeString(projectsUrl)
+        parcel.writeString(reboundsUrl)
+        parcel.writeByte(if (animated) 1.toByte() else 0.toByte())
+        parcel.writeStringList(tags)
+        parcel.writeParcelable(user, flags)
+        parcel.writeParcelable(team, flags)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
 
 }

@@ -36,7 +36,7 @@ class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ token ->
-                    if (token.accessToken.isNullOrEmpty()) {
+                    if (!token.accessToken.isNullOrEmpty()) {
                         // Update the access token of AccountManager
                         AccountManager.accessToken = token
 
@@ -50,10 +50,12 @@ class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
                             mView.showMessage(R.string.request_refresh_token_failed)
                         }
                     }
-                }, { _ ->
+                }, { error ->
                     if (mView.isActive()) {
                         mView.setLoginIndicator(false)
-                        mView.showMessage(R.string.request_refresh_token_failed)
+                        error.message?.let {
+                            mView.showMessage(it)
+                        }
                     }
                 })
     }
@@ -65,7 +67,7 @@ class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
                 .subscribe({ user ->
                     if (user.id != 0L) {
                         // Update the user id in access token
-                        AccountManager.authenticatedUser?.let { it.id = user.id }
+                        AccountManager.accessToken?.let { it.id = user.id }
 
                         // Update the user of account manager
                         AccountManager.authenticatedUser = user
@@ -75,10 +77,12 @@ class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
 
                         mView.updateLoginStatus(AccountManager.accessToken!!)
                     }
-                }, { _ ->
+                }, { error ->
                     if (mView.isActive()) {
                         mView.setLoginIndicator(false)
-                        mView.showMessage(R.string.request_user_info_failed)
+                        error.message?.let {
+                            mView.showMessage(it)
+                        }
                     }
                 })
     }

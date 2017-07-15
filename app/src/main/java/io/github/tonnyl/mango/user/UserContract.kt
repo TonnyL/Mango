@@ -1,7 +1,7 @@
 package io.github.tonnyl.mango.user
 
-import io.github.tonnyl.mango.BasePresenter
-import io.github.tonnyl.mango.BaseView
+import io.github.tonnyl.mango.mvp.BasePresenter
+import io.github.tonnyl.mango.mvp.BaseView
 import io.github.tonnyl.mango.data.User
 
 /**

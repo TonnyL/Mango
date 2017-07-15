@@ -1,5 +1,8 @@
 package io.github.tonnyl.mango.shot
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -14,9 +17,11 @@ import io.github.tonnyl.mango.data.Shot
 import io.github.tonnyl.mango.util.FrescoLoader
 import kotlinx.android.synthetic.main.fragment_shot.*
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import io.github.tonnyl.mango.list.ListActivity
 import io.github.tonnyl.mango.user.UserActivity
+import org.jetbrains.anko.runOnUiThread
 
 import org.jetbrains.anko.startActivity
 
@@ -30,7 +35,7 @@ class ShotFragment : Fragment(), ShotContract.View {
 
     companion object {
 
-        val KEY_SHOT_ID = "KEY_SHOT_ID"
+        val EXTRA_SHOT = "EXTRA_SHOT"
 
         fun newInstance(): ShotFragment {
             return ShotFragment()
@@ -39,7 +44,7 @@ class ShotFragment : Fragment(), ShotContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mPresenter.setShotId(activity.intent.getLongExtra(KEY_SHOT_ID, 0L))
+        mPresenter.setShot(activity.intent.getParcelableExtra(EXTRA_SHOT))
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -68,16 +73,8 @@ class ShotFragment : Fragment(), ShotContract.View {
             mPresenter.navigateToLikes()
         })
 
-        layout_buckets.setOnClickListener({
-            mPresenter.navigateToBuckets()
-        })
-
         layout_comments.setOnClickListener({
             mPresenter.navigateToComments()
-        })
-
-        layout_attachments.setOnClickListener({
-            mPresenter.navigateToAttachments()
         })
 
     }
@@ -104,32 +101,35 @@ class ShotFragment : Fragment(), ShotContract.View {
         mPresenter = presenter
     }
 
-    override fun isActive(): Boolean {
-        return isResumed && isAdded
-    }
-
     override fun showMessage(message: String?) {
-        if (message != null) {
+        message?.let {
             Snackbar.make(fab, message, Snackbar.LENGTH_SHORT).show()
-        } else {
+        } ?: run {
             Snackbar.make(fab, getString(R.string.something_wrong), Snackbar.LENGTH_SHORT).show()
         }
     }
 
     override fun show(shot: Shot) {
         // Show the shot image
-        FrescoLoader.loadNormalWithPalette(context, simple_drawee_view, shot.images.normal, shot.images.teaser, object : FrescoLoader.OnPaletteProcessCallback {
-
-            override fun OnPaletteAvailable(palette: Palette?) {
-
+        FrescoLoader.loadNormalWithPalette(context, simple_drawee_view, shot.images.best(), shot.images.normal, object : FrescoLoader.OnPaletteProcessCallback {
+            override fun OnPaletteGenerated(palette: Palette?) {
+                palette?.let {
+                    showPalette(palette)
+                } ?: run {
+                    palette_layout.visibility = View.GONE
+                }
             }
 
             override fun OnPaletteNotAvailable() {
-
+                context.runOnUiThread {
+                    palette_layout.visibility = View.GONE
+                }
             }
         })
 
-        FrescoLoader.loadAvatar(avatar, shot.user!!.avatar_url)
+        shot.user?.let {
+            FrescoLoader.loadAvatar(avatar, it.avatarUrl)
+        }
 
         shot_title.text = shot.title
 
@@ -149,9 +149,7 @@ class ShotFragment : Fragment(), ShotContract.View {
 
         likes_count.text = shot.likesCount.toString()
         views_count.text = shot.viewsCount.toString()
-        buckets_count.text = shot.bucketsCount.toString()
         comments_count.text = shot.commentsCount.toString()
-        attachments_count.text = shot.attachmentsCount.toString()
 
         // Show the tags
         showTags(shot.tags)
@@ -177,16 +175,8 @@ class ShotFragment : Fragment(), ShotContract.View {
         context.startActivity<ListActivity>(ListActivity.EXTRA_TYPE to ListActivity.TYPE_COMMENTS, ListActivity.EXTRA_ID to shotId)
     }
 
-    override fun navigateToBuckets(shotId: Long) {
-        context.startActivity<ListActivity>(ListActivity.EXTRA_TYPE to ListActivity.TYPE_BUCKETS, ListActivity.EXTRA_ID to shotId)
-    }
-
     override fun navigateToLikes(shotId: Long) {
         context.startActivity<ListActivity>(ListActivity.EXTRA_TYPE to ListActivity.TYPE_LIKES, ListActivity.EXTRA_ID to shotId)
-    }
-
-    override fun navigateToAttachments(shotId: Long) {
-        context.startActivity<ListActivity>(ListActivity.EXTRA_TYPE to ListActivity.TYPE_ATTACHMENTS, ListActivity.EXTRA_ID to shotId)
     }
 
     private fun showTags(tags: List<String>) {
@@ -196,8 +186,27 @@ class ShotFragment : Fragment(), ShotContract.View {
             textView.text = tag
             textView.gravity = Gravity.CENTER
             textView.setPadding(16, 0, 16, 0)
+            tags_box.addView(textView)
         }
+    }
 
+    private fun showPalette(palette: Palette) {
+        for (swatch in palette.swatches) {
+            val textView = TextView(context)
+            textView.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
+            textView.setBackgroundColor(swatch.rgb)
+            val color = String.format("#%06X", (0xFFFFFF and swatch.rgb))
+            textView.setOnClickListener {
+                Snackbar.make(fab, color, Snackbar.LENGTH_SHORT)
+                        .setAction(getString(R.string.copy_to_clipboard), {
+                            val manager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                            manager.primaryClip = ClipData.newPlainText("text", color)
+                            showMessage(getString(R.string.copied))
+                        })
+                        .show()
+            }
+            palette_layout.addView(textView)
+        }
     }
 
 }

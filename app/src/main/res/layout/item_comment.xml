@@ -51,26 +51,4 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="bottom">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:id="@+id/comment_like"
-            android:src="@drawable/ic_favorite_border_white_24dp"
-            android:visibility="visible"
-            android:tint="@color/hint"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:id="@+id/comment_likes_count"
-            android:gravity="center"/>
-
-    </LinearLayout>
-
 </LinearLayout>

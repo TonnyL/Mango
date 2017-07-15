@@ -22,4 +22,11 @@
     <dimen name="add_comment_text_size">13sp</dimen>
     <dimen name="add_comment_height">48dp</dimen>
 
+    <dimen name="shot_bar_height">32dp</dimen>
+
+    <dimen name="user_info_icon_height">24dp</dimen>
+    <dimen name="user_info_icon_width">24dp</dimen>
+
+    <dimen name="toolbar_text_size">17sp</dimen>
+
 </resources>

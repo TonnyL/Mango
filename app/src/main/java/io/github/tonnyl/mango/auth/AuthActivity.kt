@@ -5,8 +5,7 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import io.github.tonnyl.mango.R
-import io.github.tonnyl.mango.data.repository.AccessTokenRepository
-import io.github.tonnyl.mango.shots.MainActivity
+import io.github.tonnyl.mango.main.MainActivity
 import io.github.tonnyl.mango.util.Constants
 
 /**
@@ -20,9 +19,6 @@ class AuthActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Init the database.
-        AccessTokenRepository.init(this)
-
         if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(Constants.IS_USER_LOGGED_IN, false)) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -33,11 +29,12 @@ class AuthActivity: AppCompatActivity() {
 
         setContentView(R.layout.container)
 
-        if (savedInstanceState != null) {
+        savedInstanceState?.let {
             mFragment = supportFragmentManager.getFragment(savedInstanceState, AuthFragment::class.java.simpleName) as AuthFragment
-        } else {
+        } ?: run {
             mFragment = AuthFragment.newInstance()
         }
+
         supportFragmentManager.beginTransaction()
                 .add(R.id.container, mFragment, AuthFragment::class.java.simpleName)
                 .commit()

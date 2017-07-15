@@ -15,8 +15,6 @@
     <string name="recent">RECENT</string>
     <string name="debuts">DEBUTS</string>
     <string name="action_share">Share</string>
-    <string name="action_download">Download</string>
-    <string name="action_into_bucket">Into bucket</string>
     <string name="action_open_in_browser">Open in browser</string>
     <string name="nav_explore">Explore</string>
     <string name="nav_buckets">Buckets</string>
@@ -34,5 +32,10 @@
     <string name="buckets">Buckets</string>
     <string name="attachments">Attachments</string>
     <string name="add_comment_failed">Add comment failed</string>
+    <string name="copy_to_clipboard">Copy to clipboard</string>
+    <string name="copied">Copied</string>
+    <string name="gif">GIF</string>
+    <string name="log_out">Log out</string>
+    <string name="about">About</string>
 
 </resources>

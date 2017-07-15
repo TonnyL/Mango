@@ -20,9 +20,9 @@ class UserActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.container)
 
-        if (savedInstanceState != null) {
+        savedInstanceState?.let {
             mUserFragment = supportFragmentManager.getFragment(savedInstanceState, UserFragment::class.java.simpleName) as UserFragment
-        } else {
+        } ?: run {
             mUserFragment = UserFragment.getInstance()
         }
 

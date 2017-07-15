@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.github.tonnyl.mango.shots.MainActivity">
+    android:fitsSystemWindows="true"
+    tools:context="io.github.tonnyl.mango.main.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/app_bar"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
@@ -17,24 +19,53 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:title="@string/app_name"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <LinearLayout
+                android:id="@+id/user_info_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/avatar_drawee"
+                    android:layout_width="@dimen/avatar_width_secondary"
+                    android:layout_height="@dimen/avatar_height_secondary"
+                    android:layout_gravity="center_vertical"
+                    app:actualImageScaleType="focusCrop"
+                    app:placeholderImage="@drawable/ic_avatar_placeholder"
+                    app:roundAsCircle="true" />
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:textColor="@android:color/white"
+                    android:text="@string/app_name"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tab_layout"
             app:tabBackground="@color/colorPrimary"
+            app:tabGravity="fill"
             app:tabIndicatorColor="@color/colorAccent"
-            app:tabSelectedTextColor="@color/colorAccent"
-            app:tabGravity="fill"/>
+            app:tabSelectedTextColor="@color/colorAccent" />
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/view_pager"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>

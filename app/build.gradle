@@ -28,6 +28,7 @@ ext {
     gsonVersion = '2.8.0'
     retrofitVersion = '2.2.0'
     rxJavaVersion = '2.1.0'
+    rxKotlinVersion = '2.1.0'
     rxAndroidVersion = '2.0.1'
     retrofitVersion = '2.3.0'
     frescoVersion = '1.3.0'
@@ -52,7 +53,7 @@ dependencies {
     implementation "com.android.support:palette-v7:$supportLibVersion"
 
     // ReactiveX series
-    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
 
     // Retrofit series

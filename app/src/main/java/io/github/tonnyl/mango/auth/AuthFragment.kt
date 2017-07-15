@@ -14,7 +14,7 @@ import com.google.gson.Gson
 import io.github.tonnyl.mango.retrofit.ApiConstants
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.AccessToken
-import io.github.tonnyl.mango.shots.MainActivity
+import io.github.tonnyl.mango.main.MainActivity
 import io.github.tonnyl.mango.util.Constants
 
 import kotlinx.android.synthetic.main.fragment_auth.*
@@ -91,8 +91,12 @@ class AuthFragment : Fragment(), AuthContract.View {
         }
     }
 
+    override fun showMessage(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+    }
+
     override fun showMessage(id: Int) {
-        Toast.makeText(activity, id, Toast.LENGTH_SHORT).show()
+        showMessage(getString(id))
     }
 
     override fun setLoginIndicator(isLoading: Boolean) {

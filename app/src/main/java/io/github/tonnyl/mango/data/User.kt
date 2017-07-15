@@ -4,6 +4,8 @@ import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Embedded
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -46,7 +48,7 @@ import com.google.gson.annotations.SerializedName
  */
 
 @Entity(tableName = "user")
-class User {
+class User() : Parcelable {
 
     @ColumnInfo(name = "name")
     @SerializedName("name")
@@ -66,7 +68,7 @@ class User {
     @ColumnInfo(name = "avatar_url")
     @SerializedName("avatar_url")
     @Expose
-    var avatar_url: String = ""
+    var avatarUrl: String = ""
 
     @ColumnInfo(name = "bio")
     @SerializedName("bio")
@@ -161,7 +163,7 @@ class User {
     @ColumnInfo(name = "following_url")
     @SerializedName("following_url")
     @Expose
-    var following_url: String = ""
+    var followingUrl: String = ""
 
     @ColumnInfo(name = "likes_url")
     @SerializedName("likes_url")
@@ -193,5 +195,83 @@ class User {
     @SerializedName("id")
     @Expose
     var id: Long = 0L
+
+    constructor(parcel: Parcel) : this() {
+        name = parcel.readString()
+        username = parcel.readString()
+        htmlUrl = parcel.readString()
+        avatarUrl = parcel.readString()
+        bio = parcel.readString()
+        location = parcel.readString()
+        links = parcel.readParcelable(Links::class.java.classLoader)
+        bucketsCount = parcel.readInt()
+        commentsReceivedCount = parcel.readInt()
+        followersCount = parcel.readInt()
+        followingsCount = parcel.readInt()
+        likesCount = parcel.readInt()
+        likesReceivedCount = parcel.readInt()
+        projectsCount = parcel.readInt()
+        reboundsReceivedCount = parcel.readInt()
+        shotsCount = parcel.readInt()
+        teamsCount = parcel.readInt()
+        canUploadShot = parcel.readByte() != 0.toByte()
+        type = parcel.readString()
+        pro = parcel.readByte() != 0.toByte()
+        bucketsUrl = parcel.readString()
+        followersUrl = parcel.readString()
+        followingUrl = parcel.readString()
+        likesUrl = parcel.readString()
+        shotsUrl = parcel.readString()
+        teamsUrl = parcel.readString()
+        createdAt = parcel.readString()
+        updatedAt = parcel.readString()
+        id = parcel.readLong()
+    }
+
+    companion object CREATOR : Parcelable.Creator<User> {
+        override fun createFromParcel(parcel: Parcel): User {
+            return User(parcel)
+        }
+
+        override fun newArray(size: Int): Array<User?> {
+            return arrayOfNulls(size)
+        }
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(name)
+        parcel.writeString(username)
+        parcel.writeString(htmlUrl)
+        parcel.writeString(avatarUrl)
+        parcel.writeString(bio)
+        parcel.writeString(location)
+        parcel.writeParcelable(links, flags)
+        parcel.writeInt(bucketsCount)
+        parcel.writeInt(commentsReceivedCount)
+        parcel.writeInt(followersCount)
+        parcel.writeInt(followingsCount)
+        parcel.writeInt(likesCount)
+        parcel.writeInt(likesReceivedCount)
+        parcel.writeInt(projectsCount)
+        parcel.writeInt(reboundsReceivedCount)
+        parcel.writeInt(shotsCount)
+        parcel.writeInt(teamsCount)
+        parcel.writeByte(if (canUploadShot) 1.toByte() else 0.toByte())
+        parcel.writeString(type)
+        parcel.writeByte(if (pro) 1.toByte() else 0.toByte())
+        parcel.writeString(bucketsUrl)
+        parcel.writeString(followersUrl)
+        parcel.writeString(followingUrl)
+        parcel.writeString(likesUrl)
+        parcel.writeString(shotsUrl)
+        parcel.writeString(teamsUrl)
+        parcel.writeString(createdAt)
+        parcel.writeString(updatedAt)
+        parcel.writeLong(id)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
 
 }

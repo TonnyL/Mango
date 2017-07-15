@@ -1,8 +1,6 @@
 package io.github.tonnyl.mango.data.repository
 
-import io.github.tonnyl.mango.data.Comment
-import io.github.tonnyl.mango.data.Like
-import io.github.tonnyl.mango.data.Shot
+import io.github.tonnyl.mango.data.*
 import io.github.tonnyl.mango.data.datasource.ShotDataSource
 import io.github.tonnyl.mango.retrofit.ApiConstants
 import io.github.tonnyl.mango.retrofit.RetrofitClient
@@ -23,7 +21,7 @@ object ShotRepository : ShotDataSource {
         return mShotsService.getShot(shotId)
     }
 
-    override fun checkLikeOfShot(shotId: Long): Observable<Response<Like>> {
+    override fun checkLike(shotId: Long): Observable<Response<Like>> {
         return mShotsService.checkLikeOfShot(shotId)
     }
 
@@ -35,12 +33,24 @@ object ShotRepository : ShotDataSource {
         return mShotsService.unlikeShot(shotId)
     }
 
-    override fun listComments(shotId: Long): Observable<Response<List<Comment>>> {
-        return mShotsService.listCommentsForShot(shotId, ApiConstants.PER_PAGE)
+    override fun listComments(shotId: Long, page: Int): Observable<Response<List<Comment>>> {
+        return mShotsService.listCommentsForShot(shotId, page = page)
     }
 
     override fun createComment(shotId: Long, body: String): Observable<Response<Comment>> {
         return mShotsService.createComment(shotId, body)
+    }
+
+    override fun listLikes(shotId: Long, page: Int): Observable<Response<List<Like>>> {
+        return mShotsService.listLikesForShot(shotId, page = page)
+    }
+
+    override fun listBuckets(shotId: Long): Observable<Response<List<Bucket>>> {
+        return mShotsService.listBucketsForShot(shotId)
+    }
+
+    override fun listAttachments(shotId: Long): Observable<Response<List<Attachment>>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }

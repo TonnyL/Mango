@@ -12,6 +12,6 @@ interface ShotsDataSource {
 
     fun listFollowingShots(): Observable<Response<List<Shot>>>
 
-    fun listShots(type: Int): Observable<Response<List<Shot>>>
+    fun listShots(type: Int, page: Int): Observable<Response<List<Shot>>>
 
 }

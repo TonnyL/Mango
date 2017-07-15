@@ -6,7 +6,7 @@ import io.github.tonnyl.mango.retrofit.ApiConstants
 import io.github.tonnyl.mango.retrofit.FollowerService
 import io.github.tonnyl.mango.retrofit.RetrofitClient
 import io.github.tonnyl.mango.retrofit.ShotsService
-import io.github.tonnyl.mango.shots.page.ShotsPagePresenter
+import io.github.tonnyl.mango.main.shots.ShotsPagePresenter
 import io.github.tonnyl.mango.util.AccountManager
 import io.reactivex.Observable
 import retrofit2.Response
@@ -24,7 +24,7 @@ object ShotsRepository: ShotsDataSource {
         return mFollowerService.listFollowingShots(ApiConstants.PER_PAGE)
     }
 
-    override fun listShots(type: Int): Observable<Response<List<Shot>>> {
+    override fun listShots(type: Int, page: Int): Observable<Response<List<Shot>>> {
         val timeframe: String? = null
         val date: String? = null
 
@@ -40,7 +40,7 @@ object ShotsRepository: ShotsDataSource {
             null
         }
 
-        return mShotsService.listShots(queryList, timeframe, date, sort, ApiConstants.PER_PAGE)
+        return mShotsService.listShots(queryList, timeframe, date, sort, page = page)
     }
 
 }

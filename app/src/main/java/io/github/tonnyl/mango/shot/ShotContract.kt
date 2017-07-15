@@ -1,7 +1,7 @@
 package io.github.tonnyl.mango.shot
 
-import io.github.tonnyl.mango.BasePresenter
-import io.github.tonnyl.mango.BaseView
+import io.github.tonnyl.mango.mvp.BasePresenter
+import io.github.tonnyl.mango.mvp.BaseView
 import io.github.tonnyl.mango.data.Shot
 
 /**
@@ -10,8 +10,6 @@ import io.github.tonnyl.mango.data.Shot
 interface ShotContract {
 
     interface View : BaseView<Presenter> {
-
-        fun isActive(): Boolean
 
         fun showMessage(message: String?)
 
@@ -25,17 +23,13 @@ interface ShotContract {
 
         fun navigateToComments(shotId: Long)
 
-        fun navigateToBuckets(shotId: Long)
-
         fun navigateToLikes(shotId: Long)
-
-        fun navigateToAttachments(shotId: Long)
 
     }
 
     interface Presenter : BasePresenter {
 
-        fun setShotId(shotId: Long)
+        fun setShot(shot: Shot)
 
         fun toggleLike()
 
@@ -43,11 +37,7 @@ interface ShotContract {
 
         fun navigateToComments()
 
-        fun navigateToBuckets()
-
         fun navigateToLikes()
-
-        fun navigateToAttachments()
 
     }
 

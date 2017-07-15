@@ -16,9 +16,9 @@ class ShotActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.container)
 
-        if (savedInstanceState != null) {
+        savedInstanceState?.let {
             mShotFragment = supportFragmentManager.getFragment(savedInstanceState, ShotFragment::class.java.simpleName) as ShotFragment
-        } else {
+        } ?: run {
             mShotFragment = ShotFragment.newInstance()
         }
 

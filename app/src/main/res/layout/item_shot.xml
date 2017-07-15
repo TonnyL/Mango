@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.facebook.drawee.view.SimpleDraweeView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/simple_drawee_view"
-    android:padding="@dimen/shot_item_padding"
-    fresco:placeholderImage="@mipmap/ic_launcher"
-    fresco:viewAspectRatio="1.0"/>
+    android:layout_height="wrap_content">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/simple_drawee_view"
+        android:padding="@dimen/shot_item_padding"
+        fresco:viewAspectRatio="1.0"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tag_gif"
+        android:text="@string/gif"
+        android:textColor="@android:color/white"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="@dimen/activity_vertical_margin_half"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin_half" />
+
+</FrameLayout>
