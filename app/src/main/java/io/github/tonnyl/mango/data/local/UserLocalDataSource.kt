@@ -8,11 +8,13 @@ import io.github.tonnyl.mango.database.DatabaseCreator
 import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.Body
+import javax.inject.Singleton
 
 /**
  * Created by lizhaotailang on 2017/6/28.
  */
 
+@Singleton
 object UserLocalDataSource: UserDataSource {
 
     private var mDatabase: AppDatabase? = null
@@ -44,11 +46,11 @@ object UserLocalDataSource: UserDataSource {
 
         Thread(Runnable {
             try {
-                mDatabase!!.beginTransaction()
-                mDatabase!!.userDao().insert(user)
-                mDatabase!!.setTransactionSuccessful()
+                mDatabase?.beginTransaction()
+                mDatabase?.userDao()?.insert(user)
+                mDatabase?.setTransactionSuccessful()
             } finally {
-                mDatabase!!.endTransaction()
+                mDatabase?.endTransaction()
             }
         }).start()
     }
@@ -57,18 +59,15 @@ object UserLocalDataSource: UserDataSource {
         if (mDatabase == null) {
             mDatabase = DatabaseCreator.getDatabase()
         }
-        mDatabase!!.userDao().update(user)
+        mDatabase?.userDao()?.update(user)
     }
 
-    override fun deleteAuthenticatedUser(user: User) {
+    override fun deleteAuthenticatedUser(user: User): Observable<Unit> {
         if (mDatabase == null) {
             mDatabase = DatabaseCreator.getDatabase()
         }
-        mDatabase!!.userDao().delete(user)
-    }
-
-    override fun getUser(id: Long): Observable<Response<User>> {
-        return Observable.just(null)
+        mDatabase?.userDao()?.delete(user)
+        return Observable.empty()
     }
 
     override fun checkFollowing(userId: Long): Observable<Response<Body>> {

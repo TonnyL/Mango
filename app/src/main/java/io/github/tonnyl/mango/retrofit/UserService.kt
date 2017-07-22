@@ -14,9 +14,6 @@ interface UserService {
     @GET("/v1/user")
     fun getAuthenticatedUser(): Observable<User>
 
-    @GET("/v1/user/{user_id}")
-    fun getUser(@Path("user_id") userId: Long): Observable<Response<User>>
-
     @GET("/v1/user/following/{user_id}")
     fun checkFollowing(@Path("user_id") userId: Long): Observable<Response<Body>>
 

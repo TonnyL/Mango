@@ -15,11 +15,14 @@ interface MainContract {
 
         fun showAuthUserInfo(user: User)
 
+        fun navigateToLogin()
     }
 
     interface Presenter: BasePresenter {
 
         fun fetchUser()
+
+        fun logoutUser()
 
     }
 

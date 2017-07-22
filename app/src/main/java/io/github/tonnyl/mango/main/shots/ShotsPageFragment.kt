@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
-import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +13,9 @@ import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Shot
 import io.github.tonnyl.mango.shot.ShotActivity
 import io.github.tonnyl.mango.shot.ShotFragment
-
-import org.jetbrains.anko.startActivity
-
+import io.github.tonnyl.mango.user.UserProfileActivity
 import kotlinx.android.synthetic.main.fragment_shots_page.*
+import org.jetbrains.anko.startActivity
 
 /**
  * Created by lizhaotailang on 2017/6/29.
@@ -54,7 +53,7 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
         recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val layoutManager = recyclerView?.layoutManager as GridLayoutManager
+                val layoutManager = recyclerView?.layoutManager as LinearLayoutManager
                 if (dy > 0 && layoutManager.findLastCompletelyVisibleItemPosition() == mListSize -1 && !mIsLoading) {
                     mPresenter.listShots()
                     mIsLoading = true
@@ -76,7 +75,7 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
     override fun initViews() {
         refresh_layout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))
         recycler_view.setHasFixedSize(true)
-        recycler_view.layoutManager = GridLayoutManager(context, 2)
+        recycler_view.layoutManager = LinearLayoutManager(context)
     }
 
     override fun setLoadingIndicator(loading: Boolean) {
@@ -88,9 +87,19 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
     override fun showResults(results: MutableList<Shot>) {
         mAdapter?.updateData(results) ?: run {
             mAdapter = ShotsAdapter(context, results)
-            mAdapter?.setItemClickListener { _, position ->
-                context.startActivity<ShotActivity>(ShotFragment.EXTRA_SHOT to results[position])
-            }
+            mAdapter?.setItemClickListener(object : OnRecyclerViewItemClickListener {
+
+                override fun onItemClick(view: View, position: Int) {
+                    context.startActivity<ShotActivity>(ShotFragment.EXTRA_SHOT to results[position])
+                }
+
+                override fun onAvatarClick(view: View, position: Int) {
+                    results[position].user?.let {
+                        context.startActivity<UserProfileActivity>(UserProfileActivity.EXTRA_USER to it)
+                    }
+                }
+
+            })
             recycler_view.adapter = mAdapter
         }
 

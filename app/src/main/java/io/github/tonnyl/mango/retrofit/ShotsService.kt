@@ -23,9 +23,14 @@ interface ShotsService {
                   @Query("page") page: Int): Observable<Response<List<Shot>>>
 
     @GET("/v1/users/{user_id}/shots")
-    fun getShotsOfUser(@Path("user_id") userId: Long,
-                       @Query("per_page") perPage: Int = ApiConstants.PER_PAGE,
-                       @Query("page") page: Int): Observable<Response<List<Shot>>>
+    fun listShotsOfUser(@Path("user_id") userId: Long,
+                        @Query("per_page") perPage: Int = ApiConstants.PER_PAGE,
+                        @Query("page") page: Int): Observable<Response<List<Shot>>>
+
+    @GET("/v1/users/{user_id}/likes")
+    fun listLikeShotsOfUser(@Path("user_id") userId: Long,
+                            @Query("per_page") perPage: Int = ApiConstants.PER_PAGE,
+                            @Query("page") page: Int): Observable<Response<List<LikedShot>>>
 
     @GET("/v1/shots/{shot_id}/like")
     fun checkLikeOfShot(@Path("shot_id") shotId: Long): Observable<Response<Like>>
@@ -45,11 +50,6 @@ interface ShotsService {
     fun listBucketsForShot(@Path("shot_id") shotId: Long,
                            @Query("per_page") perPage: Int = ApiConstants.PER_PAGE): Observable<Response<List<Bucket>>>
 
-    @GET("/v1/shots/{shot_id}/projects")
-    fun listProjectsForShot(@Path("shot_id") shotId: Long): Observable<Response<List<Project>>>
-
-    @GET("/v1/shots/{shot_id}/rebounds")
-    fun listReboundsForShot(@Path("shot_id") shotId: Long): Observable<Response<List<Rebound>>>
 
     @GET("/v1/shots/{shot_id}/comments")
     fun listCommentsForShot(@Path("shot_id") shotId: Long,

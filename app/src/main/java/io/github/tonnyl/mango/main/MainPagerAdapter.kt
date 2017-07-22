@@ -36,11 +36,7 @@ class MainPagerAdapter(context: Context, fm: FragmentManager) : FragmentPagerAda
         return fragment
     }
 
-    override fun getCount(): Int {
-        return mTitles.size
-    }
+    override fun getCount() = mTitles.size
 
-    override fun getPageTitle(position: Int): CharSequence {
-        return mTitles[position]
-    }
+    override fun getPageTitle(position: Int) = mTitles[position]
 }

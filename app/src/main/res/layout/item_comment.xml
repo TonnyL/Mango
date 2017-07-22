@@ -1,51 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="horizontal"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
     android:paddingStart="@dimen/activity_horizontal_margin"
-    android:paddingEnd="@dimen/activity_horizontal_margin">
+    android:paddingTop="@dimen/activity_vertical_margin">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:layout_width="@dimen/avatar_width_secondary"
-        android:layout_height="@dimen/avatar_height_secondary"
+    <ImageView
         android:id="@+id/avatar_drawee"
-        fresco:roundAsCircle="true"
-        fresco:actualImageScaleType="focusCrop"
-        fresco:placeholderImage="@drawable/ic_avatar_placeholder"/>
+        android:layout_width="@dimen/avatar_width_secondary"
+        android:layout_height="@dimen/avatar_height_secondary" />
 
     <LinearLayout
+        android:id="@+id/layout_comment_body"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/layout_comment_body"
-        android:layout_weight="1"
-        android:orientation="vertical"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/user_name"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:maxLines="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
         <TextView
+            android:id="@+id/comment_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/comment_body"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
         <TextView
+            android:id="@+id/created_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/created_time"
             android:layout_gravity="start"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 

@@ -1,8 +1,9 @@
 package io.github.tonnyl.mango.shot
 
+import io.github.tonnyl.mango.data.Shot
+import io.github.tonnyl.mango.data.User
 import io.github.tonnyl.mango.mvp.BasePresenter
 import io.github.tonnyl.mango.mvp.BaseView
-import io.github.tonnyl.mango.data.Shot
 
 /**
  * Created by lizhaotailang on 2017/6/28.
@@ -19,7 +20,7 @@ interface ShotContract {
 
         fun show(shot: Shot)
 
-        fun navigateToUserProfile(userId: Long)
+        fun navigateToUserProfile(user: User)
 
         fun navigateToComments(shotId: Long)
 

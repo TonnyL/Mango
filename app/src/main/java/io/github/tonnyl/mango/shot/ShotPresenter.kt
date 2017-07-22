@@ -78,7 +78,9 @@ class ShotPresenter(view: ShotContract.View) : ShotContract.Presenter {
     }
 
     override fun navigateToUserProfile() {
-        mView.navigateToUserProfile(mShot.id)
+        mShot.user?.let {
+            mView.navigateToUserProfile(it)
+        }
     }
 
     override fun navigateToComments() {

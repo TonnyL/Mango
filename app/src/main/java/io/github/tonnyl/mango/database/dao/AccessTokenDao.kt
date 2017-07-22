@@ -13,7 +13,7 @@ interface AccessTokenDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(accessToken: AccessToken)
 
-    @Query("SELECT * FROM access_token WHERE id = :arg0")
+    @Query("SELECT * FROM access_token WHERE id = :id")
     fun query(id: Long): AccessToken
 
     @Update

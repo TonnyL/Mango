@@ -32,7 +32,7 @@ class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
 
     override fun requestAccessToken(code: String) {
         mCompositeDisposable.clear()
-        AccessTokenRepository.getAccessToken(null, code)
+        val disposable = AccessTokenRepository.getAccessToken(null, code)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ token ->
@@ -58,10 +58,11 @@ class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
                         }
                     }
                 })
+        mCompositeDisposable.add(disposable)
     }
 
     private fun requestUserInfo() {
-        UserRepository.getAuthenticatedUser(null)
+        val disposable = UserRepository.getAuthenticatedUser(null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ user ->
@@ -85,6 +86,7 @@ class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
                         }
                     }
                 })
+        mCompositeDisposable.add(disposable)
     }
 
 }

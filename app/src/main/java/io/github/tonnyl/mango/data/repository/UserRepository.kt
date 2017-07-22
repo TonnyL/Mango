@@ -17,7 +17,7 @@ import retrofit2.http.Body
  * Created by lizhaotailang on 2017/6/27.
  */
 
-object UserRepository: UserDataSource {
+object UserRepository : UserDataSource {
 
     private val mUserService = RetrofitClient.createService(UserService::class.java, AccountManager.accessToken)
 
@@ -45,12 +45,8 @@ object UserRepository: UserDataSource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun deleteAuthenticatedUser(user: User) {
+    override fun deleteAuthenticatedUser(user: User): Observable<Unit> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getUser(id: Long): Observable<Response<User>> {
-        return mUserService.getUser(id)
     }
 
     override fun checkFollowing(userId: Long): Observable<Response<Body>> {

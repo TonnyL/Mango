@@ -1,6 +1,11 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+kapt {
+    generateStubs = true
+}
 
 android {
     compileSdkVersion 26
@@ -20,6 +25,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
 ext {
@@ -28,10 +38,9 @@ ext {
     gsonVersion = '2.8.0'
     retrofitVersion = '2.2.0'
     rxJavaVersion = '2.1.0'
-    rxKotlinVersion = '2.1.0'
     rxAndroidVersion = '2.0.1'
     retrofitVersion = '2.3.0'
-    frescoVersion = '1.3.0'
+    glideVersion = '4.0.0-RC1'
     flexboxVersion = '0.3.0-alpha4'
     archRoomVersion = '1.0.0-alpha3'
     daggerVersion = '2.11'
@@ -49,11 +58,11 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$supportLibVersion"
     implementation "com.android.support:support-v4:$supportLibVersion"
     implementation "com.android.support:design:$supportLibVersion"
-    implementation "com.android.support:customtabs:$supportLibVersion"
+    implementation "com.android.support:preference-v7:$supportLibVersion"
     implementation "com.android.support:palette-v7:$supportLibVersion"
 
     // ReactiveX series
-    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
 
     // Retrofit series
@@ -61,10 +70,10 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
-    // Fresco
-    implementation "com.facebook.fresco:imagepipeline-okhttp3:$frescoVersion"
-    implementation "com.facebook.fresco:fresco:$frescoVersion"
-    implementation "com.facebook.fresco:animated-gif:$frescoVersion"
+    //Glide
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    implementation "com.github.bumptech.glide:okhttp3-integration:$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
 
     // Flexbox
     implementation "com.google.android:flexbox:$flexboxVersion"
@@ -76,7 +85,7 @@ dependencies {
 
     // Dagger2
     implementation "com.google.dagger:dagger:$daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

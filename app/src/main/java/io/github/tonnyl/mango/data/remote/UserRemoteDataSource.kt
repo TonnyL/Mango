@@ -9,11 +9,14 @@ import io.github.tonnyl.mango.util.AccountManager
 import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.Body
+import javax.inject.Singleton
 
 /**
  * Created by lizhaotailang on 2017/6/28.
  */
-object UserRemoteDataSource: UserDataSource {
+
+@Singleton
+object UserRemoteDataSource : UserDataSource {
 
     private val mUserService: UserService = RetrofitClient.createService(UserService::class.java, AccountManager.accessToken)
 
@@ -38,11 +41,7 @@ object UserRemoteDataSource: UserDataSource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun deleteAuthenticatedUser(user: User) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getUser(id: Long): Observable<Response<User>> {
+    override fun deleteAuthenticatedUser(user: User): Observable<Unit> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

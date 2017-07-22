@@ -8,9 +8,9 @@
     tools:context="io.github.tonnyl.mango.main.MainActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/app_bar"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
@@ -27,14 +27,11 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <com.facebook.drawee.view.SimpleDraweeView
+                <ImageView
                     android:id="@+id/avatar_drawee"
                     android:layout_width="@dimen/avatar_width_secondary"
                     android:layout_height="@dimen/avatar_height_secondary"
-                    android:layout_gravity="center_vertical"
-                    app:actualImageScaleType="focusCrop"
-                    app:placeholderImage="@drawable/ic_avatar_placeholder"
-                    app:roundAsCircle="true" />
+                    android:layout_gravity="center_vertical" />
 
                 <TextView
                     android:id="@+id/user_name"
@@ -42,8 +39,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:textColor="@android:color/white"
                     android:text="@string/app_name"
+                    android:textColor="@android:color/white"
                     android:textSize="17sp"
                     android:textStyle="bold" />
 

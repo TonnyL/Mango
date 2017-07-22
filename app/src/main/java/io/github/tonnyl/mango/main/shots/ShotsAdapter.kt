@@ -5,10 +5,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.facebook.drawee.view.SimpleDraweeView
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Shot
-import io.github.tonnyl.mango.util.FrescoLoader
+import io.github.tonnyl.mango.glide.GlideLoader
 
 import kotlinx.android.synthetic.main.item_shot.view.*
 
@@ -20,7 +19,7 @@ class ShotsAdapter(context: Context, list: MutableList<Shot>) : RecyclerView.Ada
 
     private var mContext = context
     private var mList = list
-    private var mListener: ((View, Int) -> Unit)? = null
+    private var mListener: OnRecyclerViewItemClickListener? = null
 
     private var mClearData = false
 
@@ -31,15 +30,15 @@ class ShotsAdapter(context: Context, list: MutableList<Shot>) : RecyclerView.Ada
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         val viewHolder = holder as ShotViewHolder
         val shot = mList[position]
-        FrescoLoader.loadNormal(mContext, viewHolder.mDraweeView, shot.images.best(), shot.images.normal)
+        GlideLoader.loadAvatar(mContext, viewHolder.itemView.avatar, shot.user?.avatarUrl)
+        GlideLoader.loadNormal(mContext, viewHolder.itemView.simple_drawee_view, shot.images.best())
         viewHolder.itemView.tag_gif.visibility = if (shot.images.normal.endsWith(".gif")) View.VISIBLE else View.GONE
+        viewHolder.itemView.shot_title.text = mContext.getString(R.string.shot_title).format(shot.user?.name, shot.title)
     }
 
-    override fun getItemCount(): Int {
-        return mList.size
-    }
+    override fun getItemCount() = mList.size
 
-    fun setItemClickListener(listener: ((view: View, position: Int) -> Unit)?) {
+    fun setItemClickListener(listener: OnRecyclerViewItemClickListener) {
         mListener = listener
     }
 
@@ -57,20 +56,18 @@ class ShotsAdapter(context: Context, list: MutableList<Shot>) : RecyclerView.Ada
         mClearData = true
     }
 
-    inner class ShotViewHolder(itemView: View, listener: ((view : View, position: Int) -> Unit)?) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class ShotViewHolder(itemView: View, listener: OnRecyclerViewItemClickListener?) : RecyclerView.ViewHolder(itemView) {
 
         val mListener = listener
-        val mDraweeView: SimpleDraweeView
 
         init {
-            itemView.setOnClickListener(this)
-            mDraweeView = itemView.simple_drawee_view
-        }
+            itemView.avatar.setOnClickListener({ view ->
+                mListener?.onAvatarClick(view, layoutPosition)
+            })
 
-        override fun onClick(p0: View?) {
-            if (p0 != null && mListener != null) {
-                mListener.invoke(p0, layoutPosition)
-            }
+            itemView.setOnClickListener({ view ->
+                mListener?.onItemClick(view, layoutPosition)
+            })
         }
 
     }

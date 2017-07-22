@@ -3,19 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true"
     android:background="@drawable/auth_background"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".auth.AuthActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="@string/welcome_to_mango"
         android:gravity="center"
-        android:textSize="27sp"
-        android:textColor="@android:color/white"/>
+        android:text="@string/welcome_to_mango"
+        android:textColor="@android:color/white"
+        android:textSize="27sp" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -23,20 +23,20 @@
         android:layout_weight="1">
 
         <Button
+            android:id="@+id/button_get_started"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:id="@+id/button_get_started"
             android:layout_gravity="center"
+            android:background="@drawable/button_round"
             android:text="@string/get_started"
-            android:textColor="@android:color/white"
-            android:background="@drawable/round_button" />
+            android:textColor="@android:color/white" />
 
         <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleInverse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/progress_bar"
             android:layout_gravity="center"
-            style="?android:attr/progressBarStyleInverse"
             android:visibility="gone"/>
 
     </FrameLayout>

@@ -12,17 +12,15 @@ import android.support.v7.graphics.Palette
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.view.*
-import io.github.tonnyl.mango.R
-import io.github.tonnyl.mango.data.Shot
-import io.github.tonnyl.mango.util.FrescoLoader
-import kotlinx.android.synthetic.main.fragment_shot.*
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import io.github.tonnyl.mango.list.ListActivity
-import io.github.tonnyl.mango.user.UserActivity
+import io.github.tonnyl.mango.R
+import io.github.tonnyl.mango.data.Shot
+import io.github.tonnyl.mango.data.User
+import io.github.tonnyl.mango.glide.GlideLoader
+import io.github.tonnyl.mango.user.UserProfileActivity
+import kotlinx.android.synthetic.main.fragment_shot.*
 import org.jetbrains.anko.runOnUiThread
-
 import org.jetbrains.anko.startActivity
 
 /**
@@ -111,7 +109,7 @@ class ShotFragment : Fragment(), ShotContract.View {
 
     override fun show(shot: Shot) {
         // Show the shot image
-        FrescoLoader.loadNormalWithPalette(context, simple_drawee_view, shot.images.best(), shot.images.normal, object : FrescoLoader.OnPaletteProcessCallback {
+        GlideLoader.loadHighQualityWithPalette(context, simple_drawee_view, shot.images.best(), object : GlideLoader.OnPaletteProcessCallback {
             override fun OnPaletteGenerated(palette: Palette?) {
                 palette?.let {
                     showPalette(palette)
@@ -128,7 +126,7 @@ class ShotFragment : Fragment(), ShotContract.View {
         })
 
         shot.user?.let {
-            FrescoLoader.loadAvatar(avatar, it.avatarUrl)
+            GlideLoader.loadAvatar(context, avatar, it.avatarUrl)
         }
 
         shot_title.text = shot.title
@@ -167,8 +165,8 @@ class ShotFragment : Fragment(), ShotContract.View {
         likes_count.text = count.toString()
     }
 
-    override fun navigateToUserProfile(userId: Long) {
-        context.startActivity<UserActivity>(UserActivity.EXTRA_USER_ID to userId)
+    override fun navigateToUserProfile(user: User) {
+        context.startActivity<UserProfileActivity>(UserProfileActivity.EXTRA_USER to user)
     }
 
     override fun navigateToComments(shotId: Long) {
@@ -182,7 +180,7 @@ class ShotFragment : Fragment(), ShotContract.View {
     private fun showTags(tags: List<String>) {
         for (tag in tags) {
             val textView = TextView(context)
-            textView.background = ContextCompat.getDrawable(context, R.drawable.tag_background)
+            textView.background = ContextCompat.getDrawable(context, R.drawable.bg_shot_tag)
             textView.text = tag
             textView.gravity = Gravity.CENTER
             textView.setPadding(16, 0, 16, 0)
@@ -191,7 +189,7 @@ class ShotFragment : Fragment(), ShotContract.View {
     }
 
     private fun showPalette(palette: Palette) {
-        for (swatch in palette.swatches) {
+        for (swatch in palette.swatches.take(palette.swatches.size / 4)) {
             val textView = TextView(context)
             textView.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
             textView.setBackgroundColor(swatch.rgb)

@@ -3,15 +3,17 @@ package io.github.tonnyl.mango.data.remote
 import android.content.Context
 import io.github.tonnyl.mango.data.AccessToken
 import io.github.tonnyl.mango.data.datasource.AccessTokenDataSource
-import io.github.tonnyl.mango.retrofit.ApiConstants
 import io.github.tonnyl.mango.retrofit.AccessTokenService
+import io.github.tonnyl.mango.retrofit.ApiConstants
 import io.github.tonnyl.mango.retrofit.RetrofitClient
 import io.reactivex.Observable
+import javax.inject.Singleton
 
 /**
  * Created by lizhaotailang on 2017/6/27.
  */
 
+@Singleton
 object AccessTokenRemoteDataSource: AccessTokenDataSource {
 
     override fun init(context: Context) {

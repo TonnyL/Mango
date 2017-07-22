@@ -9,13 +9,10 @@
     android:paddingStart="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/avatar_drawee"
         android:layout_width="@dimen/avatar_width_secondary"
-        android:layout_height="@dimen/avatar_height_secondary"
-        app:actualImageScaleType="focusCrop"
-        app:placeholderImage="@drawable/ic_avatar_placeholder"
-        app:roundAsCircle="true" />
+        android:layout_height="@dimen/avatar_height_secondary" />
 
     <LinearLayout
         android:layout_width="match_parent"

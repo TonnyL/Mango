@@ -37,4 +37,17 @@ class MainPresenter(view: MainContract.View) : MainContract.Presenter {
                 })
         mCompositeDisposable.add(disposable)
     }
+
+    override fun logoutUser() {
+        AccountManager.authenticatedUser?.let {
+            val disposable = UserRepository.deleteAuthenticatedUser(it)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ _ ->
+                        mView.navigateToLogin()
+                    })
+            mCompositeDisposable.add(disposable)
+        }
+    }
+
 }

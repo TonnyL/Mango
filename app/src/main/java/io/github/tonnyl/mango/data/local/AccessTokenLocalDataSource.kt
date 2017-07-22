@@ -6,11 +6,13 @@ import io.github.tonnyl.mango.data.datasource.AccessTokenDataSource
 import io.github.tonnyl.mango.database.AppDatabase
 import io.github.tonnyl.mango.database.DatabaseCreator
 import io.reactivex.Observable
+import javax.inject.Singleton
 
 /**
  * Created by lizhaotailang on 2017/6/27.
  */
 
+@Singleton
 object AccessTokenLocalDataSource: AccessTokenDataSource {
 
     private var mDatabase: AppDatabase? = null

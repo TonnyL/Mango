@@ -21,9 +21,7 @@ interface UserDataSource {
 
     fun updateAuthenticatedUser(user: User)
 
-    fun deleteAuthenticatedUser(user: User)
-
-    fun getUser(id: Long): Observable<Response<User>>
+    fun deleteAuthenticatedUser(user: User): Observable<Unit>
 
     fun checkFollowing(userId: Long): Observable<Response<Body>>
 

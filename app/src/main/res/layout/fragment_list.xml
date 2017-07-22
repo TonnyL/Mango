@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".list.ListActivity">
+    tools:context=".shot.ListActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -91,7 +90,7 @@
             android:background="@android:color/white"
             android:elevation="@dimen/add_comment_elevation">
 
-            <com.facebook.drawee.view.SimpleDraweeView
+            <ImageView
                 android:id="@+id/avatar_drawee"
                 android:layout_width="@dimen/avatar_width_secondary"
                 android:layout_height="@dimen/avatar_height_secondary"
@@ -100,9 +99,7 @@
                 android:layout_marginBottom="@dimen/activity_vertical_margin_half"
                 android:layout_marginEnd="@dimen/activity_vertical_margin_half"
                 android:layout_marginStart="@dimen/activity_horizontal_margin_half"
-                android:layout_marginTop="@dimen/activity_horizontal_margin_half"
-                fresco:placeholderImage="@drawable/ic_avatar_placeholder"
-                fresco:roundAsCircle="true" />
+                android:layout_marginTop="@dimen/activity_horizontal_margin_half" />
 
             <FrameLayout
                 android:id="@+id/layout_send"
@@ -131,8 +128,8 @@
                     android:paddingEnd="@dimen/activity_horizontal_margin_half"
                     android:paddingStart="@dimen/activity_horizontal_margin_half"
                     android:paddingTop="@dimen/activity_vertical_margin_half"
-                    android:tint="@color/hint"
-                    android:src="@drawable/ic_send" />
+                    android:src="@drawable/ic_send"
+                    android:tint="@color/hint" />
 
             </FrameLayout>
 
