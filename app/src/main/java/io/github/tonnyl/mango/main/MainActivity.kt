@@ -3,11 +3,16 @@ package io.github.tonnyl.mango.main
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import io.github.tonnyl.mango.R
+import io.github.tonnyl.mango.injection.module.MainPresenterModule
 import io.github.tonnyl.mango.util.AccountManager
+import javax.inject.Inject
 
-class MainActivity: AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var mainFragment: MainFragment
+
+    @Inject
+    lateinit var mainPresenter: MainContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +32,10 @@ class MainActivity: AppCompatActivity() {
                 .add(R.id.container, mainFragment, MainFragment::class.java.simpleName)
                 .commit()
 
-        MainPresenter(mainFragment)
+        DaggerMainComponent.builder()
+                .mainPresenterModule(MainPresenterModule(mainFragment))
+                .build()
+                .inject(this@MainActivity)
 
     }
 

@@ -29,6 +29,7 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
     private var mIsLoading = false
 
     companion object {
+        @JvmStatic
         fun newInstance(): ShotsPageFragment {
             return ShotsPageFragment()
         }

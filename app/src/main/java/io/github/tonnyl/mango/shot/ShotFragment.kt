@@ -18,6 +18,8 @@ import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Shot
 import io.github.tonnyl.mango.data.User
 import io.github.tonnyl.mango.glide.GlideLoader
+import io.github.tonnyl.mango.shot.comments.CommentsActivity
+import io.github.tonnyl.mango.shot.likes.LikesActivity
 import io.github.tonnyl.mango.user.UserProfileActivity
 import kotlinx.android.synthetic.main.fragment_shot.*
 import org.jetbrains.anko.runOnUiThread
@@ -33,8 +35,10 @@ class ShotFragment : Fragment(), ShotContract.View {
 
     companion object {
 
+        @JvmField
         val EXTRA_SHOT = "EXTRA_SHOT"
 
+        @JvmStatic
         fun newInstance(): ShotFragment {
             return ShotFragment()
         }
@@ -170,11 +174,11 @@ class ShotFragment : Fragment(), ShotContract.View {
     }
 
     override fun navigateToComments(shotId: Long) {
-        context.startActivity<ListActivity>(ListActivity.EXTRA_TYPE to ListActivity.TYPE_COMMENTS, ListActivity.EXTRA_ID to shotId)
+        context.startActivity<CommentsActivity>(CommentsActivity.EXTRA_ID to shotId)
     }
 
     override fun navigateToLikes(shotId: Long) {
-        context.startActivity<ListActivity>(ListActivity.EXTRA_TYPE to ListActivity.TYPE_LIKES, ListActivity.EXTRA_ID to shotId)
+        context.startActivity<LikesActivity>(LikesActivity.EXTRA_ID to shotId)
     }
 
     private fun showTags(tags: List<String>) {

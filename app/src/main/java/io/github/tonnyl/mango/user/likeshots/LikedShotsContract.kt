@@ -8,7 +8,7 @@ import io.github.tonnyl.mango.mvp.BaseView
  * Created by lizhaotailang on 2017/7/19.
  */
 
-interface LikeShotsContract {
+interface LikedShotsContract {
 
     interface View : BaseView<Presenter> {
 

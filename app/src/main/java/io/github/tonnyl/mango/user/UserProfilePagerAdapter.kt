@@ -5,8 +5,8 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import io.github.tonnyl.mango.R
-import io.github.tonnyl.mango.user.likeshots.LikeShotsFragment
-import io.github.tonnyl.mango.user.likeshots.LikeShotsPresenter
+import io.github.tonnyl.mango.user.likeshots.LikedShotsFragment
+import io.github.tonnyl.mango.user.likeshots.LikedShotsPresenter
 import io.github.tonnyl.mango.user.shots.ShotsFragment
 import io.github.tonnyl.mango.user.shots.ShotsPresenter
 
@@ -35,8 +35,8 @@ class UserProfilePagerAdapter(context: Context, userId: Long, fragmentManager: F
                 ShotsPresenter(fragment, mUserId)
             }
             else -> {
-                fragment = LikeShotsFragment.newInstance()
-                LikeShotsPresenter(fragment, mUserId)
+                fragment = LikedShotsFragment.newInstance()
+                LikedShotsPresenter(fragment, mUserId)
             }
         }
         return fragment

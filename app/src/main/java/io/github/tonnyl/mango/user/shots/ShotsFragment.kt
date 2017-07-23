@@ -25,6 +25,7 @@ class ShotsFragment : Fragment(), ShotsContract.View {
     private var mAdapter: ShotsAdapter? = null
 
     companion object {
+        @JvmStatic
         fun newInstance(): ShotsFragment {
             return ShotsFragment()
         }

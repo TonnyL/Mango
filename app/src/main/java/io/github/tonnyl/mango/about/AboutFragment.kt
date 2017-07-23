@@ -1,41 +1,52 @@
 package io.github.tonnyl.mango.about
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.MenuItem
+import android.support.v7.preference.Preference
+import android.support.v7.preference.PreferenceFragmentCompat
 import android.view.View
-import android.view.ViewGroup
 import io.github.tonnyl.mango.R
-import kotlinx.android.synthetic.main.fragment_licenses.*
+import org.jetbrains.anko.browse
+import org.jetbrains.anko.email
 
 /**
- * Created by lizhaotailang on 2017/7/19.
+ * Created by lizhaotailang on 2017/7/21.
  */
-class AboutFragment : Fragment(), AboutContract.View {
+
+class AboutFragment : PreferenceFragmentCompat(), AboutContract.View {
 
     private lateinit var mPresenter: AboutContract.Presenter
 
     companion object {
+        @JvmStatic
         fun newInstance(): AboutFragment {
             return AboutFragment()
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        addPreferencesFromResource(R.xml.about_screen)
+
         setHasOptionsMenu(true)
-        return inflater?.inflate(R.layout.fragment_about, container, false)
+
+        findPreference("contributors").onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            context.browse(getString(R.string.contributors_desc), true)
+            true
+        }
+
+        findPreference("source_code").onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            context.browse(getString(R.string.source_code_desc), true)
+            true
+        }
+
+        findPreference("feedback").onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            context.email(getString(R.string.feedback_email), getString(R.string.feedback_email_subject))
+            true
+        }
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        initViews()
-
         mPresenter.subscribe()
-
-        /*childFragmentManager.beginTransaction()
-                .add()*/
     }
 
     override fun onDestroyView() {
@@ -43,22 +54,8 @@ class AboutFragment : Fragment(), AboutContract.View {
         mPresenter.unsubscribe()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == android.R.id.home) {
-            activity.onBackPressed()
-        }
-        return true
-    }
-
     override fun setPresenter(presenter: AboutContract.Presenter) {
         mPresenter = presenter
-    }
-
-    private fun initViews() {
-        val act = activity as AboutActivity
-        act.setSupportActionBar(toolbar)
-        act.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setTitle(R.string.about)
     }
 
 }

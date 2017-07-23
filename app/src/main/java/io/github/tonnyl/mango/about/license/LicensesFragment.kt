@@ -22,6 +22,7 @@ class LicensesFragment : Fragment(), LicensesContract.View {
     private lateinit var mPresenter: LicensesContract.Presenter
 
     companion object {
+        @JvmStatic
         fun newInstance(): LicensesFragment {
             return LicensesFragment()
         }
@@ -74,10 +75,6 @@ class LicensesFragment : Fragment(), LicensesContract.View {
             }
         }
 
-        val act = activity as LicensesActivity
-        act.setSupportActionBar(toolbar)
-        act.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.title = getString(R.string.open_source_licenses)
     }
 
 }

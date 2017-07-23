@@ -13,10 +13,9 @@ import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Comment
 import io.github.tonnyl.mango.glide.GlideLoader
-import io.github.tonnyl.mango.shot.ListActivity
 import io.github.tonnyl.mango.user.UserProfileActivity
 import io.github.tonnyl.mango.util.AccountManager
-import kotlinx.android.synthetic.main.fragment_list.*
+import kotlinx.android.synthetic.main.fragment_comments.*
 import org.jetbrains.anko.startActivity
 
 /**
@@ -31,6 +30,11 @@ class CommentsFragment : Fragment(), CommentsContract.View {
     private var mIsLoading = false
 
     companion object {
+
+        @JvmField
+        val ARGUMENT_SHOT_ID = ""
+
+        @JvmStatic
         fun newInstance(): CommentsFragment {
             return CommentsFragment()
         }
@@ -38,7 +42,7 @@ class CommentsFragment : Fragment(), CommentsContract.View {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        return inflater?.inflate(R.layout.fragment_list, container, false)
+        return inflater?.inflate(R.layout.fragment_comments, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -123,11 +127,6 @@ class CommentsFragment : Fragment(), CommentsContract.View {
     }
 
     private fun initViews() {
-        val act = activity as ListActivity
-        act.setSupportActionBar(toolbar)
-        act.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        act.title = getString(R.string.comments)
-
         recycler_view.layoutManager = LinearLayoutManager(context)
 
         refresh_layout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))

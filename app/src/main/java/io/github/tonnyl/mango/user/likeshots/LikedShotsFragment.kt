@@ -15,15 +15,16 @@ import kotlinx.android.synthetic.main.fragment_shots_page.*
  * Created by lizhaotailang on 2017/7/19.
  */
 
-class LikeShotsFragment : Fragment(), LikeShotsContract.View {
+class LikedShotsFragment : Fragment(), LikedShotsContract.View {
 
-    private lateinit var mPresenter: LikeShotsContract.Presenter
+    private lateinit var mPresenter: LikedShotsContract.Presenter
 
-    private var mAdapter: LikeShotsAdapter? = null
+    private var mAdapter: LikedShotsAdapter? = null
 
     companion object {
-        fun newInstance(): LikeShotsFragment {
-            return LikeShotsFragment()
+        @JvmStatic
+        fun newInstance(): LikedShotsFragment {
+            return LikedShotsFragment()
         }
     }
 
@@ -44,7 +45,7 @@ class LikeShotsFragment : Fragment(), LikeShotsContract.View {
         mPresenter.unsubscribe()
     }
 
-    override fun setPresenter(presenter: LikeShotsContract.Presenter) {
+    override fun setPresenter(presenter: LikedShotsContract.Presenter) {
         mPresenter = presenter
     }
 
@@ -55,7 +56,7 @@ class LikeShotsFragment : Fragment(), LikeShotsContract.View {
     override fun showShots(likeShots: MutableList<LikedShot>) {
         recycler_view.layoutManager = GridLayoutManager(context, 2)
         if (mAdapter == null) {
-            mAdapter = LikeShotsAdapter(context, likeShots)
+            mAdapter = LikedShotsAdapter(context, likeShots)
         }
         recycler_view.adapter = mAdapter
     }

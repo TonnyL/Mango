@@ -11,12 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.google.gson.Gson
-import io.github.tonnyl.mango.retrofit.ApiConstants
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.AccessToken
 import io.github.tonnyl.mango.main.MainActivity
+import io.github.tonnyl.mango.retrofit.ApiConstants
 import io.github.tonnyl.mango.util.Constants
-
 import kotlinx.android.synthetic.main.fragment_auth.*
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
@@ -31,6 +30,7 @@ class AuthFragment : Fragment(), AuthContract.View {
     private lateinit var mPresenter: AuthContract.Presenter
 
     companion object {
+        @JvmStatic
         fun newInstance(): AuthFragment {
             return AuthFragment()
         }

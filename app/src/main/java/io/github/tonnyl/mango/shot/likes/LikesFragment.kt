@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Like
-import io.github.tonnyl.mango.shot.ListActivity
 import io.github.tonnyl.mango.user.UserProfileActivity
 import kotlinx.android.synthetic.main.fragment_list.*
 import org.jetbrains.anko.startActivity
@@ -31,13 +30,13 @@ class LikesFragment : Fragment(), LikesContract.View {
     private var mIsLoading = true
 
     companion object {
+        @JvmStatic
         fun newInstance(): LikesFragment {
             return LikesFragment()
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        setHasOptionsMenu(true)
         return inflater?.inflate(R.layout.fragment_list, container, false)
     }
 
@@ -116,15 +115,9 @@ class LikesFragment : Fragment(), LikesContract.View {
     }
 
     private fun initViews() {
-        val act = activity as ListActivity
-        act.setSupportActionBar(toolbar)
-        act.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        act.title = getString(R.string.likes)
-
         mLayoutManager = LinearLayoutManager(context)
         recycler_view.layoutManager = mLayoutManager
         refresh_layout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))
-        layout_add_comment.visibility = View.GONE
     }
 
 }

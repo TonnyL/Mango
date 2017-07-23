@@ -13,6 +13,7 @@ class UserProfileActivity : AppCompatActivity() {
     private lateinit var mUserProfileFragment: UserProfileFragment
 
     companion object {
+        @JvmField
         val EXTRA_USER = "EXTRA_USER"
     }
 

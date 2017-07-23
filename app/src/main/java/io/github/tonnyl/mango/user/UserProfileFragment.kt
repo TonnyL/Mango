@@ -20,6 +20,8 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
     private lateinit var mPresenter: UserProfileContract.Presenter
 
     companion object {
+
+        @JvmStatic
         fun getInstance(): UserProfileFragment {
             return UserProfileFragment()
         }

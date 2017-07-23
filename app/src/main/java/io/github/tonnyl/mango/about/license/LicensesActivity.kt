@@ -3,6 +3,7 @@ package io.github.tonnyl.mango.about.license
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import io.github.tonnyl.mango.R
+import kotlinx.android.synthetic.main.activity_common.*
 
 /**
  * Created by lizhaotailang on 2017/7/21.
@@ -14,7 +15,14 @@ class LicensesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.container)
+        setContentView(R.layout.activity_common)
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowHomeEnabled(true)
+            it.setTitle(R.string.open_source_licenses)
+        }
 
         savedInstanceState?.let {
             mLicensesFragment = supportFragmentManager.getFragment(it, LicensesFragment::class.java.simpleName) as LicensesFragment

@@ -25,10 +25,14 @@ class ShotsPagePresenter(view: ShotsPageContract.View, type: Int) : ShotsPageCon
     }
 
     companion object {
-        const val TYPE_POPULAR = 0x00
-        const val TYPE_FOLLOWING = 0x01
-        const val TYPE_RECENT = 0x02
-        const val TYPE_DEBUTS = 0x03
+        @JvmField
+        val TYPE_POPULAR = 0x00
+        @JvmField
+        val TYPE_FOLLOWING = 0x01
+        @JvmField
+        val TYPE_RECENT = 0x02
+        @JvmField
+        val TYPE_DEBUTS = 0x03
     }
 
     override fun subscribe() {

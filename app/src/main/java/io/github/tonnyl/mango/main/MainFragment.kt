@@ -27,6 +27,7 @@ class MainFragment : Fragment(), MainContract.View {
     private lateinit var mPresenter: MainContract.Presenter
 
     companion object {
+        @JvmStatic
         fun newInstance(): MainFragment {
             return MainFragment()
         }

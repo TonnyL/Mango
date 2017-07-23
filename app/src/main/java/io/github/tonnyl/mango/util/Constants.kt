@@ -6,7 +6,9 @@ package io.github.tonnyl.mango.util
 
 class Constants {
     companion object {
+        @JvmField
         val IS_USER_LOGGED_IN: String = "IS_USER_LOGGED_IN"
+        @JvmField
         val ACCESS_TOKEN: String = "ACCESS_TOKEN"
     }
 }

@@ -47,15 +47,23 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".shot.ListActivity"
+            android:name=".shot.likes.LikesActivity"
+            android:label="@string/likes"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".shot.comments.CommentsActivity"
+            android:label="@string/comments"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".about.AboutActivity"
+            android:label="@string/about"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".about.license.LicensesActivity"
+            android:label="@string/open_source_licenses"
             android:theme="@style/AppTheme.NoActionBar" />
 
     </application>

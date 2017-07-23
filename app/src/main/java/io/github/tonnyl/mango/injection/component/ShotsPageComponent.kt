@@ -10,7 +10,7 @@ import io.github.tonnyl.mango.main.MainFragment
  */
 
 @FragmentScoped
-@Component(dependencies = arrayOf(), modules = arrayOf(ShotsPagePresenterModule::class))
+@Component(dependencies = arrayOf(ShotsRepositoryComponent::class), modules = arrayOf(ShotsPagePresenterModule::class))
 interface ShotsPageComponent {
 
     fun inject(fragment: MainFragment)

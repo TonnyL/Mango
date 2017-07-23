@@ -8,7 +8,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by lizhaotailang on 2017/7/19.
  */
-class LikeShotsPresenter(view: LikeShotsContract.View, userId: Long) : LikeShotsContract.Presenter {
+class LikedShotsPresenter(view: LikedShotsContract.View, userId: Long) : LikedShotsContract.Presenter {
 
     private val mView = view
     private val mUserId = userId
