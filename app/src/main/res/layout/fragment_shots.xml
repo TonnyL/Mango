@@ -40,7 +40,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:text="@string/app_name"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/colorPrimaryTextLight"
                     android:textSize="17sp"
                     android:textStyle="bold" />
 
@@ -55,7 +55,8 @@
             app:tabBackground="@color/colorPrimary"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/colorAccent"
-            app:tabSelectedTextColor="@color/colorAccent" />
+            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabTextColor="@color/colorPrimaryTextDark" />
 
     </android.support.design.widget.AppBarLayout>
 

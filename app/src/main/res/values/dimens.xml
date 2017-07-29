@@ -16,7 +16,7 @@
     <dimen name="avatar_height_secondary">36dp</dimen>
 
     <dimen name="shot_item_padding">8dp</dimen>
-    <dimen name="app_bar_height">320dp</dimen>
+    <dimen name="shot_detail_height">320dp</dimen>
 
     <dimen name="add_comment_elevation">8dp</dimen>
     <dimen name="add_comment_text_size">13sp</dimen>

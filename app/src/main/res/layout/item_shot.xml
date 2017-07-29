@@ -32,7 +32,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/simple_drawee_view"
+            android:id="@+id/shot_image_view"
             android:layout_width="match_parent"
             android:layout_height="240dp" />
 

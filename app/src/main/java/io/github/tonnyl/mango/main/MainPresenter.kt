@@ -12,12 +12,11 @@ import io.reactivex.schedulers.Schedulers
 
 class MainPresenter(view: MainContract.View) : MainContract.Presenter {
 
-    private val mView: MainContract.View = view
-    private val mCompositeDisposable: CompositeDisposable
+    private var mView: MainContract.View = view
+    private val mCompositeDisposable: CompositeDisposable = CompositeDisposable()
 
     init {
         mView.setPresenter(this)
-        mCompositeDisposable = CompositeDisposable()
     }
 
     override fun subscribe() {

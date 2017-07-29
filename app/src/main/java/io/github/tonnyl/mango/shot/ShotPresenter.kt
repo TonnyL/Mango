@@ -10,14 +10,18 @@ import io.reactivex.schedulers.Schedulers
  * Created by lizhaotailang on 2017/6/28.
  */
 
-class ShotPresenter(view: ShotContract.View) : ShotContract.Presenter {
+class ShotPresenter(view: ShotContract.View, shot: Shot) : ShotContract.Presenter {
 
     private val mView = view
     private val mCompositeDisposable: CompositeDisposable
     private var mIsLikeChecked = false
     private var mIsLike = false
+    private val mShot = shot
 
-    private lateinit var mShot: Shot
+    companion object {
+        @JvmField
+        val EXTRA_SHOT = "EXTRA_SHOT"
+    }
 
     init {
         mView.setPresenter(this)
@@ -39,10 +43,6 @@ class ShotPresenter(view: ShotContract.View) : ShotContract.Presenter {
 
     override fun unsubscribe() {
         mCompositeDisposable.clear()
-    }
-
-    override fun setShot(shot: Shot) {
-        mShot = shot
     }
 
     override fun toggleLike() {
@@ -84,11 +84,11 @@ class ShotPresenter(view: ShotContract.View) : ShotContract.Presenter {
     }
 
     override fun navigateToComments() {
-        mView.navigateToComments(mShot.id)
+        mView.navigateToComments(mShot)
     }
 
     override fun navigateToLikes() {
-        mView.navigateToLikes(mShot.id)
+        mView.navigateToLikes(mShot)
     }
 
 }

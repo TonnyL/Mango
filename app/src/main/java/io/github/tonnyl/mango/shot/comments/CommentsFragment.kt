@@ -31,9 +31,6 @@ class CommentsFragment : Fragment(), CommentsContract.View {
 
     companion object {
 
-        @JvmField
-        val ARGUMENT_SHOT_ID = ""
-
         @JvmStatic
         fun newInstance(): CommentsFragment {
             return CommentsFragment()
@@ -124,6 +121,10 @@ class CommentsFragment : Fragment(), CommentsContract.View {
         } else {
             View.GONE
         }
+    }
+
+    override fun updateTitle(commentsCount: Int) {
+        (activity as CommentsActivity).title = getString(R.string.comments).format(commentsCount)
     }
 
     private fun initViews() {

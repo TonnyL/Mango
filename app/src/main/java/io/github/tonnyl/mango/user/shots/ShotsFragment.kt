@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Shot
 import io.github.tonnyl.mango.shot.ShotActivity
-import io.github.tonnyl.mango.shot.ShotFragment
+import io.github.tonnyl.mango.shot.ShotPresenter
 import kotlinx.android.synthetic.main.fragment_shots_page.*
 import org.jetbrains.anko.startActivity
 
@@ -61,7 +61,7 @@ class ShotsFragment : Fragment(), ShotsContract.View {
         if (mAdapter == null) {
             mAdapter = ShotsAdapter(context, shots)
             mAdapter?.setItemClickListener({ _, position ->
-                context.startActivity<ShotActivity>(ShotFragment.EXTRA_SHOT to shots[position])
+                context.startActivity<ShotActivity>(ShotPresenter.EXTRA_SHOT to shots[position])
             })
         }
         recycler_view.adapter = mAdapter

@@ -17,6 +17,8 @@ interface LikesContract {
 
         fun showLikes(likes: MutableList<Like>)
 
+        fun updateTitle(likeCount: Int)
+
     }
 
     interface Presenter: BasePresenter {

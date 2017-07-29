@@ -20,8 +20,7 @@ class CommentsActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.let {
             it.setDisplayShowHomeEnabled(true)
-            it.setDisplayShowHomeEnabled(true)
-            it.setTitle(R.string.comments)
+            it.setDisplayHomeAsUpEnabled(true)
         }
 
         savedInstanceState?.let {
@@ -34,13 +33,8 @@ class CommentsActivity : AppCompatActivity() {
                 .add(R.id.container, mCommentsFragment, CommentsFragment::class.java.simpleName)
                 .commit()
 
-        CommentsPresenter(mCommentsFragment, intent.getLongExtra(EXTRA_ID, 0L))
+        CommentsPresenter(mCommentsFragment, intent.getParcelableExtra(CommentsPresenter.EXTRA_SHOT))
 
-    }
-
-    companion object {
-        @JvmField
-        val EXTRA_ID = "EXTRA_ID"
     }
 
 }

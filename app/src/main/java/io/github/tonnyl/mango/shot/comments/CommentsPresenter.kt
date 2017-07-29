@@ -1,5 +1,6 @@
 package io.github.tonnyl.mango.shot.comments
 
+import io.github.tonnyl.mango.data.Shot
 import io.github.tonnyl.mango.data.repository.ShotRepository
 import io.github.tonnyl.mango.retrofit.ApiConstants
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -9,15 +10,20 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by lizhaotailang on 2017/7/8.
  */
-class CommentsPresenter(view: CommentsContract.View, id: Long) : CommentsContract.Presenter {
+class CommentsPresenter(view: CommentsContract.View, shot: Shot) : CommentsContract.Presenter {
 
     private val mView = view
-    private val mId = id
+    private val mShot = shot
     private var mCompositeDisposable: CompositeDisposable
 
     private var mPageCount = 0
     private var mIsFirstLoad = true
     private var mHasMore = true
+
+    companion object {
+        @JvmField
+        val EXTRA_SHOT = "EXTRA_SHOT"
+    }
 
     init {
         mView.setPresenter(this)
@@ -26,6 +32,7 @@ class CommentsPresenter(view: CommentsContract.View, id: Long) : CommentsContrac
 
     override fun subscribe() {
         fetchComments()
+        mView.updateTitle(mShot.commentsCount)
     }
 
     override fun unsubscribe() {
@@ -34,7 +41,7 @@ class CommentsPresenter(view: CommentsContract.View, id: Long) : CommentsContrac
 
     override fun createComment(body: String) {
         val disposable = ShotRepository
-                .createComment(mId, body)
+                .createComment(mShot.id, body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
@@ -62,7 +69,7 @@ class CommentsPresenter(view: CommentsContract.View, id: Long) : CommentsContrac
         }
 
         val disposable = ShotRepository
-                .listComments(mId, mPageCount)
+                .listComments(mShot.id, mPageCount)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->

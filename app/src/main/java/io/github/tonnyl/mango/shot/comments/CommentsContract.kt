@@ -19,6 +19,8 @@ interface CommentsContract {
 
         fun showComments(comments: MutableList<Comment>)
 
+        fun updateTitle(commentsCount: Int)
+
     }
 
     interface Presenter: BasePresenter {

@@ -1,20 +1,23 @@
 # Mango(In progress)
 
-Mango is an Android App for [Dribbble](https://dribbble.com/). Inspired by [Protein](https://github.com/gejiaheng/Protein). **STILL UNDER DEVELOPING**.
+Mango is an Android App for [Dribbble](https://dribbble.com/). Inspired by [Resplash](https://github.com/b-lam/Resplash), [Plaid](https://github.com/nickbutcher/plaid) and  [Protein](https://github.com/gejiaheng/Protein).
+
+**STILL UNDER DEVELOPING**.
 
 ## Features
-+ Kotlin: Yes, fully written by Kotlin.
++ Kotlin: Yes, fully written in Kotlin.
 + Material Design: Maybe, trying my best but looking for a professional designer.
 + MVP architecture: Whole project is built on MVP architecture.
-+ RxJava: Yes.
++ RxKotlin: Yes.
++ Deep link: Yes. Using [DeepLinkDispatch](https://github.com/airbnb/DeepLinkDispatch) from [Airbnb](https://github.com/airbnb).
 + Dependency injection: Yes, using [dagger2](https://github.com/google/dagger).
 + Usage of awesome libraries: [Anko common](https://github.com/Kotlin/anko), [Flexbox layout](https://github.com/google/flexbox-layout), [Glide4](https://github.com/bumptech/glide), [Gson](https://github.com/google/gson), [Retrofit2 ](https://github.com/square/retrofit),   [Room](https://developer.android.com/topic/libraries/architecture/room.html).
 
 ## Screenshots
 
-| Main     | Shot     | User     | Comments | Likes
-| :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
-| ![Main](./art/Main.png)       | ![Shot](./art/Shot.png)       | ![User](./art/User.png)       | ![Comments](./art/Comments.png)       | ![Likes](./art/Likes.png)       |
+| Main     | Shot     | User     |
+| :-------------: | :-------------: | :-------------: |
+| ![Main](./art/homescreen.png) | ![Shot](./art/shot_detail.png) | ![User](./art/user_profile.png) |
 
 ## Build
 ### Open the project in Android Studio
@@ -33,8 +36,10 @@ Open the `Mango/` directory in Android Studio.
 ### Dribbble OAuth
 The App client id, client secret and client access token are placed in [ApiConstants.kt](./app/src/main/java/io/github/tonnyl/mango/retrofit/ApiConstants.kt) file. But due to the [Rate Limiting](http://developer.dribbble.com/v1/#rate-limiting) and the possibility that Mango App may be available in Google Play (Check the [blueprints](https://github.com/TonnyL/Mango/wiki/Blueprints) for more details), if you want to continue the development, I suggest you register your own App at [Dribbble Developer Center](https://dribbble.com/account/applications/new) and modify the constants with your owns.
 
-## MIT License
+## License
 ```
+MIT License
+
 Copyright (c) 2017 Lizhaotailang
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

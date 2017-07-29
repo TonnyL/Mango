@@ -67,7 +67,7 @@ object GlideLoader {
                         override fun onResourceReady(resource: Bitmap?, transition: Transition<in Bitmap>?) {
                             super.onResourceReady(resource, transition)
                             resource?.let {
-                                Palette.from(it).maximumColorCount(8).generate { palette ->
+                                Palette.from(it).maximumColorCount(4).generate { palette ->
                                     callback.OnPaletteGenerated(palette)
                                 }
                             } ?: run {

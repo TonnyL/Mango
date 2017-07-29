@@ -1,5 +1,6 @@
 package io.github.tonnyl.mango.shot.likes
 
+import io.github.tonnyl.mango.data.Shot
 import io.github.tonnyl.mango.data.repository.ShotRepository
 import io.github.tonnyl.mango.retrofit.ApiConstants
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -10,15 +11,20 @@ import io.reactivex.schedulers.Schedulers
  * Created by lizhaotailang on 2017/7/8.
  */
 
-class LikesPresenter(view: LikesContract.View, id: Long) : LikesContract.Presenter {
+class LikesPresenter(view: LikesContract.View, shot: Shot) : LikesContract.Presenter {
 
     private val mView = view
-    private val mId = id
+    private val mShot = shot
     private val mCompositeDisposable: CompositeDisposable
 
     private var mPageCount = 0
     private var mIsFirstLoad = true
     private var mHasMore = true
+
+    companion object {
+        @JvmField
+        val EXTRA_SHOT = "EXTRA_SHOT"
+    }
 
     init {
         mView.setPresenter(this)
@@ -27,6 +33,7 @@ class LikesPresenter(view: LikesContract.View, id: Long) : LikesContract.Present
 
     override fun subscribe() {
         fetchLikes()
+        mView.updateTitle(mShot.likesCount)
     }
 
     override fun unsubscribe() {
@@ -44,7 +51,7 @@ class LikesPresenter(view: LikesContract.View, id: Long) : LikesContract.Present
         }
 
         val disposable = ShotRepository
-                .listLikes(mId, mPageCount)
+                .listLikes(mShot.id, mPageCount)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->

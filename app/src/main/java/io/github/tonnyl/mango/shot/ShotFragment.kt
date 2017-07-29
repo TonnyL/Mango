@@ -19,7 +19,9 @@ import io.github.tonnyl.mango.data.Shot
 import io.github.tonnyl.mango.data.User
 import io.github.tonnyl.mango.glide.GlideLoader
 import io.github.tonnyl.mango.shot.comments.CommentsActivity
+import io.github.tonnyl.mango.shot.comments.CommentsPresenter
 import io.github.tonnyl.mango.shot.likes.LikesActivity
+import io.github.tonnyl.mango.shot.likes.LikesPresenter
 import io.github.tonnyl.mango.user.UserProfileActivity
 import kotlinx.android.synthetic.main.fragment_shot.*
 import org.jetbrains.anko.runOnUiThread
@@ -35,18 +37,10 @@ class ShotFragment : Fragment(), ShotContract.View {
 
     companion object {
 
-        @JvmField
-        val EXTRA_SHOT = "EXTRA_SHOT"
-
         @JvmStatic
         fun newInstance(): ShotFragment {
             return ShotFragment()
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mPresenter.setShot(activity.intent.getParcelableExtra(EXTRA_SHOT))
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -58,10 +52,7 @@ class ShotFragment : Fragment(), ShotContract.View {
         super.onViewCreated(view, savedInstanceState)
         mPresenter.subscribe()
 
-        val act = activity as ShotActivity
-        act.setSupportActionBar(toolbar)
-        act.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        act.supportActionBar?.setDisplayShowTitleEnabled(false)
+        initView()
 
         fab.setOnClickListener({
             mPresenter.toggleLike()
@@ -71,11 +62,11 @@ class ShotFragment : Fragment(), ShotContract.View {
             mPresenter.navigateToUserProfile()
         })
 
-        layout_likes.setOnClickListener({
+        button_likes.setOnClickListener({
             mPresenter.navigateToLikes()
         })
 
-        layout_comments.setOnClickListener({
+        button_comments.setOnClickListener({
             mPresenter.navigateToComments()
         })
 
@@ -88,7 +79,7 @@ class ShotFragment : Fragment(), ShotContract.View {
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.shot, menu)
+        inflater?.inflate(R.menu.menu_shot, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -112,8 +103,8 @@ class ShotFragment : Fragment(), ShotContract.View {
     }
 
     override fun show(shot: Shot) {
-        // Show the shot image
-        GlideLoader.loadHighQualityWithPalette(context, simple_drawee_view, shot.images.best(), object : GlideLoader.OnPaletteProcessCallback {
+        // Show the menu_shot image
+        GlideLoader.loadHighQualityWithPalette(context, shot_image_view, shot.images.best(), object : GlideLoader.OnPaletteProcessCallback {
             override fun OnPaletteGenerated(palette: Palette?) {
                 palette?.let {
                     showPalette(palette)
@@ -133,7 +124,7 @@ class ShotFragment : Fragment(), ShotContract.View {
             GlideLoader.loadAvatar(context, avatar, it.avatarUrl)
         }
 
-        shot_title.text = shot.title
+        toolbar.title = shot.title
 
         if (shot.description != null) {
             if (Build.VERSION.SDK_INT >= 24) {
@@ -149,9 +140,9 @@ class ShotFragment : Fragment(), ShotContract.View {
         user_name.text = shot.user?.username
         created_time.text = shot.createdAt.replace("T", " ").replace("Z", "")
 
-        likes_count.text = shot.likesCount.toString()
-        views_count.text = shot.viewsCount.toString()
-        comments_count.text = shot.commentsCount.toString()
+        button_likes.text = getString(R.string.likes).format(shot.likesCount)
+        button_views.text = getString(R.string.views).format(shot.viewsCount)
+        button_comments.text = getString(R.string.comments).format(shot.commentsCount)
 
         // Show the tags
         showTags(shot.tags)
@@ -166,19 +157,19 @@ class ShotFragment : Fragment(), ShotContract.View {
     }
 
     override fun updateLikeCount(count: Int) {
-        likes_count.text = count.toString()
+        button_likes.text = count.toString()
     }
 
     override fun navigateToUserProfile(user: User) {
         context.startActivity<UserProfileActivity>(UserProfileActivity.EXTRA_USER to user)
     }
 
-    override fun navigateToComments(shotId: Long) {
-        context.startActivity<CommentsActivity>(CommentsActivity.EXTRA_ID to shotId)
+    override fun navigateToComments(shot: Shot) {
+        context.startActivity<CommentsActivity>(CommentsPresenter.EXTRA_SHOT to shot)
     }
 
-    override fun navigateToLikes(shotId: Long) {
-        context.startActivity<LikesActivity>(LikesActivity.EXTRA_ID to shotId)
+    override fun navigateToLikes(shot: Shot) {
+        context.startActivity<LikesActivity>(LikesPresenter.EXTRA_SHOT to shot)
     }
 
     private fun showTags(tags: List<String>) {
@@ -193,22 +184,32 @@ class ShotFragment : Fragment(), ShotContract.View {
     }
 
     private fun showPalette(palette: Palette) {
-        for (swatch in palette.swatches.take(palette.swatches.size / 4)) {
-            val textView = TextView(context)
-            textView.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
-            textView.setBackgroundColor(swatch.rgb)
-            val color = String.format("#%06X", (0xFFFFFF and swatch.rgb))
-            textView.setOnClickListener {
-                Snackbar.make(fab, color, Snackbar.LENGTH_SHORT)
-                        .setAction(getString(R.string.copy_to_clipboard), {
-                            val manager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                            manager.primaryClip = ClipData.newPlainText("text", color)
-                            showMessage(getString(R.string.copied))
-                        })
-                        .show()
+        val rgbs = arrayListOf<Int>()
+        for (swatch in palette.swatches) {
+            if (!rgbs.contains(swatch.rgb)) {
+                rgbs.add(swatch.rgb)
+                val textView = TextView(context)
+                textView.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
+                textView.setBackgroundColor(swatch.rgb)
+                val color = String.format("#%06X", (0xFFFFFF and swatch.rgb))
+                textView.setOnClickListener {
+                    Snackbar.make(fab, color, Snackbar.LENGTH_SHORT)
+                            .setAction(getString(R.string.copy_to_clipboard), {
+                                val manager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                manager.primaryClip = ClipData.newPlainText("text", color)
+                                showMessage(getString(R.string.copied))
+                            })
+                            .show()
+                }
+                palette_layout.addView(textView)
             }
-            palette_layout.addView(textView)
         }
+    }
+
+    private fun initView() {
+        val act = activity as ShotActivity
+        act.setSupportActionBar(toolbar)
+        act.supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
 }

@@ -6,6 +6,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/product_family</item>
         <item name="windowActionBarOverlay">true</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -16,5 +17,15 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.ToolbarStyle">
+        <item name="colorControlNormal">@color/colorPrimaryTextLight</item>
+    </style>
+
+    <style name="Widget.Mango.InlineActionButton" parent="@android:style/Widget.Material.Button">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:background">?android:selectableItemBackgroundBorderless</item>
+    </style>
 
 </resources>

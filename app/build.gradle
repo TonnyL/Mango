@@ -9,7 +9,7 @@ kapt {
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "io.github.tonnyl.mango"
         minSdkVersion 21
@@ -34,16 +34,17 @@ android {
 
 ext {
     ankoLibVersion = "0.10.1"
-    supportLibVersion = '26.0.0-beta2'
+    supportLibVersion = '26.0.0'
     gsonVersion = '2.8.0'
     retrofitVersion = '2.2.0'
-    rxJavaVersion = '2.1.0'
+    rxKotlinVersion = '2.1.0'
     rxAndroidVersion = '2.0.1'
     retrofitVersion = '2.3.0'
     glideVersion = '4.0.0-RC1'
     flexboxVersion = '0.3.0-alpha4'
     archRoomVersion = '1.0.0-alpha3'
     daggerVersion = '2.11'
+    deeplinkDispatchVersion = "3.1.0"
 }
 
 dependencies {
@@ -58,11 +59,11 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$supportLibVersion"
     implementation "com.android.support:support-v4:$supportLibVersion"
     implementation "com.android.support:design:$supportLibVersion"
-    implementation "com.android.support:preference-v7:$supportLibVersion"
+    implementation "com.android.support:preference-v14:$supportLibVersion"
     implementation "com.android.support:palette-v7:$supportLibVersion"
 
     // ReactiveX series
-    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
 
     // Retrofit series
@@ -85,7 +86,11 @@ dependencies {
 
     // Dagger2
     implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    implementation "com.airbnb:deeplinkdispatch:$deeplinkDispatchVersion"
+    kapt "com.airbnb:deeplinkdispatch-processor:$deeplinkDispatchVersion"
 
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

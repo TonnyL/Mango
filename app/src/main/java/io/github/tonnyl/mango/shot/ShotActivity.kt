@@ -26,7 +26,7 @@ class ShotActivity : AppCompatActivity() {
                 .add(R.id.container, mShotFragment, ShotFragment::class.java.simpleName)
                 .commit()
 
-        ShotPresenter(mShotFragment)
+        ShotPresenter(mShotFragment, intent.getParcelableExtra(ShotPresenter.EXTRA_SHOT))
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {

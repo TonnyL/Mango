@@ -31,7 +31,7 @@ class ShotsAdapter(context: Context, list: MutableList<Shot>) : RecyclerView.Ada
         val viewHolder = holder as ShotViewHolder
         val shot = mList[position]
         GlideLoader.loadAvatar(mContext, viewHolder.itemView.avatar, shot.user?.avatarUrl)
-        GlideLoader.loadNormal(mContext, viewHolder.itemView.simple_drawee_view, shot.images.best())
+        GlideLoader.loadNormal(mContext, viewHolder.itemView.shot_image_view, shot.images.best())
         viewHolder.itemView.tag_gif.visibility = if (shot.images.normal.endsWith(".gif")) View.VISIBLE else View.GONE
         viewHolder.itemView.shot_title.text = mContext.getString(R.string.shot_title).format(shot.user?.name, shot.title)
     }

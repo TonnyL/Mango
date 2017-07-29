@@ -37,6 +37,7 @@ class LikesFragment : Fragment(), LikesContract.View {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        setHasOptionsMenu(true)
         return inflater?.inflate(R.layout.fragment_list, container, false)
     }
 
@@ -112,6 +113,10 @@ class LikesFragment : Fragment(), LikesContract.View {
         } else {
             View.GONE
         }
+    }
+
+    override fun updateTitle(likeCount: Int) {
+        (activity as LikesActivity).title = getString(R.string.likes).format(likeCount)
     }
 
     private fun initViews() {

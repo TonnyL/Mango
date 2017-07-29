@@ -4,39 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".shot.ShotActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:fitsSystemWindows="true"
+        android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="@color/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed|enterAlways">
-
-            <ImageView
-                android:id="@+id/simple_drawee_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true" />
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/transparent"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-        </android.support.design.widget.CollapsingToolbarLayout>
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            app:layout_scrollFlags="scroll|snap"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:theme="@style/AppTheme.ToolbarStyle" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -44,35 +27,33 @@
         android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbars="none"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/shot_title"
+            <ImageView
+                android:id="@+id/shot_image_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="textStart"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                android:layout_height="@dimen/shot_detail_height" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin">
 
                 <ImageView
                     android:id="@+id/avatar"
                     android:layout_width="@dimen/avatar_width_secondary"
-                    android:layout_height="@dimen/avatar_height_secondary" />
+                    android:layout_height="@dimen/avatar_height_secondary"
+                    tools:src="@drawable/ic_avatar_placeholder" />
 
                 <TextView
                     android:id="@+id/user_name"
@@ -80,7 +61,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/activity_horizontal_margin_half"
                     android:gravity="center_vertical"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    tools:text="TonnyL" />
 
                 <TextView
                     android:id="@+id/created_time"
@@ -88,19 +70,25 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/activity_horizontal_margin_half"
                     android:gravity="center_vertical"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    tools:text="4 hours ago" />
 
             </LinearLayout>
 
             <TextView
                 android:id="@+id/shot_description"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                tools:text="Mango is an Android app for dribbble.com" />
 
             <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/tags_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/activity_horizontal_margin"
                 app:alignContent="center"
                 app:alignItems="center"
                 app:dividerDrawable="@drawable/flexbox_divider"
@@ -114,81 +102,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:orientation="horizontal" />
+                android:orientation="horizontal"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/activity_horizontal_margin" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/shot_bar_height"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:orientation="horizontal">
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/activity_horizontal_margin">
 
-                <LinearLayout
-                    android:id="@+id/layout_likes"
+                <Button
+                    android:id="@+id/button_likes"
+                    style="@style/Widget.Mango.InlineActionButton"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:gravity="center">
+                    android:drawableTop="@drawable/ic_favorite_black_24dp"
+                    tools:text="12 Likes" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_favorite_white_24dp"
-                        android:tint="@color/hint" />
-
-                    <TextView
-                        android:id="@+id/likes_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/activity_horizontal_margin_half"
-                        android:gravity="center" />
-
-                </LinearLayout>
-
-                <LinearLayout
+                <Button
+                    android:id="@+id/button_views"
+                    style="@style/Widget.Mango.InlineActionButton"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:gravity="center">
+                    android:drawableTop="@drawable/ic_views_black_24dp"
+                    tools:text="25 Views" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_views_black_24dp"
-                        android:tint="@color/hint" />
-
-                    <TextView
-                        android:id="@+id/views_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/activity_horizontal_margin_half"
-                        android:gravity="center" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_comments"
+                <Button
+                    android:id="@+id/button_comments"
+                    style="@style/Widget.Mango.InlineActionButton"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_comment_black_24dp"
-                        android:tint="@color/hint" />
-
-                    <TextView
-                        android:id="@+id/comments_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/activity_horizontal_margin_half"
-                        android:gravity="center" />
-
-                </LinearLayout>
+                    android:drawableTop="@drawable/ic_comment_black_24dp"
+                    tools:text="10 Comments" />
 
             </LinearLayout>
 
@@ -203,7 +155,7 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:tint="@color/colorAccent"
         app:backgroundTint="@android:color/white"
-        app:layout_anchor="@id/app_bar"
+        app:layout_anchor="@id/shot_image_view"
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@drawable/ic_favorite_border_white_24dp" />
 

@@ -22,15 +22,13 @@ interface ShotContract {
 
         fun navigateToUserProfile(user: User)
 
-        fun navigateToComments(shotId: Long)
+        fun navigateToComments(shot: Shot)
 
-        fun navigateToLikes(shotId: Long)
+        fun navigateToLikes(shot: Shot)
 
     }
 
     interface Presenter : BasePresenter {
-
-        fun setShot(shot: Shot)
 
         fun toggleLike()
 

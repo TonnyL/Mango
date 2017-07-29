@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Shot
 import io.github.tonnyl.mango.shot.ShotActivity
-import io.github.tonnyl.mango.shot.ShotFragment
+import io.github.tonnyl.mango.shot.ShotPresenter
 import io.github.tonnyl.mango.user.UserProfileActivity
 import kotlinx.android.synthetic.main.fragment_shots_page.*
 import org.jetbrains.anko.startActivity
@@ -91,7 +91,7 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
             mAdapter?.setItemClickListener(object : OnRecyclerViewItemClickListener {
 
                 override fun onItemClick(view: View, position: Int) {
-                    context.startActivity<ShotActivity>(ShotFragment.EXTRA_SHOT to results[position])
+                    context.startActivity<ShotActivity>(ShotPresenter.EXTRA_SHOT to results[position])
                 }
 
                 override fun onAvatarClick(view: View, position: Int) {
