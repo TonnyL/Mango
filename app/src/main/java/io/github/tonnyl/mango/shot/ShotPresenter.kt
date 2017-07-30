@@ -10,13 +10,16 @@ import io.reactivex.schedulers.Schedulers
  * Created by lizhaotailang on 2017/6/28.
  */
 
-class ShotPresenter(view: ShotContract.View, shot: Shot) : ShotContract.Presenter {
+class ShotPresenter(view: ShotContract.View, shotId: Long) : ShotContract.Presenter {
 
     private val mView = view
     private val mCompositeDisposable: CompositeDisposable
     private var mIsLikeChecked = false
     private var mIsLike = false
-    private val mShot = shot
+
+    private var mIsDeepLink = true
+    private var mShot: Shot? = null
+    private var mShotId = shotId
 
     companion object {
         @JvmField
@@ -28,9 +31,31 @@ class ShotPresenter(view: ShotContract.View, shot: Shot) : ShotContract.Presente
         mCompositeDisposable = CompositeDisposable()
     }
 
+    constructor(view: ShotContract.View, shot: Shot) : this(view, shot.id) {
+        mIsDeepLink = false
+        mShot = shot
+    }
+
     override fun subscribe() {
-        mView.show(mShot)
-        val disposable = ShotRepository.checkLike(mShot.id)
+        if (mIsDeepLink && mShot == null) {
+            val disposable = ShotRepository.getShot(mShotId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe { shot ->
+                        shot.body()?.let {
+                            mShot = it
+                            mShotId = it.id
+                            mView.show(it)
+                        }
+                    }
+            mCompositeDisposable.add(disposable)
+        } else {
+            mShot?.let {
+                mView.show(it)
+            }
+        }
+
+        val disposable = ShotRepository.checkLike(mShotId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
@@ -47,29 +72,32 @@ class ShotPresenter(view: ShotContract.View, shot: Shot) : ShotContract.Presente
 
     override fun toggleLike() {
         if (mIsLike) {
-
             val disposable = ShotRepository
-                    .unlikeShot(mShot.id)
+                    .unlikeShot(mShotId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
-                        mShot.likesCount--
-                        mView.updateLikeCount(mShot.likesCount)
-                        mView.setLikeStatus(false)
-                        mIsLike = !mIsLike
+                        mShot?.let {
+                            it.likesCount--
+                            mView.updateLikeCount(it.likesCount)
+                            mView.setLikeStatus(false)
+                            mIsLike = !mIsLike
+                        }
                     }, { error ->
                         mView.showMessage(error.message)
                     })
             mCompositeDisposable.add(disposable)
         } else {
-            val disposable = ShotRepository.likeShot(mShot.id)
+            val disposable = ShotRepository.likeShot(mShotId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
-                        mShot.likesCount++
-                        mView.updateLikeCount(mShot.likesCount)
-                        mView.setLikeStatus(true)
-                        mIsLike = !mIsLike
+                        mShot?.let {
+                            it.likesCount++
+                            mView.updateLikeCount(it.likesCount)
+                            mView.setLikeStatus(true)
+                            mIsLike = !mIsLike
+                        }
                     }, { error ->
                         mView.showMessage(error.message)
                     })
@@ -78,17 +106,21 @@ class ShotPresenter(view: ShotContract.View, shot: Shot) : ShotContract.Presente
     }
 
     override fun navigateToUserProfile() {
-        mShot.user?.let {
+        mShot?.user?.let {
             mView.navigateToUserProfile(it)
         }
     }
 
     override fun navigateToComments() {
-        mView.navigateToComments(mShot)
+        mShot?.let {
+            mView.navigateToComments(it)
+        }
     }
 
     override fun navigateToLikes() {
-        mView.navigateToLikes(mShot)
+        mShot?.let {
+            mView.navigateToLikes(it)
+        }
     }
 
 }

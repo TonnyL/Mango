@@ -10,6 +10,12 @@ components:
     - build-tools-26.0.1
     - android-26
     - extra-android-m2repository
+    - extra-google-m2repository
+
+licenses:
+    - 'android-sdk-preview-license-.+'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
 
 notifications:
   email: false

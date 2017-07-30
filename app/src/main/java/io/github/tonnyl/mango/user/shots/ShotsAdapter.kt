@@ -27,8 +27,8 @@ class ShotsAdapter(context: Context, list: MutableList<Shot>) : RecyclerView.Ada
         return ShotViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_simple_list_shots, parent, false), mListener)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        val viewHolder = holder as ShotViewHolder
+    override fun onBindViewHolder(holderFollower: RecyclerView.ViewHolder?, position: Int) {
+        val viewHolder = holderFollower as ShotViewHolder
         val shot = mList[position]
         viewHolder.itemView.tag_gif.visibility = if (shot.images.normal.endsWith(".gif")) View.VISIBLE else View.GONE
         GlideLoader.loadNormal(mContext, viewHolder.itemView.image_view, shot.images.best())

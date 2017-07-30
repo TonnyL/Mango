@@ -29,8 +29,8 @@ class LikesAdapter(context: Context, list: MutableList<Like>) : RecyclerView.Ada
         return LikeViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_like, parent, false), mListener)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        val viewHolder = holder as LikeViewHolder
+    override fun onBindViewHolder(holderFollower: RecyclerView.ViewHolder?, position: Int) {
+        val viewHolder = holderFollower as LikeViewHolder
         val like = mList[position]
         GlideLoader.loadAvatar(mContext, viewHolder.itemView.avatar_drawee, like.user.avatarUrl)
 

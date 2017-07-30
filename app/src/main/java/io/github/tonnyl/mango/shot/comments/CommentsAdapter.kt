@@ -28,8 +28,8 @@ class CommentsAdapter(context: Context, list: MutableList<Comment>) : RecyclerVi
         return CommentViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_comment, parent, false), mListener)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        val viewHolder = holder as CommentViewHolder
+    override fun onBindViewHolder(holderFollower: RecyclerView.ViewHolder?, position: Int) {
+        val viewHolder = holderFollower as CommentViewHolder
         val comment = mList[position]
         GlideLoader.loadAvatar(mContext, viewHolder.itemView.avatar_drawee, comment.user.avatarUrl)
 

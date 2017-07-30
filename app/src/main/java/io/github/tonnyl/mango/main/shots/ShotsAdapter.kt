@@ -27,8 +27,8 @@ class ShotsAdapter(context: Context, list: MutableList<Shot>) : RecyclerView.Ada
         return ShotViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_shot, parent, false), mListener)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        val viewHolder = holder as ShotViewHolder
+    override fun onBindViewHolder(holderFollower: RecyclerView.ViewHolder?, position: Int) {
+        val viewHolder = holderFollower as ShotViewHolder
         val shot = mList[position]
         GlideLoader.loadAvatar(mContext, viewHolder.itemView.avatar, shot.user?.avatarUrl)
         GlideLoader.loadNormal(mContext, viewHolder.itemView.shot_image_view, shot.images.best())

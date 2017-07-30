@@ -18,7 +18,7 @@ class LikedShot() : Parcelable {
     @Expose
     var createdAt = ""
 
-    @SerializedName("menu_shot")
+    @SerializedName("shot")
     @Expose
     var shot = Shot()
 

@@ -9,7 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.LikedShot
-import kotlinx.android.synthetic.main.fragment_shots_page.*
+import io.github.tonnyl.mango.shot.ShotActivity
+import io.github.tonnyl.mango.shot.ShotPresenter
+import kotlinx.android.synthetic.main.fragment_simple_list.*
+import org.jetbrains.anko.startActivity
 
 /**
  * Created by lizhaotailang on 2017/7/19.
@@ -29,7 +32,7 @@ class LikedShotsFragment : Fragment(), LikedShotsContract.View {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_shots_page, container, false)
+        return inflater?.inflate(R.layout.fragment_simple_list, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -57,6 +60,9 @@ class LikedShotsFragment : Fragment(), LikedShotsContract.View {
         recycler_view.layoutManager = GridLayoutManager(context, 2)
         if (mAdapter == null) {
             mAdapter = LikedShotsAdapter(context, likeShots)
+            mAdapter?.setItemClickListener({ _, position ->
+                context.startActivity<ShotActivity>(ShotPresenter.EXTRA_SHOT to likeShots[position].shot)
+            })
         }
         recycler_view.adapter = mAdapter
     }

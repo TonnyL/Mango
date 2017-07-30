@@ -34,6 +34,7 @@ import org.jetbrains.anko.startActivity
 class ShotFragment : Fragment(), ShotContract.View {
 
     private lateinit var mPresenter: ShotContract.Presenter
+    private val rgbs = arrayListOf<Int>()
 
     companion object {
 
@@ -157,7 +158,7 @@ class ShotFragment : Fragment(), ShotContract.View {
     }
 
     override fun updateLikeCount(count: Int) {
-        button_likes.text = count.toString()
+        button_likes.text = getString(R.string.likes).format(count)
     }
 
     override fun navigateToUserProfile(user: User) {
@@ -183,8 +184,12 @@ class ShotFragment : Fragment(), ShotContract.View {
         }
     }
 
+    /**
+     * The function [com.bumptech.glide.request.RequestListener.onResourceReady]
+     * is called twice, so use a rgbs field to record the rgb values
+     * to prevent duplicate.
+     */
     private fun showPalette(palette: Palette) {
-        val rgbs = arrayListOf<Int>()
         for (swatch in palette.swatches) {
             if (!rgbs.contains(swatch.rgb)) {
                 rgbs.add(swatch.rgb)

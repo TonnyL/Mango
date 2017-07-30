@@ -1,6 +1,8 @@
 package io.github.tonnyl.mango.retrofit
 
-import io.github.tonnyl.mango.data.*
+import io.github.tonnyl.mango.data.Comment
+import io.github.tonnyl.mango.data.Like
+import io.github.tonnyl.mango.data.Shot
 import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.*
@@ -22,16 +24,6 @@ interface ShotsService {
                   @Query("per_page") perPage: Int = ApiConstants.PER_PAGE,
                   @Query("page") page: Int): Observable<Response<List<Shot>>>
 
-    @GET("/v1/users/{user_id}/shots")
-    fun listShotsOfUser(@Path("user_id") userId: Long,
-                        @Query("per_page") perPage: Int = ApiConstants.PER_PAGE,
-                        @Query("page") page: Int): Observable<Response<List<Shot>>>
-
-    @GET("/v1/users/{user_id}/likes")
-    fun listLikeShotsOfUser(@Path("user_id") userId: Long,
-                            @Query("per_page") perPage: Int = ApiConstants.PER_PAGE,
-                            @Query("page") page: Int): Observable<Response<List<LikedShot>>>
-
     @GET("/v1/shots/{shot_id}/like")
     fun checkLikeOfShot(@Path("shot_id") shotId: Long): Observable<Response<Like>>
 
@@ -45,11 +37,6 @@ interface ShotsService {
 
     @DELETE("/v1/shots/{shot_id}/like")
     fun unlikeShot(@Path("shot_id") shotId: Long): Observable<Response<Like>>
-
-    @GET("/v1/shots/{shot_id}/buckets")
-    fun listBucketsForShot(@Path("shot_id") shotId: Long,
-                           @Query("per_page") perPage: Int = ApiConstants.PER_PAGE): Observable<Response<List<Bucket>>>
-
 
     @GET("/v1/shots/{shot_id}/comments")
     fun listCommentsForShot(@Path("shot_id") shotId: Long,

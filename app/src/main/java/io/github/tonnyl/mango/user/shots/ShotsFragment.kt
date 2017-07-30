@@ -11,7 +11,7 @@ import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Shot
 import io.github.tonnyl.mango.shot.ShotActivity
 import io.github.tonnyl.mango.shot.ShotPresenter
-import kotlinx.android.synthetic.main.fragment_shots_page.*
+import kotlinx.android.synthetic.main.fragment_simple_list.*
 import org.jetbrains.anko.startActivity
 
 /**
@@ -32,7 +32,7 @@ class ShotsFragment : Fragment(), ShotsContract.View {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_shots_page, container, false)
+        return inflater?.inflate(R.layout.fragment_simple_list, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {

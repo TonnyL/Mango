@@ -13,7 +13,7 @@ import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Like
 import io.github.tonnyl.mango.user.UserProfileActivity
-import kotlinx.android.synthetic.main.fragment_list.*
+import kotlinx.android.synthetic.main.fragment_simple_list.*
 import org.jetbrains.anko.startActivity
 
 /**
@@ -38,7 +38,7 @@ class LikesFragment : Fragment(), LikesContract.View {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        return inflater?.inflate(R.layout.fragment_list, container, false)
+        return inflater?.inflate(R.layout.fragment_simple_list, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {

@@ -89,6 +89,7 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
+    // Deeplink dispatch
     implementation "com.airbnb:deeplinkdispatch:$deeplinkDispatchVersion"
     kapt "com.airbnb:deeplinkdispatch-processor:$deeplinkDispatchVersion"
 

@@ -7,6 +7,7 @@ import io.github.tonnyl.mango.data.local.UserLocalDataSource
 import io.github.tonnyl.mango.data.remote.UserRemoteDataSource
 import io.github.tonnyl.mango.retrofit.RetrofitClient
 import io.github.tonnyl.mango.retrofit.UserService
+import io.github.tonnyl.mango.retrofit.UsersService
 import io.github.tonnyl.mango.util.AccountManager
 import io.reactivex.Observable
 import retrofit2.Response
@@ -20,6 +21,7 @@ import retrofit2.http.Body
 object UserRepository : UserDataSource {
 
     private val mUserService = RetrofitClient.createService(UserService::class.java, AccountManager.accessToken)
+    private val mUsersService = RetrofitClient.createService(UsersService::class.java, AccountManager.accessToken)
 
     override fun init(context: Context) {
         UserLocalDataSource.init(context)
@@ -54,11 +56,11 @@ object UserRepository : UserDataSource {
     }
 
     override fun follow(userId: Long): Observable<Response<Body>> {
-        return mUserService.follow(userId)
+        return mUsersService.follow(userId)
     }
 
     override fun unfollow(userId: Long): Observable<Response<Body>> {
-        return mUserService.unfollow(userId)
+        return mUsersService.unfollow(userId)
     }
 
 }

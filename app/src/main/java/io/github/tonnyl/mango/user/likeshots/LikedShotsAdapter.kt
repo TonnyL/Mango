@@ -24,8 +24,8 @@ class LikedShotsAdapter(context: Context, list: MutableList<LikedShot>) : Recycl
         return ShotLikeViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_simple_list_shots, parent, false), mListener)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        val viewHolder = holder as ShotLikeViewHolder
+    override fun onBindViewHolder(holderFollower: RecyclerView.ViewHolder?, position: Int) {
+        val viewHolder = holderFollower as ShotLikeViewHolder
         val shotLike = mList[position]
         viewHolder.itemView.tag_gif.visibility = if (shotLike.shot.images.normal.endsWith(".gif")) View.VISIBLE else View.GONE
         GlideLoader.loadNormal(mContext, viewHolder.itemView.image_view, shotLike.shot.images.best())
