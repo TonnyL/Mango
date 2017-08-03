@@ -141,9 +141,9 @@ class ShotFragment : Fragment(), ShotContract.View {
         user_name.text = shot.user?.username
         created_time.text = shot.createdAt.replace("T", " ").replace("Z", "")
 
-        button_likes.text = getString(R.string.likes).format(shot.likesCount)
-        button_views.text = getString(R.string.views).format(shot.viewsCount)
-        button_comments.text = getString(R.string.comments).format(shot.commentsCount)
+        button_likes.text = getString(R.string.likes_formatted).format(shot.likesCount)
+        button_views.text = getString(R.string.views_formatted).format(shot.viewsCount)
+        button_comments.text = getString(R.string.comments_formatted).format(shot.commentsCount)
 
         // Show the tags
         showTags(shot.tags)

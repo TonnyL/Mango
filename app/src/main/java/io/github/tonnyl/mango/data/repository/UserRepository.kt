@@ -1,10 +1,13 @@
 package io.github.tonnyl.mango.data.repository
 
 import android.content.Context
+import io.github.tonnyl.mango.data.Followee
+import io.github.tonnyl.mango.data.Follower
 import io.github.tonnyl.mango.data.User
 import io.github.tonnyl.mango.data.datasource.UserDataSource
 import io.github.tonnyl.mango.data.local.UserLocalDataSource
 import io.github.tonnyl.mango.data.remote.UserRemoteDataSource
+import io.github.tonnyl.mango.retrofit.ApiConstants
 import io.github.tonnyl.mango.retrofit.RetrofitClient
 import io.github.tonnyl.mango.retrofit.UserService
 import io.github.tonnyl.mango.retrofit.UsersService
@@ -61,6 +64,14 @@ object UserRepository : UserDataSource {
 
     override fun unfollow(userId: Long): Observable<Response<Body>> {
         return mUsersService.unfollow(userId)
+    }
+
+    override fun listFollowerOfUser(userId: Long): Observable<Response<List<Follower>>> {
+        return mUserService.listFollowerOfUser(userId, ApiConstants.PER_PAGE)
+    }
+
+    override fun listFolloweeOfUser(userId: Long): Observable<Response<List<Followee>>> {
+        return mUserService.listFollowingOfUser(userId, ApiConstants.PER_PAGE)
     }
 
 }

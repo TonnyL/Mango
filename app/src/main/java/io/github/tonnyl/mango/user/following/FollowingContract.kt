@@ -1,6 +1,6 @@
 package io.github.tonnyl.mango.user.following
 
-import io.github.tonnyl.mango.data.User
+import io.github.tonnyl.mango.data.Followee
 import io.github.tonnyl.mango.mvp.BasePresenter
 import io.github.tonnyl.mango.mvp.BaseView
 
@@ -13,7 +13,7 @@ interface FollowingContract {
 
         fun setLoadingIndicator(loading: Boolean)
 
-        fun showFollowings(followings: MutableList<User>)
+        fun showFollowings(followings: MutableList<Followee>)
 
     }
 

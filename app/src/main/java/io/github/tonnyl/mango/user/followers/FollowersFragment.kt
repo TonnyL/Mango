@@ -1,4 +1,4 @@
-package io.github.tonnyl.mango.user.follower
+package io.github.tonnyl.mango.user.followers
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -6,15 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.github.tonnyl.mango.R
-import io.github.tonnyl.mango.data.User
+import io.github.tonnyl.mango.data.Follower
 import kotlinx.android.synthetic.main.fragment_simple_list.*
 
 /**
  * Created by lizhaotailang on 2017/7/29.
  */
-class FollowerFragment : Fragment(), FollowerContract.View {
+class FollowersFragment : Fragment(), FollowersContract.View {
 
-    private lateinit var mPresenter: FollowerContract.Presenter
+    private lateinit var mPresenter: FollowersContract.Presenter
+
+    companion object {
+        fun newInstance(): FollowersFragment {
+            return FollowersFragment()
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_simple_list, container, false)
@@ -30,7 +36,7 @@ class FollowerFragment : Fragment(), FollowerContract.View {
         mPresenter.unsubscribe()
     }
 
-    override fun setPresenter(presenter: FollowerContract.Presenter) {
+    override fun setPresenter(presenter: FollowersContract.Presenter) {
         mPresenter = presenter
     }
 
@@ -38,7 +44,8 @@ class FollowerFragment : Fragment(), FollowerContract.View {
         refresh_layout.isRefreshing = loading
     }
 
-    override fun showFollowers(followers: MutableList<User>) {
-
+    override fun showFollowers(followers: MutableList<Follower>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
 }

@@ -27,8 +27,8 @@ class LikedShotsPresenter(view: LikedShotsContract.View, userId: Long) : LikedSh
                 .subscribe({ response ->
                     response.body()?.let {
                         mView.showShots(it.toMutableList())
-                        mView.setLoadingIndicator(false)
                     }
+                    mView.setLoadingIndicator(false)
                 })
         mCompositeDisposable.add(disposable)
     }

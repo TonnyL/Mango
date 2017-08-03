@@ -1,4 +1,4 @@
-package io.github.tonnyl.mango.user.following
+package io.github.tonnyl.mango.user.followers
 
 import io.github.tonnyl.mango.data.repository.UserRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -8,7 +8,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by lizhaotailang on 2017/7/29.
  */
-class FollowingPresenter(view: FollowingContract.View, userId: Long) : FollowingContract.Presenter {
+class FollowersPresenter(view: FollowersContract.View, userId: Long) : FollowersContract.Presenter {
 
     private val mView = view
     private val mUserId = userId
@@ -16,7 +16,7 @@ class FollowingPresenter(view: FollowingContract.View, userId: Long) : Following
 
     companion object {
         const val EXTRA_USER_ID = "EXTRA_USER_ID"
-        const val EXTRA_FOLLOWING_TITLE = "EXTRA_FOLLOWING_TITLE"
+        const val EXTRA_FOLLOWERS_TITLE = "EXTRA_FOLLOWERS_TITLE"
     }
 
     init {
@@ -26,14 +26,13 @@ class FollowingPresenter(view: FollowingContract.View, userId: Long) : Following
 
     override fun subscribe() {
         mView.setLoadingIndicator(true)
-        val disposable = UserRepository.listFolloweeOfUser(mUserId)
+        val disposable = UserRepository.listFollowerOfUser(mUserId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
                     response.body()?.let {
-                        mView.showFollowings(it.toMutableList())
+                        mView.showFollowers(it.toMutableList())
                     }
-                    mView.setLoadingIndicator(false)
                 }, {
 
                 })

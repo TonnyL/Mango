@@ -124,7 +124,7 @@ class CommentsFragment : Fragment(), CommentsContract.View {
     }
 
     override fun updateTitle(commentsCount: Int) {
-        (activity as CommentsActivity).title = getString(R.string.comments).format(commentsCount)
+        (activity as CommentsActivity).title = getString(R.string.comments_formatted).format(commentsCount)
     }
 
     private fun initViews() {

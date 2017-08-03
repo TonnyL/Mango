@@ -8,7 +8,13 @@ import android.view.*
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.User
 import io.github.tonnyl.mango.glide.GlideLoader
+import io.github.tonnyl.mango.user.followers.FollowersActivity
+import io.github.tonnyl.mango.user.followers.FollowersPresenter
+import io.github.tonnyl.mango.user.following.FollowingActivity
+import io.github.tonnyl.mango.user.following.FollowingPresenter
 import kotlinx.android.synthetic.main.fragment_user_profile.*
+import org.jetbrains.anko.startActivity
+
 
 /**
  * Created by lizhaotailang on 2017/6/28.
@@ -37,6 +43,18 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
         initViews()
 
         mPresenter.subscribe()
+
+        following.setOnClickListener {
+            context.startActivity<FollowingActivity>(
+                    FollowingPresenter.EXTRA_USER_ID to mPresenter.getUserId(),
+                    FollowingPresenter.EXTRA_FOLLOWING_TITLE to following.text)
+        }
+
+        followers.setOnClickListener {
+            context.startActivity<FollowersActivity>(
+                    FollowersPresenter.EXTRA_USER_ID to mPresenter.getUserId(),
+                    FollowersPresenter.EXTRA_FOLLOWERS_TITLE to followers.text)
+        }
 
     }
 
@@ -83,6 +101,9 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
         } ?: run {
             user_info_location.visibility = View.GONE
         }
+
+        followers.text = getString(R.string.followers_formatted).format(user.followersCount)
+        following.text = getString(R.string.following_formatted).format(user.followingsCount)
 
         if (Build.VERSION.SDK_INT >= 24) {
             bio.text = Html.fromHtml(user.bio, Html.FROM_HTML_MODE_LEGACY)

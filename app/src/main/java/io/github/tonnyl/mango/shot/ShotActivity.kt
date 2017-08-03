@@ -20,7 +20,7 @@ class ShotActivity : AppCompatActivity() {
         setContentView(R.layout.container)
 
         savedInstanceState?.let {
-            mShotFragment = supportFragmentManager.getFragment(savedInstanceState, ShotFragment::class.java.simpleName) as ShotFragment
+            mShotFragment = supportFragmentManager.getFragment(it, ShotFragment::class.java.simpleName) as ShotFragment
         } ?: run {
             mShotFragment = ShotFragment.newInstance()
         }
@@ -29,7 +29,23 @@ class ShotActivity : AppCompatActivity() {
                 .add(R.id.container, mShotFragment, ShotFragment::class.java.simpleName)
                 .commit()
 
-        ShotPresenter(mShotFragment, intent.getParcelableExtra<Shot>(ShotPresenter.EXTRA_SHOT))
+        val isDeepLink = intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)
+        val shotId: Long
+        // hook the presenter
+        if (isDeepLink) {
+            var id = intent.extras.getString("id")
+            // https://dribbble.com/shots/3495164-Google-people and https://dribbble.com/shots/3495164
+            // are both valid
+            val dashIndex = if (id.isEmpty()) -1 else id.indexOf("-")
+            if (dashIndex != -1) {
+                id = id.substring(0, dashIndex)
+            }
+            shotId = id.toLong()
+            ShotPresenter(mShotFragment, shotId)
+        } else {
+            ShotPresenter(mShotFragment, intent.getParcelableExtra<Shot>(ShotPresenter.EXTRA_SHOT))
+        }
+
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {

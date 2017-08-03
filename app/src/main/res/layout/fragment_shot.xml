@@ -122,6 +122,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawableTop="@drawable/ic_favorite_black_24dp"
+                    android:text="@string/likes"
                     tools:text="12 Likes" />
 
                 <Button
@@ -131,6 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawableTop="@drawable/ic_views_black_24dp"
+                    android:text="@string/views"
                     tools:text="25 Views" />
 
                 <Button
@@ -140,6 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawableTop="@drawable/ic_comment_black_24dp"
+                    android:text="@string/comments"
                     tools:text="10 Comments" />
 
             </LinearLayout>

@@ -47,6 +47,14 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
+            android:name=".user.followers.FollowersActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".user.following.FollowingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".shot.likes.LikesActivity"
             android:label="@string/likes"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -65,6 +73,25 @@
             android:name=".about.license.LicensesActivity"
             android:label="@string/open_source_licenses"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".DeepLinkActivity"
+            android:theme="@android:style/Theme.NoDisplay">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="dribbble.com"
+                    android:pathPattern="/shots/.*"
+                    android:scheme="https" />
+
+            </intent-filter>
+
+        </activity>
 
     </application>
 

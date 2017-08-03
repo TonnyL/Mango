@@ -1,6 +1,8 @@
 package io.github.tonnyl.mango.data.local
 
 import android.content.Context
+import io.github.tonnyl.mango.data.Followee
+import io.github.tonnyl.mango.data.Follower
 import io.github.tonnyl.mango.data.User
 import io.github.tonnyl.mango.data.datasource.UserDataSource
 import io.github.tonnyl.mango.database.AppDatabase
@@ -8,13 +10,11 @@ import io.github.tonnyl.mango.database.DatabaseCreator
 import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.Body
-import javax.inject.Singleton
 
 /**
  * Created by lizhaotailang on 2017/6/28.
  */
 
-@Singleton
 object UserLocalDataSource: UserDataSource {
 
     private var mDatabase: AppDatabase? = null
@@ -79,6 +79,14 @@ object UserLocalDataSource: UserDataSource {
     }
 
     override fun unfollow(userId: Long): Observable<Response<Body>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun listFollowerOfUser(userId: Long): Observable<Response<List<Follower>>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun listFolloweeOfUser(userId: Long): Observable<Response<List<Followee>>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

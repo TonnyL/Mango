@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.internal.ForegroundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -12,7 +13,8 @@
     <ImageView
         android:id="@+id/avatar_drawee"
         android:layout_width="@dimen/avatar_width_secondary"
-        android:layout_height="@dimen/avatar_height_secondary" />
+        android:layout_height="@dimen/avatar_height_secondary"
+        android:src="@drawable/ic_avatar_placeholder" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,21 +32,24 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                tools:text="TonnyL" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
-                app:autoSizeTextType="uniform" />
+                app:autoSizeTextType="uniform"
+                tools:text="lizhaotailang" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/bio"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:text="Mango is an android app for dribbble.com" />
 
     </LinearLayout>
 

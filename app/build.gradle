@@ -49,6 +49,7 @@ ext {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+
     // Kotlin lib
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
@@ -61,6 +62,7 @@ dependencies {
     implementation "com.android.support:design:$supportLibVersion"
     implementation "com.android.support:preference-v14:$supportLibVersion"
     implementation "com.android.support:palette-v7:$supportLibVersion"
+    implementation "com.android.support:recyclerview-v7:$supportLibVersion"
 
     // ReactiveX series
     implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
@@ -92,7 +94,6 @@ dependencies {
     // Deeplink dispatch
     implementation "com.airbnb:deeplinkdispatch:$deeplinkDispatchVersion"
     kapt "com.airbnb:deeplinkdispatch-processor:$deeplinkDispatchVersion"
-
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

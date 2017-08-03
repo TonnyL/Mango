@@ -116,7 +116,7 @@ class LikesFragment : Fragment(), LikesContract.View {
     }
 
     override fun updateTitle(likeCount: Int) {
-        (activity as LikesActivity).title = getString(R.string.likes).format(likeCount)
+        (activity as LikesActivity).title = getString(R.string.likes_formatted).format(likeCount)
     }
 
     private fun initViews() {

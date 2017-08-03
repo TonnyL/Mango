@@ -1,6 +1,8 @@
 package io.github.tonnyl.mango.data.datasource
 
 import android.content.Context
+import io.github.tonnyl.mango.data.Followee
+import io.github.tonnyl.mango.data.Follower
 import io.github.tonnyl.mango.data.User
 import io.reactivex.Observable
 import retrofit2.Response
@@ -28,5 +30,9 @@ interface UserDataSource {
     fun follow(userId: Long): Observable<Response<Body>>
 
     fun unfollow(userId: Long): Observable<Response<Body>>
+
+    fun listFollowerOfUser(userId: Long): Observable<Response<List<Follower>>>
+
+    fun listFolloweeOfUser(userId: Long): Observable<Response<List<Followee>>>
 
 }

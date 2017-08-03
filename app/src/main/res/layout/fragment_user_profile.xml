@@ -90,12 +90,34 @@
                     android:id="@+id/user_info_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
                     android:layout_marginTop="@dimen/activity_vertical_margin_half"
                     android:drawablePadding="@dimen/activity_horizontal_margin"
                     android:drawableStart="@drawable/ic_location_black_24dp"
                     android:textColor="@color/colorPrimaryTextLight"
                     tools:text="Beijing, China" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_half">
+
+                    <TextView
+                        android:id="@+id/followers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimaryTextLight"
+                        tools:text="Followers 10" />
+
+                    <TextView
+                        android:id="@+id/following"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        android:textColor="@color/colorPrimaryTextLight"
+                        tools:text="Following 11" />
+
+                </LinearLayout>
 
             </LinearLayout>
 

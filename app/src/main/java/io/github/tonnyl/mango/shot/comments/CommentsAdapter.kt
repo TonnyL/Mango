@@ -29,19 +29,19 @@ class CommentsAdapter(context: Context, list: MutableList<Comment>) : RecyclerVi
     }
 
     override fun onBindViewHolder(holderFollower: RecyclerView.ViewHolder?, position: Int) {
-        val viewHolder = holderFollower as CommentViewHolder
         val comment = mList[position]
-        GlideLoader.loadAvatar(mContext, viewHolder.itemView.avatar_drawee, comment.user.avatarUrl)
+        with(holderFollower as CommentViewHolder) {
+            GlideLoader.loadAvatar(mContext, itemView.avatar_drawee, comment.user.avatarUrl)
 
-        viewHolder.itemView.comment_body.text = if (Build.VERSION.SDK_INT >= 24) {
-            Html.fromHtml(comment.body, Html.FROM_HTML_MODE_LEGACY)
-        } else {
-            Html.fromHtml(comment.body)
+            itemView.comment_body.text = if (Build.VERSION.SDK_INT >= 24) {
+                Html.fromHtml(comment.body, Html.FROM_HTML_MODE_LEGACY)
+            } else {
+                Html.fromHtml(comment.body)
+            }
+
+            itemView.user_name.text = comment.user.username
+            itemView.created_time.text = comment.createdAt.replace("T", " ").replace("Z", " ")
         }
-
-        viewHolder.itemView.user_name.text = comment.user.username
-        viewHolder.itemView.created_time.text = comment.createdAt.replace("T", " ").replace("Z", " ")
-
     }
 
     override fun getItemCount() = mList.size

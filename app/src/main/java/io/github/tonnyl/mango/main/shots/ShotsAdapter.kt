@@ -28,12 +28,13 @@ class ShotsAdapter(context: Context, list: MutableList<Shot>) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holderFollower: RecyclerView.ViewHolder?, position: Int) {
-        val viewHolder = holderFollower as ShotViewHolder
         val shot = mList[position]
-        GlideLoader.loadAvatar(mContext, viewHolder.itemView.avatar, shot.user?.avatarUrl)
-        GlideLoader.loadNormal(mContext, viewHolder.itemView.shot_image_view, shot.images.best())
-        viewHolder.itemView.tag_gif.visibility = if (shot.images.normal.endsWith(".gif")) View.VISIBLE else View.GONE
-        viewHolder.itemView.shot_title.text = mContext.getString(R.string.shot_title).format(shot.user?.name, shot.title)
+        with(holderFollower as ShotViewHolder) {
+            GlideLoader.loadAvatar(mContext, itemView.avatar, shot.user?.avatarUrl)
+            GlideLoader.loadNormal(mContext, itemView.shot_image_view, shot.images.best())
+            itemView.tag_gif.visibility = if (shot.images.normal.endsWith(".gif")) View.VISIBLE else View.GONE
+            itemView.shot_title.text = mContext.getString(R.string.shot_title).format(shot.user?.name, shot.title)
+        }
     }
 
     override fun getItemCount() = mList.size

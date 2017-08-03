@@ -16,8 +16,8 @@ import kotlinx.android.synthetic.main.item_simple_list_shots.view.*
 
 class LikedShotsAdapter(context: Context, list: MutableList<LikedShot>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var mContext = context
-    private var mList = list
+    private val mContext = context
+    private val mList = list
     private var mListener: ((View, Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
@@ -25,10 +25,11 @@ class LikedShotsAdapter(context: Context, list: MutableList<LikedShot>) : Recycl
     }
 
     override fun onBindViewHolder(holderFollower: RecyclerView.ViewHolder?, position: Int) {
-        val viewHolder = holderFollower as ShotLikeViewHolder
         val shotLike = mList[position]
-        viewHolder.itemView.tag_gif.visibility = if (shotLike.shot.images.normal.endsWith(".gif")) View.VISIBLE else View.GONE
-        GlideLoader.loadNormal(mContext, viewHolder.itemView.image_view, shotLike.shot.images.best())
+        with(holderFollower as ShotLikeViewHolder) {
+            itemView.tag_gif.visibility = if (shotLike.shot.images.normal.endsWith(".gif")) View.VISIBLE else View.GONE
+            GlideLoader.loadNormal(mContext, itemView.image_view, shotLike.shot.images.best())
+        }
     }
 
     override fun getItemCount() = mList.size

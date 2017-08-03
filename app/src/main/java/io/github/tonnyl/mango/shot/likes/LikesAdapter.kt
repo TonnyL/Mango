@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Like
 import io.github.tonnyl.mango.glide.GlideLoader
-import kotlinx.android.synthetic.main.item_like.view.*
+import kotlinx.android.synthetic.main.item_user.view.*
 
 
 /**
@@ -26,7 +26,7 @@ class LikesAdapter(context: Context, list: MutableList<Like>) : RecyclerView.Ada
     private var mClearData = false
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        return LikeViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_like, parent, false), mListener)
+        return LikeViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_user, parent, false), mListener)
     }
 
     override fun onBindViewHolder(holderFollower: RecyclerView.ViewHolder?, position: Int) {

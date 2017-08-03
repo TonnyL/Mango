@@ -23,9 +23,14 @@
     <string name="add_comment_hint">Add comment</string>
     <string name="shot_title">%1$s - %2$s</string>
 
-    <string name="comments">%1$d Comments</string>
-    <string name="likes">%1$d Likes</string>
-    <string name="views">%1$d Views</string>
+    <string name="likes">Likes</string>
+    <string name="comments">Comments</string>
+    <string name="views">Views</string>
+    <string name="comments_formatted">Comments %1$d</string>
+    <string name="likes_formatted">Likes %1$d</string>
+    <string name="views_formatted">Views %1$d</string>
+    <string name="followers_formatted">Followers %1$d</string>
+    <string name="following_formatted">Following %1$d</string>
 
     <string name="add_comment_failed">Add comment failed</string>
     <string name="copy_to_clipboard">Copy to clipboard</string>
@@ -35,8 +40,8 @@
     <string name="about">About</string>
     <string name="logout_message">Are you sure to log out?</string>
 
-    <string name="tab_title_shots">SHOTS (%1$d)</string>
-    <string name="tab_title_likes">LIKES (%1$d)</string>
+    <string name="tab_title_shots">SHOTS %1$d</string>
+    <string name="tab_title_likes">LIKES %1$d</string>
 
     <string name="version">Version</string>
     <string name="version_desc">1.0.0</string>

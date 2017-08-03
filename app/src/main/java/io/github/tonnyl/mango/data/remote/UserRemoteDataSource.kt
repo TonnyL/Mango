@@ -1,6 +1,8 @@
 package io.github.tonnyl.mango.data.remote
 
 import android.content.Context
+import io.github.tonnyl.mango.data.Followee
+import io.github.tonnyl.mango.data.Follower
 import io.github.tonnyl.mango.data.User
 import io.github.tonnyl.mango.data.datasource.UserDataSource
 import io.github.tonnyl.mango.retrofit.RetrofitClient
@@ -54,6 +56,14 @@ object UserRemoteDataSource : UserDataSource {
     }
 
     override fun unfollow(userId: Long): Observable<Response<Body>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun listFollowerOfUser(userId: Long): Observable<Response<List<Follower>>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun listFolloweeOfUser(userId: Long): Observable<Response<List<Followee>>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
