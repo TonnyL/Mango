@@ -2,8 +2,8 @@ package io.github.tonnyl.mango.data.repository
 
 import io.github.tonnyl.mango.data.LikedShot
 import io.github.tonnyl.mango.data.Shot
-import io.github.tonnyl.mango.main.shots.ShotsPagePresenter
 import io.github.tonnyl.mango.retrofit.*
+import io.github.tonnyl.mango.ui.main.shots.ShotsPagePresenter
 import io.github.tonnyl.mango.util.AccountManager
 import io.reactivex.Observable
 import retrofit2.Response

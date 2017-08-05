@@ -23,3 +23,36 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+
+# ===== Retrofit =====
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+# Platform calls Class.forName on types which do not exist on Android to determine platform.
+-dontnote retrofit2.Platform
+# Platform used when running on Java 8 VMs. Will not be used at runtime.
+-dontwarn retrofit2.Platform$Java8
+# Retain generic type information for use by reflection by converters and adapters.
+-keepattributes Signature
+# Retain declared checked exceptions for use by a Proxy instance.
+-keepattributes Exceptions
+
+# ===== DeepLinkDispatch =====
+-keep class com.airbnb.deeplinkdispatch.** { *; }
+-keepclasseswithmembers class * {
+     @com.airbnb.deeplinkdispatch.DeepLink <methods>;
+}
+
+# ===== Glide =====
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.AppGlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+
+# ===== FlexBox Layout =====
+# The FlexboxLayoutManager may be set from a layout xml, in that situation the RecyclerView
+# tries to instantiate the layout manager using reflection.
+# This is to prevent the layout manager from being obfuscated.
+-keep public class com.google.android.flexbox.FlexboxLayoutManager

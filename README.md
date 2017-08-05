@@ -5,10 +5,9 @@ Mango is an Android App for [Dribbble](https://dribbble.com/). Inspired by [Resp
 **STILL UNDER DEVELOPING**.
 
 ## Features
-+ Kotlin: Yes, fully written in Kotlin.
-+ Material Design: Maybe, trying my best but looking for a professional designer.
++ Kotlin and RxKotlin: Yes, fully written in Kotlin.
 + MVP architecture: Whole project is built on MVP architecture.
-+ RxKotlin: Yes.
++ Material Design: Trying my best. No bottom navigation bar🙈.
 + Deep link: Yes. Using [DeepLinkDispatch](https://github.com/airbnb/DeepLinkDispatch) from [Airbnb](https://github.com/airbnb).
 + Dependency injection: Yes, using [dagger2](https://github.com/google/dagger).
 + Usage of awesome libraries: [Anko common](https://github.com/Kotlin/anko), [Flexbox layout](https://github.com/google/flexbox-layout), [Glide](https://github.com/bumptech/glide), [Gson](https://github.com/google/gson), [Retrofit](https://github.com/square/retrofit), [Room](https://developer.android.com/topic/libraries/architecture/room.html).

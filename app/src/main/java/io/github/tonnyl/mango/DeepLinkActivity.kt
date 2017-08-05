@@ -1,7 +1,6 @@
 package io.github.tonnyl.mango
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import com.airbnb.deeplinkdispatch.DeepLinkHandler
 
@@ -12,13 +11,18 @@ import com.airbnb.deeplinkdispatch.DeepLinkHandler
 @DeepLinkHandler(MangoDeepLinkModule::class)
 class DeepLinkActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
+        // DeepLinkDelegate, MangoDeepLinkModuleLoader is generated at compile-time.
         val deepLinkDelegate = DeepLinkDelegate(MangoDeepLinkModuleLoader())
+
+        // Delegate the deep link handling to DeepLinkDispatch.
+        // It will start the correct Activity based on the incoming Intent URI
         deepLinkDelegate.dispatchFrom(this)
+
+        // Finish this Activity since the correct one has been just started
         finish()
 
     }
-
 }

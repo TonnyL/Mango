@@ -8,7 +8,7 @@
 
     <color name="colorPrimaryTextDark">#36393c</color>
     <color name="colorPrimaryTextLight">#000000</color>
-    <color name="colorSecondaryTextDark">#000000</color>
+    <color name="colorSecondaryTextDark">#939393</color>
     <color name="colorSecondaryTextLight">#ffffff</color>
 
 </resources>

@@ -37,12 +37,16 @@
     <string name="copied">Copied</string>
     <string name="gif">GIF</string>
     <string name="log_out">Log out</string>
-    <string name="about">About</string>
+    <string name="settings">Settings</string>
     <string name="logout_message">Are you sure to log out?</string>
 
     <string name="tab_title_shots">SHOTS %1$d</string>
     <string name="tab_title_likes">LIKES %1$d</string>
 
+    <string name="general">General</string>
+    <string name="clear_cache_desc">Cache size: %1$d MB</string>
+    <string name="clear_cache">Clear Cache</string>
+    <string name="about">About</string>
     <string name="version">Version</string>
     <string name="version_desc">1.0.0</string>
     <string name="open_source_licenses">Open Source Licenses</string>
@@ -62,5 +66,6 @@
     <string name="action_shot">action_shot</string>
     <string name="action_main">action_main</string>
     <string name="action_user">action_user</string>
+
 
 </resources>

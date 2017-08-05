@@ -14,11 +14,12 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".main.MainActivity"
+            android:name="io.github.tonnyl.mango.ui.main.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".auth.AuthActivity"
+        <activity
+            android:name="io.github.tonnyl.mango.ui.auth.AuthActivity"
             android:exported="true"
             android:finishOnTaskLaunch="true"
             android:launchMode="singleTop"
@@ -39,38 +40,39 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".shot.ShotActivity"
+        <activity
+            android:name="io.github.tonnyl.mango.ui.shot.ShotActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".user.UserProfileActivity"
+            android:name="io.github.tonnyl.mango.ui.user.UserProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".user.followers.FollowersActivity"
+            android:name="io.github.tonnyl.mango.ui.user.followers.FollowersActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".user.following.FollowingActivity"
+            android:name="io.github.tonnyl.mango.ui.user.following.FollowingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".shot.likes.LikesActivity"
+            android:name="io.github.tonnyl.mango.ui.shot.likes.LikesActivity"
             android:label="@string/likes"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".shot.comments.CommentsActivity"
+            android:name="io.github.tonnyl.mango.ui.shot.comments.CommentsActivity"
             android:label="@string/comments"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".about.AboutActivity"
-            android:label="@string/about"
+            android:name="io.github.tonnyl.mango.ui.settings.SettingsActivity"
+            android:label="@string/settings"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".about.license.LicensesActivity"
+            android:name="io.github.tonnyl.mango.ui.settings.license.LicensesActivity"
             android:label="@string/open_source_licenses"
             android:theme="@style/AppTheme.NoActionBar" />
 

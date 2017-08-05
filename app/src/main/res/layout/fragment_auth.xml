@@ -6,7 +6,7 @@
     android:background="@drawable/auth_background"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".auth.AuthActivity">
+    tools:context=".ui.auth.AuthActivity">
 
     <TextView
         android:layout_width="match_parent"

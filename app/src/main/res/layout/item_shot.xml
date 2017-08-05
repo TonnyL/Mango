@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -16,14 +16,14 @@
             android:layout_width="@dimen/avatar_width_secondary"
             android:layout_height="@dimen/avatar_height_secondary" />
 
-        <android.support.v7.widget.AppCompatTextView
+        <TextView
             android:id="@+id/shot_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:ellipsize="end"
             android:maxLines="2"
-            app:autoSizeTextType="uniform" />
+            tools:text="TonnyL Mango is an Android App for dribbble.com" />
 
     </LinearLayout>
 
