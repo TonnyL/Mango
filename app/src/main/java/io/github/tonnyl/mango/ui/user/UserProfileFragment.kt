@@ -12,7 +12,9 @@ import io.github.tonnyl.mango.ui.user.followers.FollowersActivity
 import io.github.tonnyl.mango.ui.user.followers.FollowersPresenter
 import io.github.tonnyl.mango.ui.user.following.FollowingActivity
 import io.github.tonnyl.mango.ui.user.following.FollowingPresenter
+import io.github.tonnyl.mango.util.Constants
 import kotlinx.android.synthetic.main.fragment_user_profile.*
+import org.jetbrains.anko.browse
 import org.jetbrains.anko.startActivity
 
 
@@ -23,6 +25,8 @@ import org.jetbrains.anko.startActivity
 class UserProfileFragment : Fragment(), UserProfileContract.View {
 
     private lateinit var mPresenter: UserProfileContract.Presenter
+    private var mFollowable = false
+    private var mIsFollowing = false
 
     companion object {
 
@@ -46,13 +50,13 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
 
         following.setOnClickListener {
             context.startActivity<FollowingActivity>(
-                    FollowingPresenter.EXTRA_USER_ID to mPresenter.getUserId(),
+                    FollowingPresenter.EXTRA_USER_ID to mPresenter.getUser().id,
                     FollowingPresenter.EXTRA_FOLLOWING_TITLE to following.text)
         }
 
         followers.setOnClickListener {
             context.startActivity<FollowersActivity>(
-                    FollowersPresenter.EXTRA_USER_ID to mPresenter.getUserId(),
+                    FollowersPresenter.EXTRA_USER_ID to mPresenter.getUser().id,
                     FollowersPresenter.EXTRA_FOLLOWERS_TITLE to followers.text)
         }
 
@@ -68,12 +72,27 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
         inflater?.inflate(R.menu.menu_user, menu)
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu?) {
+        super.onPrepareOptionsMenu(menu)
+        val menuItem = menu?.getItem(0)?.subMenu?.getItem(0)
+        menuItem?.isVisible = true
+        if (mIsFollowing) {
+            menuItem?.setIcon(R.drawable.ic_user_minus_black_24dp)
+            menuItem?.setTitle(R.string.unfollow)
+        } else {
+            menuItem?.setIcon(R.drawable.ic_user_plus_black_24dp)
+            menuItem?.setTitle(R.string.follow)
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val id = item?.itemId
         if (id == android.R.id.home) {
             activity.onBackPressed()
+        } else if (id == R.id.action_follow_unfollow) {
+            mPresenter.toggleFollow()
         } else if (id == R.id.action_open_in_browser) {
-
+            context.browse(Constants.DRIBBBLE_SITE_URL + mPresenter.getUser().username)
         }
         return true
     }
@@ -120,13 +139,21 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
 
     }
 
+    override fun setFollowing(isFollowing: Boolean) {
+        mIsFollowing = isFollowing
+    }
+
+    override fun setFollowable(followable: Boolean) {
+        mFollowable = followable
+    }
+
     private fun initViews() {
 
         val act = activity as UserProfileActivity
         act.setSupportActionBar(toolbar)
         act.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        view_pager.adapter = UserProfilePagerAdapter(context, mPresenter.getUserId(), childFragmentManager)
+        view_pager.adapter = UserProfilePagerAdapter(context, mPresenter.getUser(), childFragmentManager)
         view_pager.offscreenPageLimit = 2
 
         tab_layout.setupWithViewPager(view_pager)

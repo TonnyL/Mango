@@ -3,6 +3,8 @@ package io.github.tonnyl.mango.ui.shot.comments
 import io.github.tonnyl.mango.data.Shot
 import io.github.tonnyl.mango.data.repository.ShotRepository
 import io.github.tonnyl.mango.retrofit.ApiConstants
+import io.github.tonnyl.mango.util.AccountManager
+import io.github.tonnyl.mango.util.UserUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -33,6 +35,7 @@ class CommentsPresenter(view: CommentsContract.View, shot: Shot) : CommentsContr
     override fun subscribe() {
         fetchComments()
         mView.updateTitle(mShot.commentsCount)
+        mView.setEditorVisible(UserUtils.canUserComment(AccountManager.authenticatedUser))
     }
 
     override fun unsubscribe() {

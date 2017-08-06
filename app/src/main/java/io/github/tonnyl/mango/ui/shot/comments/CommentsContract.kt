@@ -21,6 +21,8 @@ interface CommentsContract {
 
         fun updateTitle(commentsCount: Int)
 
+        fun setEditorVisible(visible: Boolean)
+
     }
 
     interface Presenter: BasePresenter {

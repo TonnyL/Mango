@@ -12,11 +12,6 @@ class UserProfileActivity : AppCompatActivity() {
 
     private lateinit var mUserProfileFragment: UserProfileFragment
 
-    companion object {
-        @JvmField
-        val EXTRA_USER = "EXTRA_USER"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.container)
@@ -31,7 +26,7 @@ class UserProfileActivity : AppCompatActivity() {
                 .add(R.id.container, mUserProfileFragment, UserProfileFragment::class.java.simpleName)
                 .commit()
 
-        UserProfilePresenter(mUserProfileFragment, intent.getParcelableExtra(EXTRA_USER))
+        UserProfilePresenter(mUserProfileFragment, intent.getParcelableExtra(UserProfilePresenter.EXTRA_USER))
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {

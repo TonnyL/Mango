@@ -14,6 +14,7 @@ import io.github.tonnyl.mango.data.Shot
 import io.github.tonnyl.mango.ui.shot.ShotActivity
 import io.github.tonnyl.mango.ui.shot.ShotPresenter
 import io.github.tonnyl.mango.ui.user.UserProfileActivity
+import io.github.tonnyl.mango.ui.user.UserProfilePresenter
 import kotlinx.android.synthetic.main.fragment_simple_list.*
 import org.jetbrains.anko.startActivity
 
@@ -96,7 +97,7 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
 
                 override fun onAvatarClick(view: View, position: Int) {
                     results[position].user?.let {
-                        context.startActivity<UserProfileActivity>(UserProfileActivity.EXTRA_USER to it)
+                        context.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to it)
                     }
                 }
 

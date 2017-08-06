@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_common.*
 
 class LicensesActivity : AppCompatActivity() {
 
-    private var mLicensesFragment: LicensesFragment? = null
+    private lateinit var mLicensesFragment: LicensesFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +33,8 @@ class LicensesActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
                 .add(R.id.container, mLicensesFragment, LicensesFragment::class.java.simpleName)
                 .commit()
+
+        LicensesPresenter(mLicensesFragment)
 
     }
 

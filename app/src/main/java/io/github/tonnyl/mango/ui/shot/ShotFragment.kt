@@ -23,6 +23,7 @@ import io.github.tonnyl.mango.ui.shot.comments.CommentsPresenter
 import io.github.tonnyl.mango.ui.shot.likes.LikesActivity
 import io.github.tonnyl.mango.ui.shot.likes.LikesPresenter
 import io.github.tonnyl.mango.ui.user.UserProfileActivity
+import io.github.tonnyl.mango.ui.user.UserProfilePresenter
 import kotlinx.android.synthetic.main.fragment_shot.*
 import org.jetbrains.anko.runOnUiThread
 import org.jetbrains.anko.startActivity
@@ -162,7 +163,7 @@ class ShotFragment : Fragment(), ShotContract.View {
     }
 
     override fun navigateToUserProfile(user: User) {
-        context.startActivity<UserProfileActivity>(UserProfileActivity.EXTRA_USER to user)
+        context.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to user)
     }
 
     override fun navigateToComments(shot: Shot) {

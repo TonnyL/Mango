@@ -8,39 +8,44 @@ import com.google.gson.annotations.SerializedName
 /**
  * Created by lizhaotailang on 2017/6/30.
  *
- * {
+ * "images" : {
  * "hidpi" : null,
  * "normal" : "https://d13yacurqjgara.cloudfront.net/users/1/screenshots/471756/sasquatch.png",
  * "teaser" : "https://d13yacurqjgara.cloudfront.net/users/1/screenshots/471756/sasquatch_teaser.png"
  * }
  */
 
-class Images() : Parcelable {
+data class Images(
 
-    @SerializedName("hidpi")
-    @Expose
-    var hidpi: String? = null
+        @SerializedName("hidpi")
+        @Expose
+        var hidpi: String?,
 
-    @SerializedName("normal")
-    @Expose
-    var normal: String = ""
+        @SerializedName("normal")
+        @Expose
+        var normal: String,
 
-    @SerializedName("teaser")
-    @Expose
-    var teaser: String = ""
+        @SerializedName("teaser")
+        @Expose
+        var teaser: String
 
-    constructor(parcel: Parcel) : this() {
-        hidpi = parcel.readString()
-        normal = parcel.readString()
-        teaser = parcel.readString()
+) : Parcelable {
+
+
+    constructor(parcel: Parcel) : this(
+            hidpi = parcel.readString(),
+            normal = parcel.readString(),
+            teaser = parcel.readString()
+    )
+
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(hidpi)
+        parcel.writeString(normal)
+        parcel.writeString(teaser)
     }
 
-    fun best(): String {
-        hidpi?.let {
-            return it
-        }
-        return normal
-    }
+    override fun describeContents() = 0
 
     companion object CREATOR : Parcelable.Creator<Images> {
         override fun createFromParcel(parcel: Parcel): Images {
@@ -52,14 +57,11 @@ class Images() : Parcelable {
         }
     }
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(hidpi)
-        parcel.writeString(normal)
-        parcel.writeString(teaser)
-    }
-
-    override fun describeContents(): Int {
-        return 0
+    fun best(): String {
+        hidpi?.let {
+            return it
+        }
+        return normal
     }
 
 }

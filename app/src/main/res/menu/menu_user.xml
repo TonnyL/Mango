@@ -15,6 +15,13 @@
             <group android:checkableBehavior="none">
 
                 <item
+                    android:id="@+id/action_follow_unfollow"
+                    android:icon="@drawable/ic_user_plus_black_24dp"
+                    android:orderInCategory="1"
+                    android:title="@string/follow"
+                    app:showAsAction="never" />
+
+                <item
                     android:id="@+id/action_open_in_browser"
                     android:icon="@drawable/ic_open_in_browser_black_24dp"
                     android:orderInCategory="2"

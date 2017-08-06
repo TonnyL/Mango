@@ -66,6 +66,8 @@
     <string name="action_shot">action_shot</string>
     <string name="action_main">action_main</string>
     <string name="action_user">action_user</string>
+    <string name="follow">Follow</string>
+    <string name="unfollow">Unfollow</string>
 
 
 </resources>

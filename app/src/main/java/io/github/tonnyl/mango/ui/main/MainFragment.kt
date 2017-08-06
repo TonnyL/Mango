@@ -10,6 +10,7 @@ import io.github.tonnyl.mango.glide.GlideLoader
 import io.github.tonnyl.mango.ui.auth.AuthActivity
 import io.github.tonnyl.mango.ui.settings.SettingsActivity
 import io.github.tonnyl.mango.ui.user.UserProfileActivity
+import io.github.tonnyl.mango.ui.user.UserProfilePresenter
 import io.github.tonnyl.mango.util.AccountManager
 import kotlinx.android.synthetic.main.fragment_shots.*
 import org.jetbrains.anko.clearTask
@@ -46,7 +47,7 @@ class MainFragment : Fragment(), MainContract.View {
 
         user_info_layout.setOnClickListener {
             AccountManager.authenticatedUser?.let {
-                context.startActivity<UserProfileActivity>(UserProfileActivity.EXTRA_USER to it)
+                context.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to it)
             }
         }
 

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Follower
 import io.github.tonnyl.mango.ui.user.UserProfileActivity
+import io.github.tonnyl.mango.ui.user.UserProfilePresenter
 import kotlinx.android.synthetic.main.fragment_simple_list.*
 import org.jetbrains.anko.startActivity
 
@@ -60,7 +61,7 @@ class FollowersFragment : Fragment(), FollowersContract.View {
         mAdapter?.notifyDataSetChanged() ?: run {
             mAdapter = FollowersAdapter(context, followers)
             mAdapter?.setOnItemClickListener { _, position ->
-                context.startActivity<UserProfileActivity>(UserProfileActivity.EXTRA_USER to followers[position].follower)
+                context.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to followers[position].follower)
             }
             recycler_view.adapter = mAdapter
         }

@@ -14,6 +14,7 @@ import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Comment
 import io.github.tonnyl.mango.glide.GlideLoader
 import io.github.tonnyl.mango.ui.user.UserProfileActivity
+import io.github.tonnyl.mango.ui.user.UserProfilePresenter
 import io.github.tonnyl.mango.util.AccountManager
 import kotlinx.android.synthetic.main.fragment_comments.*
 import org.jetbrains.anko.startActivity
@@ -108,7 +109,7 @@ class CommentsFragment : Fragment(), CommentsContract.View {
         mCommentsAdapter?.updateData(comments) ?: run {
             mCommentsAdapter = CommentsAdapter(context, comments)
             mCommentsAdapter?.setOnAvatarClickListener { _, position ->
-                context.startActivity<UserProfileActivity>(UserProfileActivity.EXTRA_USER to comments[position].user)
+                context.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to comments[position].user)
             }
             recycler_view.adapter = mCommentsAdapter
         }
@@ -125,6 +126,10 @@ class CommentsFragment : Fragment(), CommentsContract.View {
 
     override fun updateTitle(commentsCount: Int) {
         (activity as CommentsActivity).title = getString(R.string.comments_formatted).format(commentsCount)
+    }
+
+    override fun setEditorVisible(visible: Boolean) {
+        layout_add_comment.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
     private fun initViews() {

@@ -113,144 +113,136 @@ import com.google.gson.annotations.SerializedName
  * }
  */
 
-class Shot() : Parcelable {
+data class Shot(
 
-    @SerializedName("id")
-    var id: Long = 0L
+        @SerializedName("id")
+        var id: Long,
 
-    @SerializedName("title")
-    @Expose
-    var title: String = ""
+        @SerializedName("title")
+        @Expose
+        var title: String,
 
-    @SerializedName("description")
-    @Expose
-    var description: String? = ""
+        @SerializedName("description")
+        @Expose
+        var description: String?,
 
-    @SerializedName("width")
-    @Expose
-    var width: Int = 0
+        @SerializedName("width")
+        @Expose
+        var width: Int,
 
-    @SerializedName("height")
-    @Expose
-    var height: Int = 0
+        @SerializedName("height")
+        @Expose
+        var height: Int,
 
-    @SerializedName("images")
-    @Expose
-    var images: Images = Images()
+        @SerializedName("images")
+        @Expose
+        var images: Images,
 
-    @SerializedName("views_count")
-    @Expose
-    var viewsCount: Int = 0
+        @SerializedName("views_count")
+        @Expose
+        var viewsCount: Int,
 
-    @SerializedName("likes_count")
-    @Expose
-    var likesCount: Int = 0
+        @SerializedName("likes_count")
+        @Expose
+        var likesCount: Int,
 
-    @SerializedName("comments_count")
-    @Expose
-    var commentsCount: Int = 0
+        @SerializedName("comments_count")
+        @Expose
+        var commentsCount: Int,
 
-    @SerializedName("attachments_count")
-    @Expose
-    var attachmentsCount: Int = 0
+        @SerializedName("attachments_count")
+        @Expose
+        var attachmentsCount: Int,
 
-    @SerializedName("rebounds_count")
-    @Expose
-    var reboundsCount: Int = 0
+        @SerializedName("rebounds_count")
+        @Expose
+        var reboundsCount: Int,
 
-    @SerializedName("buckets_count")
-    @Expose
-    var bucketsCount: Int = 0
+        @SerializedName("buckets_count")
+        @Expose
+        var bucketsCount: Int,
 
-    @SerializedName("created_at")
-    @Expose
-    var createdAt: String = ""
+        @SerializedName("created_at")
+        @Expose
+        var createdAt: String,
 
-    @SerializedName("updated_at")
-    @Expose
-    var updatedAt: String = ""
+        @SerializedName("updated_at")
+        @Expose
+        var updatedAt: String,
 
-    @SerializedName("html_url")
-    @Expose
-    var htmlUrl: String = ""
+        @SerializedName("html_url")
+        @Expose
+        var htmlUrl: String,
 
-    @SerializedName("attachments_url")
-    @Expose
-    var attachmentsUrl: String = ""
+        @SerializedName("attachments_url")
+        @Expose
+        var attachmentsUrl: String,
 
-    @SerializedName("buckets_url")
-    @Expose
-    var bucketsUrl: String = ""
+        @SerializedName("buckets_url")
+        @Expose
+        var bucketsUrl: String,
 
-    @SerializedName("comments_url")
-    @Expose
-    var commentsUrl: String = ""
+        @SerializedName("comments_url")
+        @Expose
+        var commentsUrl: String,
 
-    @SerializedName("likes_url")
-    @Expose
-    var likesUrl: String = ""
+        @SerializedName("likes_url")
+        @Expose
+        var likesUrl: String,
 
-    @SerializedName("projects_url")
-    @Expose
-    var projectsUrl: String = ""
+        @SerializedName("projects_url")
+        @Expose
+        var projectsUrl: String,
 
-    @SerializedName("rebounds_url")
-    @Expose
-    var reboundsUrl: String = ""
+        @SerializedName("rebounds_url")
+        @Expose
+        var reboundsUrl: String,
 
-    @SerializedName("animated")
-    @Expose
-    var animated: Boolean = false
+        @SerializedName("animated")
+        @Expose
+        var animated: Boolean,
 
-    @SerializedName("tags")
-    @Expose
-    var tags: List<String> = emptyList()
+        @SerializedName("tags")
+        @Expose
+        var tags: List<String>,
 
-    @SerializedName("user")
-    @Expose
-    var user: User? = User()
+        @SerializedName("user")
+        @Expose
+        var user: User?,
 
-    @SerializedName("team")
-    @Expose
-    var team: Team? = Team()
+        @SerializedName("team")
+        @Expose
+        var team: Team?
 
-    constructor(parcel: Parcel) : this() {
-        id = parcel.readLong()
-        title = parcel.readString()
-        description = parcel.readString()
-        width = parcel.readInt()
-        height = parcel.readInt()
-        images = parcel.readParcelable(Images::class.java.classLoader)
-        viewsCount = parcel.readInt()
-        likesCount = parcel.readInt()
-        commentsCount = parcel.readInt()
-        attachmentsCount = parcel.readInt()
-        reboundsCount = parcel.readInt()
-        bucketsCount = parcel.readInt()
-        createdAt = parcel.readString()
-        updatedAt = parcel.readString()
-        htmlUrl = parcel.readString()
-        attachmentsUrl = parcel.readString()
-        bucketsUrl = parcel.readString()
-        commentsUrl = parcel.readString()
-        likesUrl = parcel.readString()
-        projectsUrl = parcel.readString()
-        reboundsUrl = parcel.readString()
-        animated = parcel.readByte() != 0.toByte()
-        tags = parcel.createStringArrayList()
-        user = parcel.readParcelable(User::class.java.classLoader)
-        team = parcel.readParcelable(Team::class.java.classLoader)
-    }
+) : Parcelable {
 
-    companion object CREATOR : Parcelable.Creator<Shot> {
-        override fun createFromParcel(parcel: Parcel): Shot {
-            return Shot(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Shot?> {
-            return arrayOfNulls(size)
-        }
-    }
+    constructor(parcel: Parcel) : this(
+            id = parcel.readLong(),
+            title = parcel.readString(),
+            description = parcel.readString(),
+            width = parcel.readInt(),
+            height = parcel.readInt(),
+            images = parcel.readParcelable(Images::class.java.classLoader),
+            viewsCount = parcel.readInt(),
+            likesCount = parcel.readInt(),
+            commentsCount = parcel.readInt(),
+            attachmentsCount = parcel.readInt(),
+            reboundsCount = parcel.readInt(),
+            bucketsCount = parcel.readInt(),
+            createdAt = parcel.readString(),
+            updatedAt = parcel.readString(),
+            htmlUrl = parcel.readString(),
+            attachmentsUrl = parcel.readString(),
+            bucketsUrl = parcel.readString(),
+            commentsUrl = parcel.readString(),
+            likesUrl = parcel.readString(),
+            projectsUrl = parcel.readString(),
+            reboundsUrl = parcel.readString(),
+            animated = parcel.readByte() != 0.toByte(),
+            tags = parcel.createStringArrayList(),
+            user = parcel.readParcelable(User::class.java.classLoader),
+            team = parcel.readParcelable(Team::class.java.classLoader)
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(id)
@@ -280,8 +272,16 @@ class Shot() : Parcelable {
         parcel.writeParcelable(team, flags)
     }
 
-    override fun describeContents(): Int {
-        return 0
+    override fun describeContents() = 0
+
+    companion object CREATOR : Parcelable.Creator<Shot> {
+        override fun createFromParcel(parcel: Parcel): Shot {
+            return Shot(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Shot?> {
+            return arrayOfNulls(size)
+        }
     }
 
 }

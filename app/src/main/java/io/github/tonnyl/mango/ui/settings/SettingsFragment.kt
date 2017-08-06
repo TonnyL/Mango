@@ -5,8 +5,10 @@ import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceFragmentCompat
 import android.view.View
 import io.github.tonnyl.mango.R
+import io.github.tonnyl.mango.ui.settings.license.LicensesActivity
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.email
+import org.jetbrains.anko.startActivity
 
 /**
  * Created by lizhaotailang on 2017/7/21.
@@ -33,6 +35,11 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
         val clearCachePreference = findPreference("clear_cache")
         clearCachePreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             mPresenter.clearCache(activity)
+            true
+        }
+
+        findPreference("open_source_licenses").onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            context.startActivity<LicensesActivity>()
             true
         }
 

@@ -16,7 +16,9 @@
             android:summary="@string/version_desc"
             android:title="@string/version" />
 
-        <Preference android:title="@string/open_source_licenses" />
+        <Preference
+            android:key="open_source_licenses"
+            android:title="@string/open_source_licenses" />
 
     </PreferenceCategory>
 

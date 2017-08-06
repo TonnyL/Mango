@@ -1,0 +1,17 @@
+package io.github.tonnyl.mango.util
+
+import io.github.tonnyl.mango.data.User
+
+/**
+ * Created by lizhaotailang on 2017/8/6.
+ */
+class UserUtils {
+
+    companion object {
+        @JvmStatic
+        fun canUserComment(user: User?): Boolean {
+            return (user != null) && ("Player" == user.type || "Team" == user.type)
+        }
+    }
+
+}

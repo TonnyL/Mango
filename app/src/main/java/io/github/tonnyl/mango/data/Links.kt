@@ -8,6 +8,11 @@ import com.google.gson.annotations.SerializedName
 
 /**
  * Created by lizhaotailang on 2017/6/26.
+ *
+ * "links" : {
+ * "web" : "http://simplebits.com",
+ * "twitter" : "https://twitter.com/simplebits"
+ * }
  */
 
 class Links() : Parcelable {
@@ -27,6 +32,13 @@ class Links() : Parcelable {
         twitter = parcel.readString()
     }
 
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(web)
+        parcel.writeString(twitter)
+    }
+
+    override fun describeContents() = 0
+
     companion object CREATOR : Parcelable.Creator<Links> {
         override fun createFromParcel(parcel: Parcel): Links {
             return Links(parcel)
@@ -35,15 +47,6 @@ class Links() : Parcelable {
         override fun newArray(size: Int): Array<Links?> {
             return arrayOfNulls(size)
         }
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(web)
-        parcel.writeString(twitter)
-    }
-
-    override fun describeContents(): Int {
-        return 0
     }
 
 }

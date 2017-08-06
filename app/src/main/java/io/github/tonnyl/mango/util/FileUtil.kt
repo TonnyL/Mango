@@ -9,6 +9,7 @@ import java.io.File
 class FileUtil {
 
     companion object {
+        @JvmStatic
         fun dirSize(dir: File?): Long {
             dir?.let {
                 var result: Long = 0L

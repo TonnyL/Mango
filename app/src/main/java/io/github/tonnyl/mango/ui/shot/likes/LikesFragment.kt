@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Like
 import io.github.tonnyl.mango.ui.user.UserProfileActivity
+import io.github.tonnyl.mango.ui.user.UserProfilePresenter
 import kotlinx.android.synthetic.main.fragment_simple_list.*
 import org.jetbrains.anko.startActivity
 
@@ -98,7 +99,7 @@ class LikesFragment : Fragment(), LikesContract.View {
         mAdapter?.updateData(likes) ?: run {
             mAdapter = LikesAdapter(context, likes)
             mAdapter?.setOnItemClickListener { _, position ->
-                context.startActivity<UserProfileActivity>(UserProfileActivity.EXTRA_USER to likes[position].user)
+                context.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to likes[position].user)
             }
             recycler_view.adapter = mAdapter
         }

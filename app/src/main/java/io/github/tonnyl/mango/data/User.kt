@@ -11,6 +11,7 @@ import com.google.gson.annotations.SerializedName
 
 /**
  * Created by lizhaotailang on 2017/6/25.
+ *
  * {
  * "id" : 1,
  * "name" : "Dan Cederholm",
@@ -228,16 +229,6 @@ class User() : Parcelable {
         id = parcel.readLong()
     }
 
-    companion object CREATOR : Parcelable.Creator<User> {
-        override fun createFromParcel(parcel: Parcel): User {
-            return User(parcel)
-        }
-
-        override fun newArray(size: Int): Array<User?> {
-            return arrayOfNulls(size)
-        }
-    }
-
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)
         parcel.writeString(username)
@@ -270,8 +261,16 @@ class User() : Parcelable {
         parcel.writeLong(id)
     }
 
-    override fun describeContents(): Int {
-        return 0
+    override fun describeContents() = 0
+
+    companion object CREATOR : Parcelable.Creator<User> {
+        override fun createFromParcel(parcel: Parcel): User {
+            return User(parcel)
+        }
+
+        override fun newArray(size: Int): Array<User?> {
+            return arrayOfNulls(size)
+        }
     }
 
 }

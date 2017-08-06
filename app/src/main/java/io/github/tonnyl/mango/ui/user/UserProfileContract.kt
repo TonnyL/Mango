@@ -13,6 +13,10 @@ interface UserProfileContract {
 
         fun showUserInfo(user: User)
 
+        fun setFollowable(followable: Boolean)
+
+        fun setFollowing(isFollowing: Boolean)
+
     }
 
     interface Presenter : BasePresenter {
@@ -21,7 +25,7 @@ interface UserProfileContract {
 
         fun toggleFollow()
 
-        fun getUserId(): Long
+        fun getUser(): User
 
     }
 
