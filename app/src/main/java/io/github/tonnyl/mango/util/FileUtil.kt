@@ -4,11 +4,15 @@ import java.io.File
 
 /**
  * Created by lizhaotailang on 2017/8/5.
+ *
+ * A collection of some usable functions.
  */
 
 class FileUtil {
 
     companion object {
+
+        // To get the size of glide cache files.
         @JvmStatic
         fun dirSize(dir: File?): Long {
             dir?.let {

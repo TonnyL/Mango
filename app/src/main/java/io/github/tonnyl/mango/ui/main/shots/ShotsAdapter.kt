@@ -2,6 +2,7 @@ package io.github.tonnyl.mango.ui.main.shots
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,12 +29,14 @@ class ShotsAdapter(context: Context, list: MutableList<Shot>) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holderFollower: RecyclerView.ViewHolder?, position: Int) {
-        val shot = mList[position]
-        with(holderFollower as ShotViewHolder) {
-            GlideLoader.loadAvatar(mContext, itemView.avatar, shot.user?.avatarUrl)
-            GlideLoader.loadNormal(mContext, itemView.shot_image_view, shot.images.best())
-            itemView.tag_gif.visibility = if (shot.images.normal.endsWith(".gif")) View.VISIBLE else View.GONE
-            itemView.shot_title.text = mContext.getString(R.string.shot_title).format(shot.user?.name, shot.title)
+        if (position <= mList.size) {
+            val shot = mList[position]
+            with(holderFollower as ShotViewHolder) {
+                GlideLoader.loadAvatar(mContext, itemView.avatar, shot.user?.avatarUrl)
+                GlideLoader.loadNormal(mContext, itemView.shot_image_view, shot.images.best())
+                itemView.tag_gif.visibility = if (shot.images.normal.endsWith(".gif")) View.VISIBLE else View.GONE
+                itemView.shot_title.text = mContext.getString(R.string.shot_title).format(shot.user?.name, shot.title)
+            }
         }
     }
 
@@ -49,8 +52,9 @@ class ShotsAdapter(context: Context, list: MutableList<Shot>) : RecyclerView.Ada
             notifyItemRangeRemoved(0, mList.size)
             mClearData = false
         }
+        Log.d("add", "!!!")
         mList.addAll(list)
-        notifyDataSetChanged()
+        notifyItemRangeInserted(mList.size - list.size, list.size)
     }
 
     fun clearData() {

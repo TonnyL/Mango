@@ -7,6 +7,8 @@ import io.github.tonnyl.mango.mvp.BaseView
 
 /**
  * Created by lizhaotailang on 2017/6/28.
+ *
+ * This specifies the contract between the view and the presenter.
  */
 interface ShotContract {
 
@@ -26,6 +28,10 @@ interface ShotContract {
 
         fun navigateToLikes(shot: Shot)
 
+        fun openInBrowser(url: String)
+
+        fun share(url: String)
+
     }
 
     interface Presenter : BasePresenter {
@@ -37,6 +43,10 @@ interface ShotContract {
         fun navigateToComments()
 
         fun navigateToLikes()
+
+        fun share()
+
+        fun openInBrowser()
 
     }
 

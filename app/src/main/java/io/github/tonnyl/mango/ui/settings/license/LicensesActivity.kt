@@ -7,6 +7,8 @@ import kotlinx.android.synthetic.main.activity_common.*
 
 /**
  * Created by lizhaotailang on 2017/7/21.
+ *
+ * Show the open source licenses.
  */
 
 class LicensesActivity : AppCompatActivity() {
@@ -30,9 +32,11 @@ class LicensesActivity : AppCompatActivity() {
             mLicensesFragment = LicensesFragment.newInstance()
         }
 
-        supportFragmentManager.beginTransaction()
-                .add(R.id.container, mLicensesFragment, LicensesFragment::class.java.simpleName)
-                .commit()
+        if (!mLicensesFragment.isAdded) {
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.container, mLicensesFragment, LicensesFragment::class.java.simpleName)
+                    .commit()
+        }
 
         LicensesPresenter(mLicensesFragment)
 
@@ -40,10 +44,8 @@ class LicensesActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        mLicensesFragment?.let {
-            if (it.isAdded) {
-                supportFragmentManager.putFragment(outState, LicensesFragment::class.java.simpleName, it)
-            }
+        if (mLicensesFragment.isAdded) {
+            supportFragmentManager.putFragment(outState, LicensesFragment::class.java.simpleName, mLicensesFragment)
         }
     }
 

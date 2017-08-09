@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.util.AccountManager
 
+/**
+ * Show the homepage view.
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainFragment: MainFragment
@@ -14,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.container)
 
         savedInstanceState?.let {
-            mainFragment = fragmentManager.getFragment(it, MainFragment::class.java.simpleName) as MainFragment
+            mainFragment = supportFragmentManager.getFragment(it, MainFragment::class.java.simpleName) as MainFragment
         } ?: run {
             mainFragment = MainFragment.newInstance()
         }
@@ -23,9 +26,11 @@ class MainActivity : AppCompatActivity() {
             AccountManager.init(this)
         }
 
-        supportFragmentManager.beginTransaction()
-                .add(R.id.container, mainFragment, MainFragment::class.java.simpleName)
-                .commit()
+        if (!mainFragment.isAdded) {
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.container, mainFragment, MainFragment::class.java.simpleName)
+                    .commit()
+        }
 
         MainPresenter(mainFragment)
 

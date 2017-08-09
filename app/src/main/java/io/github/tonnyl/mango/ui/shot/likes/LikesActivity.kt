@@ -7,6 +7,8 @@ import kotlinx.android.synthetic.main.activity_common.*
 
 /**
  * Created by lizhaotailang on 2017/7/3.
+ *
+ * Show [io.github.tonnyl.mango.data.Like]s of a shot.
  */
 class LikesActivity : AppCompatActivity() {
 

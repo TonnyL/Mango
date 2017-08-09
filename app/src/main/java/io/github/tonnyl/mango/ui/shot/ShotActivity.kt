@@ -9,6 +9,7 @@ import io.github.tonnyl.mango.data.Shot
 /**
  * Created by lizhaotailang on 2017/6/28.
  *
+ * Show the details of a [io.github.tonnyl.mango.data.Shot].
  */
 
 @DeepLink("https://dribbble.com/shots/{id}")
@@ -26,9 +27,11 @@ class ShotActivity : AppCompatActivity() {
             mShotFragment = ShotFragment.newInstance()
         }
 
-        supportFragmentManager.beginTransaction()
-                .add(R.id.container, mShotFragment, ShotFragment::class.java.simpleName)
-                .commit()
+        if (!mShotFragment.isAdded) {
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.container, mShotFragment, ShotFragment::class.java.simpleName)
+                    .commit()
+        }
 
         val isDeepLink = intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)
         val shotId: Long

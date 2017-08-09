@@ -7,6 +7,8 @@ import kotlinx.android.synthetic.main.activity_common.*
 
 /**
  * Created by lizhaotailang on 2017/7/22.
+ *
+ * Show [io.github.tonnyl.mango.data.Comment]s of a shot.
  */
 
 class CommentsActivity : AppCompatActivity() {

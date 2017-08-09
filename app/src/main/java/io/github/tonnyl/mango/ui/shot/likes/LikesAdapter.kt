@@ -1,9 +1,7 @@
 package io.github.tonnyl.mango.ui.shot.likes
 
 import android.content.Context
-import android.os.Build
 import android.support.v7.widget.RecyclerView
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,20 +24,15 @@ class LikesAdapter(context: Context, list: MutableList<Like>) : RecyclerView.Ada
     private var mClearData = false
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        return LikeViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_user, parent, false), mListener)
+        return LikeViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_like, parent, false), mListener)
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder?, position: Int) {
         val like = mList[position]
         with(viewHolder as LikeViewHolder) {
-            GlideLoader.loadAvatar(mContext, itemView.avatar_drawee, like.user.avatarUrl)
+            GlideLoader.loadAvatar(mContext, itemView.avatar, like.user.avatarUrl)
             itemView.name.text = like.user.name
             itemView.user_name.text = like.user.username
-            itemView.bio.text = if (Build.VERSION.SDK_INT >= 24) {
-                Html.fromHtml(like.user.bio, Html.FROM_HTML_MODE_LEGACY)
-            } else {
-                Html.fromHtml(like.user.bio)
-            }
         }
     }
 

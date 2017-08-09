@@ -7,6 +7,8 @@ import kotlinx.android.synthetic.main.activity_common.*
 
 /**
  * Created by lizhaotailang on 2017/8/3.
+ *
+ * Show [io.github.tonnyl.mango.data.Follower]s of a [io.github.tonnyl.mango.data.User].
  */
 class FollowersActivity : AppCompatActivity() {
 
@@ -26,9 +28,11 @@ class FollowersActivity : AppCompatActivity() {
             mFollowersFragment = FollowersFragment.newInstance()
         }
 
-        supportFragmentManager.beginTransaction()
-                .add(R.id.container, mFollowersFragment, FollowersFragment::class.java.simpleName)
-                .commit()
+        if (!mFollowersFragment.isAdded) {
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.container, mFollowersFragment, FollowersFragment::class.java.simpleName)
+                    .commit()
+        }
 
         FollowersPresenter(mFollowersFragment, intent.getLongExtra(FollowersPresenter.EXTRA_USER_ID, 0L))
     }

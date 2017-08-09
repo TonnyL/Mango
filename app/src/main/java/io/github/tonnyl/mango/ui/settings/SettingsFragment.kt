@@ -3,6 +3,7 @@ package io.github.tonnyl.mango.ui.settings
 import android.os.Bundle
 import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceFragmentCompat
+import android.view.MenuItem
 import android.view.View
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.ui.settings.license.LicensesActivity
@@ -12,6 +13,8 @@ import org.jetbrains.anko.startActivity
 
 /**
  * Created by lizhaotailang on 2017/7/21.
+ *
+ * Main ui for the settings screen.
  */
 
 class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
@@ -48,6 +51,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
             true
         }
 
+        findPreference("follow_on_github").onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            context.browse(getString(R.string.follow_me_on_github_desc), true)
+        }
+
         findPreference("source_code").onPreferenceClickListener = Preference.OnPreferenceClickListener {
             context.browse(getString(R.string.source_code_desc), true)
             true
@@ -67,6 +74,13 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
     override fun onDestroyView() {
         super.onDestroyView()
         mPresenter.unsubscribe()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == android.R.id.home) {
+            activity.onBackPressed()
+        }
+        return true
     }
 
     override fun setPresenter(presenter: SettingsContract.Presenter) {

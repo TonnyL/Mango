@@ -14,16 +14,18 @@
         <ImageView
             android:id="@+id/avatar"
             android:layout_width="@dimen/avatar_width_secondary"
-            android:layout_height="@dimen/avatar_height_secondary" />
+            android:layout_height="@dimen/avatar_height_secondary"
+            tools:src="@drawable/ic_avatar_placeholder" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/shot_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:ellipsize="end"
             android:maxLines="2"
-            tools:text="TonnyL Mango is an Android App for dribbble.com" />
+            android:textColor="@color/colorPrimaryText"
+            tools:text="TonnyL - Mango is an Android App for dribbble.com" />
 
     </LinearLayout>
 

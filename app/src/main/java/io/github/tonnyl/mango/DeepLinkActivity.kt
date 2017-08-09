@@ -6,6 +6,10 @@ import com.airbnb.deeplinkdispatch.DeepLinkHandler
 
 /**
  * Created by lizhaotailang on 2017/7/31.
+ *
+ * The activity with the scheme you'd like to handle in your `AndroidManifest.xml` file
+ * Annotate it with [DeepLinkHandler] and provide a list of [com.airbnb.deeplinkdispatch.DeepLinkModule]
+ * annotated class(es).
  */
 
 @DeepLinkHandler(MangoDeepLinkModule::class)

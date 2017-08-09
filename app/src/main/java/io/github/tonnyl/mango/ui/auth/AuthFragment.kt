@@ -23,6 +23,8 @@ import org.jetbrains.anko.newTask
 
 /**
  * Created by lizhaotailang on 2017/6/24.
+ *
+ * Main ui for the authentication screen.
  */
 
 class AuthFragment : Fragment(), AuthContract.View {

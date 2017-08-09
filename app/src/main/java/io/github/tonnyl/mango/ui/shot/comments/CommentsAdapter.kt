@@ -31,7 +31,7 @@ class CommentsAdapter(context: Context, list: MutableList<Comment>) : RecyclerVi
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder?, position: Int) {
         val comment = mList[position]
         with(viewHolder as CommentViewHolder) {
-            GlideLoader.loadAvatar(mContext, itemView.avatar_drawee, comment.user.avatarUrl)
+            GlideLoader.loadAvatar(mContext, itemView.avatar, comment.user.avatarUrl)
 
             itemView.comment_body.text = if (Build.VERSION.SDK_INT >= 24) {
                 Html.fromHtml(comment.body, Html.FROM_HTML_MODE_LEGACY)
@@ -39,6 +39,7 @@ class CommentsAdapter(context: Context, list: MutableList<Comment>) : RecyclerVi
                 Html.fromHtml(comment.body)
             }
 
+            itemView.name.text = comment.user.name
             itemView.user_name.text = comment.user.username
             itemView.created_time.text = comment.createdAt.replace("T", " ").replace("Z", " ")
         }
@@ -69,7 +70,7 @@ class CommentsAdapter(context: Context, list: MutableList<Comment>) : RecyclerVi
         val mListener = listener
 
         init {
-            itemView.avatar_drawee.setOnClickListener({ view ->
+            itemView.avatar.setOnClickListener({ view ->
                 if (mListener != null && view != null) {
                     mListener.invoke(view, layoutPosition)
                 }

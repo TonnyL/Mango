@@ -6,6 +6,8 @@ import io.github.tonnyl.mango.mvp.BaseView
 
 /**
  * Created by lizhaotailang on 2017/6/29.
+ *
+ * This specifies the contract between the view and the presenter.
  */
 
 interface ShotsPageContract {
@@ -25,6 +27,8 @@ interface ShotsPageContract {
     interface Presenter: BasePresenter {
 
         fun listShots()
+
+        fun listMoreShots()
 
     }
 

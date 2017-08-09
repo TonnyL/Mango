@@ -7,6 +7,9 @@ import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by lizhaotailang on 2017/7/19.
+ *
+ * Listens to user action from the ui [io.github.tonnyl.mango.ui.user.likeshots.LikedShotsFragment],
+ * retrieves the data and update the ui as required.
  */
 class LikedShotsPresenter(view: LikedShotsContract.View, userId: Long) : LikedShotsContract.Presenter {
 

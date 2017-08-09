@@ -16,6 +16,8 @@ import org.jetbrains.anko.startActivity
 
 /**
  * Created by lizhaotailang on 2017/7/29.
+ *
+ * Main ui for the user's followers screen.
  */
 class FollowersFragment : Fragment(), FollowersContract.View {
 

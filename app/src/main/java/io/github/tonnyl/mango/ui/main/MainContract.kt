@@ -6,6 +6,8 @@ import io.github.tonnyl.mango.mvp.BaseView
 
 /**
  * Created by lizhaotailang on 2017/6/28.
+ *
+ * This specifies the contract between the view and the presenter.
  */
 interface MainContract {
 
@@ -16,6 +18,7 @@ interface MainContract {
         fun showAuthUserInfo(user: User)
 
         fun navigateToLogin()
+
     }
 
     interface Presenter: BasePresenter {
@@ -23,6 +26,8 @@ interface MainContract {
         fun fetchUser()
 
         fun logoutUser()
+
+        fun getUser(): User?
 
     }
 

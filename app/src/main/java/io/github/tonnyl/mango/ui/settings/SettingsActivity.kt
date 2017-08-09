@@ -7,6 +7,8 @@ import kotlinx.android.synthetic.main.activity_common.*
 
 /**
  * Created by lizhaotailang on 2017/7/19.
+ *
+ * Show the settings.
  */
 
 class SettingsActivity : AppCompatActivity() {
@@ -30,9 +32,11 @@ class SettingsActivity : AppCompatActivity() {
             mAboutFragment = SettingsFragment.newInstance()
         }
 
-        supportFragmentManager.beginTransaction()
-                .add(R.id.container, mAboutFragment, SettingsFragment::class.java.simpleName)
-                .commit()
+        if (!mAboutFragment.isAdded) {
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.container, mAboutFragment, SettingsFragment::class.java.simpleName)
+                    .commit()
+        }
 
         SettingsPresenter(mAboutFragment)
 

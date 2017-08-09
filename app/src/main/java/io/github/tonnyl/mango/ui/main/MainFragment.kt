@@ -11,7 +11,6 @@ import io.github.tonnyl.mango.ui.auth.AuthActivity
 import io.github.tonnyl.mango.ui.settings.SettingsActivity
 import io.github.tonnyl.mango.ui.user.UserProfileActivity
 import io.github.tonnyl.mango.ui.user.UserProfilePresenter
-import io.github.tonnyl.mango.util.AccountManager
 import kotlinx.android.synthetic.main.fragment_shots.*
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
@@ -20,11 +19,14 @@ import org.jetbrains.anko.startActivity
 
 /**
  * Created by lizhaotailang on 2017/6/28.
+ *
+ * Main ui for the main screen.
  */
 
 class MainFragment : Fragment(), MainContract.View {
 
     private lateinit var mPresenter: MainContract.Presenter
+    private var mPagerAdapter: MainPagerAdapter? = null
 
     companion object {
         @JvmStatic
@@ -46,7 +48,7 @@ class MainFragment : Fragment(), MainContract.View {
         mPresenter.subscribe()
 
         user_info_layout.setOnClickListener {
-            AccountManager.authenticatedUser?.let {
+            mPresenter.getUser()?.let {
                 context.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to it)
             }
         }
@@ -76,7 +78,8 @@ class MainFragment : Fragment(), MainContract.View {
     override fun initViews() {
         (activity as MainActivity).setSupportActionBar(toolbar)
 
-        view_pager.adapter = MainPagerAdapter(context, childFragmentManager)
+        mPagerAdapter = MainPagerAdapter(context, childFragmentManager)
+        view_pager.adapter = mPagerAdapter
         view_pager.offscreenPageLimit = 4
 
         tab_layout.setupWithViewPager(view_pager)
@@ -88,7 +91,7 @@ class MainFragment : Fragment(), MainContract.View {
 
     override fun showAuthUserInfo(user: User) {
         user_name.text = user.name
-        GlideLoader.loadAvatar(context, avatar_drawee, user.avatarUrl)
+        GlideLoader.loadAvatar(context, avatar, user.avatarUrl)
     }
 
     override fun navigateToLogin() {
@@ -106,6 +109,13 @@ class MainFragment : Fragment(), MainContract.View {
 
                 }
                 .show()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        if (mPagerAdapter != null) {
+            mPagerAdapter
+        }
     }
 
 }

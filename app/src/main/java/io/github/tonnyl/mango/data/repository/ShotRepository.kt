@@ -8,6 +8,7 @@ import io.github.tonnyl.mango.retrofit.ShotsService
 import io.github.tonnyl.mango.util.AccountManager
 import io.reactivex.Observable
 import retrofit2.Response
+import retrofit2.http.Body
 
 /**
  * Created by lizhaotailang on 2017/7/3.
@@ -29,7 +30,7 @@ object ShotRepository {
         return mShotsService.likeShot(shotId)
     }
 
-    fun unlikeShot(shotId: Long): Observable<Response<Like>> {
+    fun unlikeShot(shotId: Long): Observable<Response<Body>> {
         return mShotsService.unlikeShot(shotId)
     }
 

@@ -13,6 +13,13 @@ import com.google.gson.annotations.SerializedName
  * "normal" : "https://d13yacurqjgara.cloudfront.net/users/1/screenshots/471756/sasquatch.png",
  * "teaser" : "https://d13yacurqjgara.cloudfront.net/users/1/screenshots/471756/sasquatch_teaser.png"
  * }
+ *
+ * The normal image is typically 400x300, but may be smaller if created before October 4th, 2012.
+ * The width and height provide the size of the normal image.
+ * The hidpi image may or may not be present, but will always be 800x600.
+ * The teaser image is typically 200x150, but may be smaller if created before October 4th, 2012.
+ * If the animated attribute of the shot is true, the highest resolution image available (hidpi or normal)
+ * will be animated (smaller images will be stills).
  */
 
 data class Images(

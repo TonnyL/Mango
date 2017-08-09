@@ -13,7 +13,6 @@ class MangoApp : Application() {
         super.onCreate()
 
         AccessTokenRepository.init(this)
-
     }
 
 }

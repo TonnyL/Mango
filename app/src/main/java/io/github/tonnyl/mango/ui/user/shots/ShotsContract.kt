@@ -6,6 +6,8 @@ import io.github.tonnyl.mango.mvp.BaseView
 
 /**
  * Created by lizhaotailang on 2017/7/19.
+ *
+ * This specifies the contract between the view and the presenter.
  */
 
 interface ShotsContract {

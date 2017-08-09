@@ -16,6 +16,8 @@ import org.jetbrains.anko.startActivity
 
 /**
  * Created by lizhaotailang on 2017/7/19.
+ *
+ * Main ui for the user's shots screen.
  */
 
 class ShotsFragment : Fragment(), ShotsContract.View {
@@ -65,6 +67,12 @@ class ShotsFragment : Fragment(), ShotsContract.View {
             })
         }
         recycler_view.adapter = mAdapter
+
+        empty_view.visibility = if (shots.isEmpty()) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 
     private fun initViews() {

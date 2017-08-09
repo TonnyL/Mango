@@ -7,6 +7,9 @@ import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by lizhaotailang on 2017/7/29.
+ *
+ * Listens to user action from the ui [io.github.tonnyl.mango.ui.user.following.FollowingFragment],
+ * retrieves the data and update the ui as required.
  */
 class FollowingPresenter(view: FollowingContract.View, userId: Long) : FollowingContract.Presenter {
 

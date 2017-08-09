@@ -20,13 +20,14 @@ import org.jetbrains.anko.startActivity
 
 /**
  * Created by lizhaotailang on 2017/6/29.
+ *
+ * Main ui for the shots page screen.
  */
 
 class ShotsPageFragment : Fragment(), ShotsPageContract.View {
 
     private lateinit var mPresenter: ShotsPageContract.Presenter
     private var mAdapter: ShotsAdapter? = null
-    private var mListSize = 0
     private var mIsLoading = false
 
     companion object {
@@ -56,8 +57,8 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val layoutManager = recyclerView?.layoutManager as LinearLayoutManager
-                if (dy > 0 && layoutManager.findLastCompletelyVisibleItemPosition() == mListSize -1 && !mIsLoading) {
-                    mPresenter.listShots()
+                if (dy > 0 && layoutManager.findLastVisibleItemPosition() == recycler_view.adapter.itemCount - 1 && !mIsLoading) {
+                    mPresenter.listMoreShots()
                     mIsLoading = true
                 }
             }
@@ -105,7 +106,6 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
             recycler_view.adapter = mAdapter
         }
 
-        mListSize += results.size
         mIsLoading = false
 
         empty_view.visibility = if (results.isEmpty()) {

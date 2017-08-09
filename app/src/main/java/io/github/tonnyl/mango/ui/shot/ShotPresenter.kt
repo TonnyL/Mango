@@ -8,6 +8,9 @@ import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by lizhaotailang on 2017/6/28.
+ *
+ * Listens to user action from the ui [io.github.tonnyl.mango.ui.shot.ShotFragment],
+ * retrieves the data and update the ui as required.
  */
 
 class ShotPresenter(view: ShotContract.View, shotId: Long) : ShotContract.Presenter {
@@ -120,6 +123,18 @@ class ShotPresenter(view: ShotContract.View, shotId: Long) : ShotContract.Presen
     override fun navigateToLikes() {
         mShot?.let {
             mView.navigateToLikes(it)
+        }
+    }
+
+    override fun share() {
+        mShot?.let {
+            mView.share(it.htmlUrl)
+        }
+    }
+
+    override fun openInBrowser() {
+        mShot?.let {
+            mView.openInBrowser(it.htmlUrl)
         }
     }
 

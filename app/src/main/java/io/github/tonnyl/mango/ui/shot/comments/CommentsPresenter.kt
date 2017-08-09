@@ -1,6 +1,7 @@
 package io.github.tonnyl.mango.ui.shot.comments
 
 import io.github.tonnyl.mango.data.Shot
+import io.github.tonnyl.mango.data.repository.AuthUserRepository
 import io.github.tonnyl.mango.data.repository.ShotRepository
 import io.github.tonnyl.mango.retrofit.ApiConstants
 import io.github.tonnyl.mango.util.AccountManager
@@ -11,6 +12,9 @@ import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by lizhaotailang on 2017/7/8.
+ *
+ * Listens to user action from the ui [io.github.tonnyl.mango.ui.shot.comments.CommentsFragment],
+ * retrieves the data and update the ui as required.
  */
 class CommentsPresenter(view: CommentsContract.View, shot: Shot) : CommentsContract.Presenter {
 
@@ -35,7 +39,16 @@ class CommentsPresenter(view: CommentsContract.View, shot: Shot) : CommentsContr
     override fun subscribe() {
         fetchComments()
         mView.updateTitle(mShot.commentsCount)
-        mView.setEditorVisible(UserUtils.canUserComment(AccountManager.authenticatedUser))
+        AccountManager.accessToken?.let {
+            AuthUserRepository.getAuthenticatedUser(it.id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        mView.setEditorVisible(UserUtils.canUserComment(it), it.avatarUrl)
+                    }, {
+
+                    })
+        }
     }
 
     override fun unsubscribe() {

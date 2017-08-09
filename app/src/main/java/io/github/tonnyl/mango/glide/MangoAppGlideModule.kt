@@ -13,14 +13,19 @@ import java.io.InputStream
 
 /**
  * Created by lizhaotailang on 2017/7/18.
+ *
+ * To generated glide apis.
  */
 
 @GlideModule
 class MangoAppGlideModule : AppGlideModule() {
 
     companion object {
+        // Max cache size of glide.
         @JvmField
         val MAX_CACHE_SIZE = 1024 * 1024 * 512 // 512M
+
+        // The cache directory name.
         @JvmField
         val CACHE_FILE_NAME = "IMG_CACHE" // cache file dir name
 
@@ -29,8 +34,8 @@ class MangoAppGlideModule : AppGlideModule() {
     override fun applyOptions(context: Context?, builder: GlideBuilder?) {
         super.applyOptions(context, builder)
 
-        // 36m, memory cache size
-        // default value: 24m
+        // 36MB, memory cache size
+        // default value: 24MB
         val memoryCacheSize = 1024 * 1024 * 36
         builder?.setMemoryCache(LruResourceCache(memoryCacheSize))
 
@@ -44,6 +49,9 @@ class MangoAppGlideModule : AppGlideModule() {
         registry?.replace(GlideUrl::class.java, InputStream::class.java, OkHttpUrlLoader.Factory())
     }
 
+    /**
+     * Disable the parsing of manifest file.
+     */
     override fun isManifestParsingEnabled(): Boolean {
         return false
     }

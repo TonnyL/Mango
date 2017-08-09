@@ -29,7 +29,7 @@ class FollowersAdapter(context: Context, list: MutableList<Follower>) : Recycler
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         val follower = mList[position]
         with(holder as FollowerViewHolder) {
-            GlideLoader.loadAvatar(mContext, itemView.avatar_drawee, follower.follower.avatarUrl)
+            GlideLoader.loadAvatar(mContext, itemView.avatar, follower.follower.avatarUrl)
 
             itemView.name.text = follower.follower.name
             itemView.user_name.text = follower.follower.username

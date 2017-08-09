@@ -28,7 +28,7 @@ class FollowingAdapter(context: Context, list: MutableList<Followee>) : Recycler
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         val followee = mList[position]
         with(holder as FollowingViewHolder) {
-            GlideLoader.loadAvatar(mContext, itemView.avatar_drawee, followee.followee.avatarUrl)
+            GlideLoader.loadAvatar(mContext, itemView.avatar, followee.followee.avatarUrl)
             itemView.name.text = followee.followee.name
             itemView.user_name.text = followee.followee.username
             itemView.bio.text = if (Build.VERSION.SDK_INT >= 24) {

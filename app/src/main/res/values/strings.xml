@@ -31,10 +31,11 @@
     <string name="views_formatted">Views %1$d</string>
     <string name="followers_formatted">Followers %1$d</string>
     <string name="following_formatted">Following %1$d</string>
+    <string name="follow">Follow</string>
+    <string name="unfollow">Unfollow</string>
 
     <string name="add_comment_failed">Add comment failed</string>
-    <string name="copy_to_clipboard">Copy to clipboard</string>
-    <string name="copied">Copied</string>
+
     <string name="gif">GIF</string>
     <string name="log_out">Log out</string>
     <string name="settings">Settings</string>
@@ -42,6 +43,9 @@
 
     <string name="tab_title_shots">SHOTS %1$d</string>
     <string name="tab_title_likes">LIKES %1$d</string>
+    <string name="copy_to_clipboard">Copy to clipboard</string>
+    <string name="copied">Copied</string>
+    <string name="share_to">Share to</string>
 
     <string name="general">General</string>
     <string name="clear_cache_desc">Cache size: %1$d MB</string>
@@ -66,8 +70,6 @@
     <string name="action_shot">action_shot</string>
     <string name="action_main">action_main</string>
     <string name="action_user">action_user</string>
-    <string name="follow">Follow</string>
-    <string name="unfollow">Unfollow</string>
 
 
 </resources>

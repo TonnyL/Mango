@@ -30,6 +30,7 @@
             android:title="@string/contributors" />
 
         <Preference
+            android:key="follow_on_github"
             android:summary="@string/follow_me_on_github_desc"
             android:title="@string/follow_me_on_github" />
 

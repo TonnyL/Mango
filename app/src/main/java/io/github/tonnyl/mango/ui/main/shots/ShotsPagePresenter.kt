@@ -1,13 +1,16 @@
 package io.github.tonnyl.mango.ui.main.shots
 
 import io.github.tonnyl.mango.data.repository.ShotsRepository
-import io.github.tonnyl.mango.retrofit.ApiConstants
+import io.github.tonnyl.mango.util.PageLinks
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by lizhaotailang on 2017/6/29.
+ *
+ * Listens to user action from the ui [io.github.tonnyl.mango.ui.main.shots.ShotsPageFragment],
+ * retrieves the data and update the ui as required.
  */
 
 class ShotsPagePresenter(view: ShotsPageContract.View, type: Int) : ShotsPageContract.Presenter {
@@ -17,7 +20,7 @@ class ShotsPagePresenter(view: ShotsPageContract.View, type: Int) : ShotsPageCon
     private val mType = type
 
     private var mIsFirstLoad = true
-    private var mPageCount = 0
+    private var mNextPageUrl: String? = null
 
     init {
         mView.setPresenter(this)
@@ -57,22 +60,40 @@ class ShotsPagePresenter(view: ShotsPageContract.View, type: Int) : ShotsPageCon
                         mView.setLoadingIndicator(false)
                         response.body()?.let {
                             mView.showResults(it.toMutableList())
-                            mPageCount = (it.size / ApiConstants.PER_PAGE) + 1
                         }
+                        // Set next page url
+                        mNextPageUrl = PageLinks(response).next
                     }, { error ->
                         error.message?.let { mView.showMessage(it) }
                         mView.setLoadingIndicator(false)
                     })
             mCompositeDisposable.add(disposable)
         } else {
-            val disposable = ShotsRepository.listShots(mType, mPageCount)
+            val disposable = ShotsRepository.listShots(mType)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ response ->
                         mView.setLoadingIndicator(false)
                         response.body()?.let {
                             mView.showResults(it.toMutableList())
-                            mPageCount = (it.size / ApiConstants.PER_PAGE) + 1
+                        }
+                    }, { error ->
+                        error.message?.let { mView.showMessage(it) }
+                        mView.setLoadingIndicator(false)
+                    })
+            mCompositeDisposable.add(disposable)
+        }
+    }
+
+    override fun listMoreShots() {
+        mNextPageUrl?.let {
+            val disposable = ShotsRepository.listShotsOfNextPage(it)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ response ->
+                        mView.setLoadingIndicator(false)
+                        response.body()?.let {
+                            mView.showResults(it.toMutableList())
                         }
                     }, { error ->
                         error.message?.let { mView.showMessage(it) }

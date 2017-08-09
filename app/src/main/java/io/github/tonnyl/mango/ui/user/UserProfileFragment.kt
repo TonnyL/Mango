@@ -12,7 +12,6 @@ import io.github.tonnyl.mango.ui.user.followers.FollowersActivity
 import io.github.tonnyl.mango.ui.user.followers.FollowersPresenter
 import io.github.tonnyl.mango.ui.user.following.FollowingActivity
 import io.github.tonnyl.mango.ui.user.following.FollowingPresenter
-import io.github.tonnyl.mango.util.Constants
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.startActivity
@@ -20,6 +19,8 @@ import org.jetbrains.anko.startActivity
 
 /**
  * Created by lizhaotailang on 2017/6/28.
+ *
+ * Main ui for the user profile screen.
  */
 
 class UserProfileFragment : Fragment(), UserProfileContract.View {
@@ -75,7 +76,7 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
     override fun onPrepareOptionsMenu(menu: Menu?) {
         super.onPrepareOptionsMenu(menu)
         val menuItem = menu?.getItem(0)?.subMenu?.getItem(0)
-        menuItem?.isVisible = true
+        menuItem?.isVisible = mFollowable
         if (mIsFollowing) {
             menuItem?.setIcon(R.drawable.ic_user_minus_black_24dp)
             menuItem?.setTitle(R.string.unfollow)
@@ -92,8 +93,9 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
         } else if (id == R.id.action_follow_unfollow) {
             mPresenter.toggleFollow()
         } else if (id == R.id.action_open_in_browser) {
-            context.browse(Constants.DRIBBBLE_SITE_URL + mPresenter.getUser().username)
+            context.browse(mPresenter.getUser().htmlUrl)
         }
+        activity.invalidateOptionsMenu()
         return true
     }
 
@@ -141,10 +143,12 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
 
     override fun setFollowing(isFollowing: Boolean) {
         mIsFollowing = isFollowing
+        activity.invalidateOptionsMenu()
     }
 
     override fun setFollowable(followable: Boolean) {
         mFollowable = followable
+        activity.invalidateOptionsMenu()
     }
 
     private fun initViews() {

@@ -7,13 +7,11 @@ import io.github.tonnyl.mango.ui.main.shots.ShotsPagePresenter
 import io.github.tonnyl.mango.util.AccountManager
 import io.reactivex.Observable
 import retrofit2.Response
-import javax.inject.Singleton
 
 /**
  * Created by lizhaotailang on 2017/6/30.
  */
 
-@Singleton
 object ShotsRepository {
 
     private val mShotsService: ShotsService = RetrofitClient.createService(ShotsService::class.java, AccountManager.accessToken)
@@ -24,7 +22,7 @@ object ShotsRepository {
         return mUserService.listFollowingShots(ApiConstants.PER_PAGE)
     }
 
-    fun listShots(type: Int, page: Int): Observable<Response<List<Shot>>> {
+    fun listShots(type: Int): Observable<Response<List<Shot>>> {
         val timeframe: String? = null
         val date: String? = null
 
@@ -40,7 +38,11 @@ object ShotsRepository {
             null
         }
 
-        return mShotsService.listShots(queryList, timeframe, date, sort, page = page)
+        return mShotsService.listShots(queryList, timeframe, date, sort)
+    }
+
+    fun listShotsOfNextPage(url: String): Observable<Response<List<Shot>>> {
+        return mShotsService.listShotsOfNextPage(url)
     }
 
     fun listShotsOfUser(userId: Long, page: Int): Observable<Response<List<Shot>>> {

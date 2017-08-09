@@ -2,7 +2,7 @@ package io.github.tonnyl.mango.ui.auth
 
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.repository.AccessTokenRepository
-import io.github.tonnyl.mango.data.repository.UserRepository
+import io.github.tonnyl.mango.data.repository.AuthUserRepository
 import io.github.tonnyl.mango.util.AccountManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -10,6 +10,9 @@ import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by lizhaotailang on 2017/6/24.
+ *
+ * Listens to user action from the ui [io.github.tonnyl.mango.ui.auth.AuthFragment],
+ * retrieves the data and update the ui as required.
  */
 
 class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
@@ -36,7 +39,12 @@ class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ token ->
-                    if (!token.accessToken.isNullOrEmpty()) {
+                    if (token.accessToken.isNullOrEmpty()) {
+                        if (mView.isActive()) {
+                            mView.setLoginIndicator(false)
+                            mView.showMessage(R.string.request_refresh_token_failed)
+                        }
+                    } else {
                         // Update the access token of AccountManager
                         AccountManager.accessToken = token
 
@@ -44,11 +52,6 @@ class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
                         AccessTokenRepository.saveAccessToken(token)
 
                         requestUserInfo()
-                    } else {
-                        if (mView.isActive()) {
-                            mView.setLoginIndicator(false)
-                            mView.showMessage(R.string.request_refresh_token_failed)
-                        }
                     }
                 }, { error ->
                     if (mView.isActive()) {
@@ -62,7 +65,7 @@ class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
     }
 
     private fun requestUserInfo() {
-        val disposable = UserRepository.getAuthenticatedUser(null)
+        val disposable = AuthUserRepository.getAuthenticatedUser(null)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ user ->
@@ -70,11 +73,8 @@ class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
                         // Update the user id in access token
                         AccountManager.accessToken?.let { it.id = user.id }
 
-                        // Update the user of account manager
-                        AccountManager.authenticatedUser = user
-
                         // Save the user info to database
-                        UserRepository.saveAuthenticatedUser(user)
+                        AuthUserRepository.saveAuthenticatedUser(user)
 
                         mView.updateLoginStatus(AccountManager.accessToken!!)
                     }

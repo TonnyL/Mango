@@ -16,6 +16,8 @@ import org.jetbrains.anko.startActivity
 
 /**
  * Created by lizhaotailang on 2017/7/19.
+ *
+ * Main ui for the user's liked shots screen.
  */
 
 class LikedShotsFragment : Fragment(), LikedShotsContract.View {

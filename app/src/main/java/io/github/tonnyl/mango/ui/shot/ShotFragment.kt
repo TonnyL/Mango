@@ -25,11 +25,15 @@ import io.github.tonnyl.mango.ui.shot.likes.LikesPresenter
 import io.github.tonnyl.mango.ui.user.UserProfileActivity
 import io.github.tonnyl.mango.ui.user.UserProfilePresenter
 import kotlinx.android.synthetic.main.fragment_shot.*
+import org.jetbrains.anko.browse
 import org.jetbrains.anko.runOnUiThread
+import org.jetbrains.anko.share
 import org.jetbrains.anko.startActivity
 
 /**
  * Created by lizhaotailang on 2017/6/28.
+ *
+ * Main ui for the shot screen.
  */
 
 class ShotFragment : Fragment(), ShotContract.View {
@@ -88,6 +92,10 @@ class ShotFragment : Fragment(), ShotContract.View {
         val id = item?.itemId
         if (id == android.R.id.home) {
             activity.onBackPressed()
+        } else if (id == R.id.action_open_in_browser) {
+            mPresenter.openInBrowser()
+        } else if (id == R.id.action_share) {
+            mPresenter.share()
         }
         return true
     }
@@ -139,6 +147,7 @@ class ShotFragment : Fragment(), ShotContract.View {
             shot_description.visibility = View.GONE
         }
 
+        name.text = shot.user?.name
         user_name.text = shot.user?.username
         created_time.text = shot.createdAt.replace("T", " ").replace("Z", "")
 
@@ -172,6 +181,14 @@ class ShotFragment : Fragment(), ShotContract.View {
 
     override fun navigateToLikes(shot: Shot) {
         context.startActivity<LikesActivity>(LikesPresenter.EXTRA_SHOT to shot)
+    }
+
+    override fun openInBrowser(url: String) {
+        context.browse(url, true)
+    }
+
+    override fun share(url: String) {
+        context.share(url, getString(R.string.share_to))
     }
 
     private fun showTags(tags: List<String>) {

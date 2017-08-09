@@ -12,6 +12,9 @@ import java.util.concurrent.Callable
 
 /**
  * Created by lizhaotailang on 2017/7/19.
+ *
+ * Listens to user action from the ui [io.github.tonnyl.mango.ui.settings.SettingsFragment],
+ * retrieves the data and update the ui as required.
  */
 
 class SettingsPresenter(view: SettingsContract.View) : SettingsContract.Presenter {

@@ -21,38 +21,22 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:gravity="center_vertical"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            tools:text="TonnyL" />
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                tools:text="TonnyL" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/user_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:textColor="@color/colorSecondaryText"
-                app:autoSizeTextType="uniform"
-                tools:text="lizhaotailang" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/bio"
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/colorSecondaryText"
-            tools:text="Mango is an android app for dribbble.com" />
+            app:autoSizeTextType="uniform"
+            tools:text="lizhaotailang" />
 
     </LinearLayout>
 

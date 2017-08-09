@@ -14,11 +14,8 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(user: User)
 
-    @Query("SELECT * FROM user WHERE id = :id")
-    fun query(id: Long): Flowable<User>
-
-    @Query("SELECT * FROM user")
-    fun queryAll(): Flowable<List<User>>
+    @Query("SELECT * FROM user where id = :userId")
+    fun query(userId: Long): Flowable<User>
 
     @Update
     fun update(user: User)

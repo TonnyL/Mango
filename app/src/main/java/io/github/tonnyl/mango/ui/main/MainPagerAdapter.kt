@@ -15,6 +15,8 @@ import io.github.tonnyl.mango.ui.main.shots.ShotsPagePresenter
 class MainPagerAdapter(context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     private var mTitles = arrayOf<String>()
+    private var mShotsPagePresenters = arrayListOf<ShotsPagePresenter>()
+    private var mShotsPageFragments = arrayListOf<ShotsPageFragment>()
 
     init {
         mTitles = arrayOf(
@@ -26,12 +28,25 @@ class MainPagerAdapter(context: Context, fm: FragmentManager) : FragmentPagerAda
     }
 
     override fun getItem(position: Int): Fragment? {
-        val fragment = ShotsPageFragment.newInstance()
+        val fragment: ShotsPageFragment
+        if (mShotsPageFragments.size > position) {
+            fragment = mShotsPageFragments[position]
+        } else {
+            fragment = ShotsPageFragment.newInstance()
+        }
         when (position) {
-            0 -> ShotsPagePresenter(fragment, ShotsPagePresenter.TYPE_POPULAR)
-            1 -> ShotsPagePresenter(fragment, ShotsPagePresenter.TYPE_FOLLOWING)
-            2 -> ShotsPagePresenter(fragment, ShotsPagePresenter.TYPE_RECENT)
-            else -> ShotsPagePresenter(fragment, ShotsPagePresenter.TYPE_DEBUTS)
+            0 -> {
+                mShotsPagePresenters.add(ShotsPagePresenter(fragment, ShotsPagePresenter.TYPE_POPULAR))
+            }
+            1 -> {
+                mShotsPagePresenters.add(ShotsPagePresenter(fragment, ShotsPagePresenter.TYPE_FOLLOWING))
+            }
+            2 -> {
+                mShotsPagePresenters.add(ShotsPagePresenter(fragment, ShotsPagePresenter.TYPE_RECENT))
+            }
+            else -> {
+                mShotsPagePresenters.add(ShotsPagePresenter(fragment, ShotsPagePresenter.TYPE_DEBUTS))
+            }
         }
         return fragment
     }

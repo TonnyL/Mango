@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -9,9 +11,10 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <ImageView
-        android:id="@+id/avatar_drawee"
+        android:id="@+id/avatar"
         android:layout_width="@dimen/avatar_width_secondary"
-        android:layout_height="@dimen/avatar_height_secondary" />
+        android:layout_height="@dimen/avatar_height_secondary"
+        tools:src="@drawable/ic_avatar_placeholder" />
 
     <LinearLayout
         android:id="@+id/layout_comment_body"
@@ -22,28 +25,46 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/user_name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+            android:orientation="horizontal">
 
-        <TextView
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                tools:text="TonnyL" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:textColor="@color/colorSecondaryText"
+                app:autoSizeTextType="uniform"
+                tools:text="lizhaotailang" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/comment_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            tools:text="What a nice shot!" />
 
         <TextView
             android:id="@+id/created_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/colorSecondaryText"
+            tools:text="1 hour ago" />
 
     </LinearLayout>
 

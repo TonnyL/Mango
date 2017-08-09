@@ -6,6 +6,8 @@ import io.github.tonnyl.mango.R
 
 /**
  * Created by lizhaotailang on 2017/6/28.
+ *
+ * Show profile for a [io.github.tonnyl.mango.data.User].
  */
 
 class UserProfileActivity : AppCompatActivity() {
@@ -22,9 +24,11 @@ class UserProfileActivity : AppCompatActivity() {
             mUserProfileFragment = UserProfileFragment.getInstance()
         }
 
-        supportFragmentManager.beginTransaction()
-                .add(R.id.container, mUserProfileFragment, UserProfileFragment::class.java.simpleName)
-                .commit()
+        if (!mUserProfileFragment.isAdded) {
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.container, mUserProfileFragment, UserProfileFragment::class.java.simpleName)
+                    .commit()
+        }
 
         UserProfilePresenter(mUserProfileFragment, intent.getParcelableExtra(UserProfilePresenter.EXTRA_USER))
     }

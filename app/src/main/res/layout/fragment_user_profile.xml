@@ -25,9 +25,9 @@
                 android:background="?attr/colorPrimary"
                 app:layout_collapseMode="parallax"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:subtitleTextColor="@color/colorPrimaryTextDark"
+                app:subtitleTextColor="@color/colorSecondaryText"
                 app:theme="@style/AppTheme.ToolbarStyle"
-                app:titleTextColor="@color/colorPrimaryTextLight" />
+                app:titleTextColor="@color/colorPrimaryText" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                     android:gravity="center_vertical"
                     android:paddingEnd="@dimen/activity_horizontal_margin"
                     android:paddingStart="@dimen/activity_horizontal_margin"
-                    android:textColor="@color/colorPrimaryTextLight"
+                    android:textColor="@color/colorPrimaryText"
                     tools:text="UI/UX designer with a background in branding and ..." />
 
             </LinearLayout>
@@ -72,7 +72,7 @@
                     android:autoLink="web"
                     android:drawablePadding="@dimen/activity_horizontal_margin"
                     android:drawableStart="@drawable/ic_twitter_outline_black_24dp"
-                    android:textColor="@color/colorPrimaryTextDark"
+                    android:textColor="@color/colorSecondaryText"
                     tools:text="https://tonnyl.github.io" />
 
                 <TextView
@@ -83,7 +83,7 @@
                     android:autoLink="web"
                     android:drawablePadding="@dimen/activity_horizontal_margin"
                     android:drawableStart="@drawable/ic_link_black_24dp"
-                    android:textColor="@color/colorPrimaryTextLight"
+                    android:textColor="@color/colorPrimaryText"
                     tools:text="https://tonnyl.github.io" />
 
                 <TextView
@@ -93,7 +93,7 @@
                     android:layout_marginTop="@dimen/activity_vertical_margin_half"
                     android:drawablePadding="@dimen/activity_horizontal_margin"
                     android:drawableStart="@drawable/ic_location_black_24dp"
-                    android:textColor="@color/colorPrimaryTextLight"
+                    android:textColor="@color/colorPrimaryText"
                     tools:text="Beijing, China" />
 
                 <LinearLayout
@@ -106,7 +106,7 @@
                         android:id="@+id/followers"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimaryTextLight"
+                        android:textColor="@color/colorPrimaryText"
                         tools:text="Followers 10" />
 
                     <TextView
@@ -114,7 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/activity_horizontal_margin"
-                        android:textColor="@color/colorPrimaryTextLight"
+                        android:textColor="@color/colorPrimaryText"
                         tools:text="Following 11" />
 
                 </LinearLayout>
@@ -132,7 +132,7 @@
             app:tabIndicatorColor="@color/colorAccent"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/colorAccent"
-            app:tabTextColor="@color/colorPrimaryTextDark" />
+            app:tabTextColor="@color/colorSecondaryText" />
 
     </android.support.design.widget.AppBarLayout>
 

@@ -19,7 +19,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.ToolbarStyle">
-        <item name="colorControlNormal">@color/colorPrimaryTextLight</item>
+        <item name="colorControlNormal">@color/colorPrimaryText</item>
     </style>
 
     <style name="AppTheme.Transparent">

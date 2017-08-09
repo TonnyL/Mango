@@ -5,6 +5,8 @@ import io.github.tonnyl.mango.mvp.BaseView
 
 /**
  * Created by lizhaotailang on 2017/7/21.
+ *
+ * This specifies the contract between the view and the presenter.
  */
 
 interface LicensesContract {

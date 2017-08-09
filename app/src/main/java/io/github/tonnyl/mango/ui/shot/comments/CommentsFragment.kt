@@ -15,12 +15,13 @@ import io.github.tonnyl.mango.data.Comment
 import io.github.tonnyl.mango.glide.GlideLoader
 import io.github.tonnyl.mango.ui.user.UserProfileActivity
 import io.github.tonnyl.mango.ui.user.UserProfilePresenter
-import io.github.tonnyl.mango.util.AccountManager
 import kotlinx.android.synthetic.main.fragment_comments.*
 import org.jetbrains.anko.startActivity
 
 /**
  * Created by lizhaotailang on 2017/7/8.
+ *
+ * Main ui for the comments of a shot screen.
  */
 
 class CommentsFragment : Fragment(), CommentsContract.View {
@@ -128,22 +129,14 @@ class CommentsFragment : Fragment(), CommentsContract.View {
         (activity as CommentsActivity).title = getString(R.string.comments_formatted).format(commentsCount)
     }
 
-    override fun setEditorVisible(visible: Boolean) {
+    override fun setEditorVisible(visible: Boolean, avatarUrl: String) {
         layout_add_comment.visibility = if (visible) View.VISIBLE else View.GONE
+        GlideLoader.loadAvatar(context, avatar, avatarUrl)
     }
 
     private fun initViews() {
         recycler_view.layoutManager = LinearLayoutManager(context)
-
         refresh_layout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))
-
-        AccountManager.authenticatedUser?.let {
-            if (it.canUploadShot) {
-                GlideLoader.loadAvatar(context, avatar_drawee, it.avatarUrl)
-            } else {
-                layout_add_comment.visibility = View.GONE
-            }
-        }
     }
 
 }

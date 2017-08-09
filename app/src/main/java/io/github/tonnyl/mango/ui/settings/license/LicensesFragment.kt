@@ -15,6 +15,8 @@ import kotlinx.android.synthetic.main.fragment_licenses.*
 
 /**
  * Created by lizhaotailang on 2017/7/21.
+ *
+ * Main ui for the licenses screen.
  */
 
 class LicensesFragment : Fragment(), LicensesContract.View {

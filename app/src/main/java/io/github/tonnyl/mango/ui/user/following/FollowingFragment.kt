@@ -16,6 +16,8 @@ import org.jetbrains.anko.startActivity
 
 /**
  * Created by lizhaotailang on 2017/7/29.
+ *
+ * Main ui for the user's following screen.
  */
 class FollowingFragment : Fragment(), FollowingContract.View {
 

@@ -7,17 +7,18 @@ import io.github.tonnyl.mango.retrofit.AccessTokenService
 import io.github.tonnyl.mango.retrofit.ApiConstants
 import io.github.tonnyl.mango.retrofit.RetrofitClient
 import io.reactivex.Observable
-import javax.inject.Singleton
 
 /**
  * Created by lizhaotailang on 2017/6/27.
+ *
+ * Implementation of the data source that accessing network.
  */
 
-@Singleton
 object AccessTokenRemoteDataSource: AccessTokenDataSource {
 
     override fun init(context: Context) {
-
+        // Not required for the remote data source because the [io.github.tonnyl.mango.data.repository.AccessTokenRepository]
+        // handle the initialization.
     }
 
     override fun getAccessToken(id: Long?, code: String?): Observable<AccessToken> {
@@ -30,7 +31,7 @@ object AccessTokenRemoteDataSource: AccessTokenDataSource {
     }
 
     override fun saveAccessToken(accessToken: AccessToken) {
-        // Not required for the remote data source
-        // because this function is only for [io.github.tonnyl.mango.data.local.AccessTokenLocalDataSource].
+        // Not required for the remote data source because the [io.github.tonnyl.mango.data.repository.AccessTokenRepository]
+        // handle the saving data to cache and database.
     }
 }

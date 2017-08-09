@@ -1,6 +1,7 @@
 package io.github.tonnyl.mango.ui.user
 
 import io.github.tonnyl.mango.data.User
+import io.github.tonnyl.mango.data.repository.AuthUserRepository
 import io.github.tonnyl.mango.data.repository.UserRepository
 import io.github.tonnyl.mango.util.AccountManager
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -9,6 +10,9 @@ import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by lizhaotailang on 2017/6/28.
+ *
+ * Listens to user action from the ui [io.github.tonnyl.mango.ui.user.UserProfileFragment],
+ * retrieves the data and update the ui as required.
  */
 
 class UserProfilePresenter(view: UserProfileContract.View, user: User) : UserProfileContract.Presenter {
@@ -18,7 +22,7 @@ class UserProfilePresenter(view: UserProfileContract.View, user: User) : UserPro
     private var mFollowingChecked = false
     private var mIsFollowing = false
 
-    private val mUser = user
+    private var mUser = user
 
     companion object {
         @JvmField
@@ -32,11 +36,12 @@ class UserProfilePresenter(view: UserProfileContract.View, user: User) : UserPro
 
     override fun subscribe() {
         mView.showUserInfo(mUser)
-        if (AccountManager.authenticatedUser == null || AccountManager.accessToken?.id == mUser.id) {
+        if (AccountManager.accessToken?.id == mUser.id) {
             mView.setFollowable(false)
+            getUpdatedUserInfo()
+        } else {
+            checkFollowing()
         }
-
-        checkFollowing()
     }
 
     override fun unsubscribe() {
@@ -90,6 +95,19 @@ class UserProfilePresenter(view: UserProfileContract.View, user: User) : UserPro
 
     override fun getUser(): User {
         return mUser
+    }
+
+    private fun getUpdatedUserInfo() {
+        val disposable = AuthUserRepository.refreshAuthenticatedUser()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    mUser = it
+                    mView.showUserInfo(it)
+                }, {
+
+                })
+        mCompositeDisposable.add(disposable)
     }
 
 }

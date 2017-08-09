@@ -6,6 +6,8 @@ import io.reactivex.Observable
 
 /**
  * Created by lizhaotailang on 2017/6/27.
+ *
+ * Main entry point for accessing access token data.
  */
 
 interface AccessTokenDataSource {
