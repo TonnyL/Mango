@@ -75,10 +75,10 @@ class AuthFragment : Fragment(), AuthContract.View {
     }
 
     override fun updateLoginStatus(accessToken: AccessToken) {
-        val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
-        editor.putBoolean(Constants.IS_USER_LOGGED_IN, true)
-        editor.putString(Constants.ACCESS_TOKEN, Gson().toJson(accessToken, AccessToken::class.java))
-        editor.apply()
+        PreferenceManager.getDefaultSharedPreferences(context).edit()
+                .putBoolean(Constants.IS_USER_LOGGED_IN, true)
+                .putString(Constants.ACCESS_TOKEN, Gson().toJson(accessToken, AccessToken::class.java))
+                .apply()
 
         navigateToMainActivity()
     }

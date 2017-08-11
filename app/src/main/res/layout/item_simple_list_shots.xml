@@ -6,7 +6,8 @@
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="match_parent"
-        android:layout_height="160dp" />
+        android:layout_height="@dimen/shot_item_simple_height"
+        android:contentDescription="@string/shot_desc" />
 
     <TextView
         android:id="@+id/tag_gif"

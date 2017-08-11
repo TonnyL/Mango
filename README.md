@@ -1,22 +1,24 @@
 # Mango(In progress)
+[![Build Status](https://travis-ci.org/TonnyL/Mango.svg?branch=master)](https://travis-ci.org/TonnyL/Mango)
 
 Mango is an Android App for [Dribbble](https://dribbble.com/). Inspired by [Resplash](https://github.com/b-lam/Resplash), [Plaid](https://github.com/nickbutcher/plaid) and  [Protein](https://github.com/gejiaheng/Protein).
-
-**STILL UNDER DEVELOPING**.
 
 ## Features
 + Kotlin and RxKotlin: Yes, fully written in Kotlin.
 + MVP architecture: Whole project is built on MVP architecture.
 + Material Design: Trying my best. No bottom navigation bar🙈.
 + Deep link: Yes. Using [DeepLinkDispatch](https://github.com/airbnb/DeepLinkDispatch) from [Airbnb](https://github.com/airbnb).
-+ Dependency injection: Yes, using [dagger2](https://github.com/google/dagger).
-+ Usage of awesome libraries: [Anko common](https://github.com/Kotlin/anko), [Flexbox layout](https://github.com/google/flexbox-layout), [Glide](https://github.com/bumptech/glide), [Gson](https://github.com/google/gson), [Retrofit](https://github.com/square/retrofit), [Room](https://developer.android.com/topic/libraries/architecture/room.html).
++ Usage of several awesome libraries: [Anko common](https://github.com/Kotlin/anko) for simplified intents, [Flexbox layout](https://github.com/google/flexbox-layout)  for smart and elegant layout, [Glide](https://github.com/bumptech/glide) for image loading, [Gson](https://github.com/google/gson) for serialization&deserialization, [Retrofit](https://github.com/square/retrofit) for HTTP requests, [Room](https://developer.android.com/topic/libraries/architecture/room.html) for data persistence.
 
 ## Screenshots
 
-| Main     | Shot     | User     |
+| Get Started     | Main     | Shot     |
 | :-------------: | :-------------: | :-------------: |
-| ![Main](./art/homescreen.png) | ![Shot](./art/shot_detail.png) | ![User](./art/user_profile.png) |
+| ![Get-Started](./art/Get-Started.png) | ![Shot](./art/Main.png) | ![User](./art/Shot.png) |
+
+| User     | Likes     | Comments     |
+| :-------------: | :-------------: | :-------------: |
+| ![User](./art/User.png) | ![Likes](./art/Likes.png) | ![Comments](./art/Comments.png) |
 
 ## Build
 ### Open the project in Android Studio

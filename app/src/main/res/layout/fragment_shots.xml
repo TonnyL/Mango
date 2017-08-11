@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".ui.main.MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -31,7 +30,8 @@
                     android:id="@+id/avatar"
                     android:layout_width="@dimen/avatar_width_secondary"
                     android:layout_height="@dimen/avatar_height_secondary"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/avatar_desc" />
 
                 <TextView
                     android:id="@+id/user_name"

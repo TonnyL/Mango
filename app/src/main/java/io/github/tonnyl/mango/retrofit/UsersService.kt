@@ -41,43 +41,67 @@ interface UsersService {
     fun unfollow(@Path("user_id") userId: Long): Observable<Response<Body>>
 
     /**
-     * List shots for a user.
+     * List [Shot]s for a user.
      *
      * @param userId The user id.
      * @param perPage The amount of shots per page.
-     * @param page Which page you want to get.
      * @return The list of [Shot] results.
      */
     @GET("/v1/users/{user_id}/shots")
     fun listShotsOfUser(@Path("user_id") userId: Long,
-                        @Query("per_page") perPage: Int = ApiConstants.PER_PAGE,
-                        @Query("page") page: Int): Observable<Response<List<Shot>>>
+                        @Query("per_page") perPage: Int = ApiConstants.PER_PAGE): Observable<Response<List<Shot>>>
 
     /**
-     * List shots that a user likes.
+     * Get a [Shot] list of next page.
+     *
+     * @param url The url of next page.
+     * @return The [Shot]s list.
+     */
+    @GET
+    fun listShotsOfNextPage(@Url url: String): Observable<Response<List<Shot>>>
+
+    /**
+     * List [LikedShot]s that a user likes.
      *
      * @param userId The user id.
      * @param perPage The amount of shots per page.
      * @return The list of [Shot] results.
      */
     @GET("/v1/users/{user_id}/likes")
-    fun listLikeShotsOfUser(@Path("user_id") userId: Long,
-                            @Query("per_page") perPage: Int = ApiConstants.PER_PAGE,
-                            @Query("page") page: Int): Observable<Response<List<LikedShot>>>
+    fun listLikedShotsOfUser(@Path("user_id") userId: Long,
+                             @Query("per_page") perPage: Int = ApiConstants.PER_PAGE): Observable<Response<List<LikedShot>>>
 
     /**
-     * List the followers of a user.
+     * Get a [LikedShot] list of next page.
+     *
+     * @param url The url of next page.
+     * @return The [LikedShot] list.
+     */
+    @GET
+    fun listLikedShotsOfNextPage(@Url url: String): Observable<Response<List<LikedShot>>>
+
+    /**
+     * List the [Follower]s of a user.
      *
      * @param userId The user id.
      * @param per_page The amount of [Follower] results per page.
      * @return The list of [Follower] results.
      */
     @GET("/v1/users/{user_id}/followers")
-    fun listFollowerOfUser(@Path("user_id") userId: Long,
-                           @Query("per_page") per_page: Int): Observable<Response<List<Follower>>>
+    fun listFollowersOfUser(@Path("user_id") userId: Long,
+                            @Query("per_page") per_page: Int): Observable<Response<List<Follower>>>
 
     /**
-     * List the followees (who is followed) by a user.
+     * Get a [Follower] list of next page.
+     *
+     * @param url The url of next page.
+     * @return The [Follower] list.
+     */
+    @GET
+    fun listFollowersOfNextPage(@Url url: String): Observable<Response<List<Follower>>>
+
+    /**
+     * List the [Followee]s (who is followed) by a user.
      *
      * @param userId The user id.
      * @param per_page The amount of [Followee] results per page.
@@ -86,5 +110,14 @@ interface UsersService {
     @GET("/v1/users/{user_id}/following")
     fun listFollowingOfUser(@Path("user_id") userId: Long,
                             @Query("per_page") per_page: Int): Observable<Response<List<Followee>>>
+
+    /**
+     * Get a [Followee] list of next page.
+     *
+     * @param url The url of next page.
+     * @return The [Followee] list.
+     */
+    @GET
+    fun listFollowingOfNextPage(@Url url: String): Observable<Response<List<Followee>>>
 
 }

@@ -14,7 +14,7 @@ interface ShotContract {
 
     interface View : BaseView<Presenter> {
 
-        fun showMessage(message: String?)
+        fun showNetworkError()
 
         fun setLikeStatus(like: Boolean)
 

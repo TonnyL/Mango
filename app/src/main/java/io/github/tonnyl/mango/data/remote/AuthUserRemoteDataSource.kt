@@ -5,7 +5,7 @@ import io.github.tonnyl.mango.data.User
 import io.github.tonnyl.mango.data.datasource.AuthUserDataSource
 import io.github.tonnyl.mango.retrofit.RetrofitClient
 import io.github.tonnyl.mango.retrofit.UserService
-import io.github.tonnyl.mango.util.AccountManager
+import io.github.tonnyl.mango.util.AccessTokenManager
 import io.reactivex.Observable
 
 /**
@@ -16,7 +16,7 @@ import io.reactivex.Observable
 
 object AuthUserRemoteDataSource : AuthUserDataSource {
 
-    private var mUserService: UserService = RetrofitClient.createService(UserService::class.java, AccountManager.accessToken)
+    private var mUserService: UserService = RetrofitClient.createService(UserService::class.java, AccessTokenManager.accessToken)
 
     override fun init(context: Context) {
         // Not required for the remote data source because the [io.github.tonnyl.mango.data.repository.UserRepository]

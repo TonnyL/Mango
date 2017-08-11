@@ -2,6 +2,7 @@ package io.github.tonnyl.mango.ui.user
 
 import android.os.Build
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.text.Html
 import android.view.*
@@ -149,6 +150,10 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
     override fun setFollowable(followable: Boolean) {
         mFollowable = followable
         activity.invalidateOptionsMenu()
+    }
+
+    override fun showNetworkError() {
+        Snackbar.make(view_pager, R.string.network_error, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun initViews() {

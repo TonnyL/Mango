@@ -1,8 +1,9 @@
 package io.github.tonnyl.mango.ui.shot.likes
 
+import io.github.tonnyl.mango.data.Like
 import io.github.tonnyl.mango.data.Shot
 import io.github.tonnyl.mango.data.repository.ShotRepository
-import io.github.tonnyl.mango.retrofit.ApiConstants
+import io.github.tonnyl.mango.util.PageLinks
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -20,9 +21,8 @@ class LikesPresenter(view: LikesContract.View, shot: Shot) : LikesContract.Prese
     private val mShot = shot
     private val mCompositeDisposable: CompositeDisposable
 
-    private var mPageCount = 0
-    private var mIsFirstLoad = true
-    private var mHasMore = true
+    private val mCachedLikes = arrayListOf<Like>()
+    private var mNextPageUrl: String? = null
 
     companion object {
         @JvmField
@@ -35,7 +35,7 @@ class LikesPresenter(view: LikesContract.View, shot: Shot) : LikesContract.Prese
     }
 
     override fun subscribe() {
-        fetchLikes()
+        loadLikes()
         mView.updateTitle(mShot.likesCount)
     }
 
@@ -43,38 +43,61 @@ class LikesPresenter(view: LikesContract.View, shot: Shot) : LikesContract.Prese
         mCompositeDisposable.clear()
     }
 
-    override fun fetchLikes() {
-        if (mIsFirstLoad) {
-            mView.setLoadingIndicator(true)
-            mIsFirstLoad = false
-        }
-
-        if (!mHasMore) {
-            return
-        }
+    override fun loadLikes() {
+        mView.setLoadingIndicator(true)
 
         val disposable = ShotRepository
-                .listLikes(mShot.id, mPageCount)
+                .listLikes(mShot.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
                     mView.setLoadingIndicator(false)
+                    mNextPageUrl = PageLinks(response).next
+
                     response.body()?.let {
-                        mView.showLikes(it.toMutableList())
-                        mHasMore = (it.size % ApiConstants.PER_PAGE == 0)
-                        if (!mHasMore) {
-                            mPageCount = 0
+                        if (it.isNotEmpty()) {
+                            if (mCachedLikes.isNotEmpty()) {
+                                val size = mCachedLikes.size
+                                mCachedLikes.clear()
+                                mView.notifyDataAllRemoved(size)
+                                mCachedLikes.addAll(it)
+                                mView.notifyDataAdded(0, mCachedLikes.size)
+                            } else {
+                                mCachedLikes.addAll(it)
+                                mView.showLikes(mCachedLikes)
+                            }
                         } else {
-                            mPageCount = (it.size / ApiConstants.PER_PAGE) + 1
+                            mView.setEmptyViewVisibility(it.isEmpty())
                         }
-                    } ?: run {
-                        mView.showMessage(null)
                     }
-                }, { error ->
+                }, {
                     mView.setLoadingIndicator(false)
-                    mView.showMessage(error.message)
+                    mView.setEmptyViewVisibility(true)
+                    it.printStackTrace()
                 })
         mCompositeDisposable.add(disposable)
+    }
+
+    override fun loadMoreLikes() {
+        mNextPageUrl?.let {
+            val disposable = ShotRepository
+                    .listLikesOfNextPage(it)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ response ->
+                        mNextPageUrl = PageLinks(response).next
+
+                        response.body()?.let {
+                            val size = mCachedLikes.size
+                            mCachedLikes.addAll(it)
+                            mView.notifyDataAdded(size, it.size)
+                        }
+                    }, {
+                        mView.showNetworkError()
+                        it.printStackTrace()
+                    })
+            mCompositeDisposable.add(disposable)
+        }
     }
 
 }

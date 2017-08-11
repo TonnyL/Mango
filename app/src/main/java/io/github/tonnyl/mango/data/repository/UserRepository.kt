@@ -6,7 +6,7 @@ import io.github.tonnyl.mango.retrofit.ApiConstants
 import io.github.tonnyl.mango.retrofit.RetrofitClient
 import io.github.tonnyl.mango.retrofit.UserService
 import io.github.tonnyl.mango.retrofit.UsersService
-import io.github.tonnyl.mango.util.AccountManager
+import io.github.tonnyl.mango.util.AccessTokenManager
 import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.Body
@@ -16,8 +16,8 @@ import retrofit2.http.Body
  */
 object UserRepository {
 
-    private val mUsersService = RetrofitClient.createService(UsersService::class.java, AccountManager.accessToken)
-    private val mUserService = RetrofitClient.createService(UserService::class.java, AccountManager.accessToken)
+    private val mUsersService = RetrofitClient.createService(UsersService::class.java, AccessTokenManager.accessToken)
+    private val mUserService = RetrofitClient.createService(UserService::class.java, AccessTokenManager.accessToken)
 
     fun checkFollowing(userId: Long): Observable<Response<Body>> {
         return mUserService.checkFollowing(userId)
@@ -31,12 +31,20 @@ object UserRepository {
         return mUsersService.unfollow(userId)
     }
 
-    fun listFollowerOfUser(userId: Long): Observable<Response<List<Follower>>> {
-        return mUsersService.listFollowerOfUser(userId, ApiConstants.PER_PAGE)
+    fun listFollowersOfUser(userId: Long): Observable<Response<List<Follower>>> {
+        return mUsersService.listFollowersOfUser(userId, ApiConstants.PER_PAGE)
+    }
+
+    fun listFollowersOfNextPage(url: String): Observable<Response<List<Follower>>> {
+        return mUsersService.listFollowersOfNextPage(url)
     }
 
     fun listFolloweeOfUser(userId: Long): Observable<Response<List<Followee>>> {
         return mUsersService.listFollowingOfUser(userId, ApiConstants.PER_PAGE)
+    }
+
+    fun listFolloweesOfNextPage(url: String): Observable<Response<List<Followee>>> {
+        return mUsersService.listFollowingOfNextPage(url)
     }
 
 }

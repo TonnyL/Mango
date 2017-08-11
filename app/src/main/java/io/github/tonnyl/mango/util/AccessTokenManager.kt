@@ -9,7 +9,7 @@ import io.github.tonnyl.mango.data.AccessToken
 /**
  * Created by lizhaotailang on 2017/6/30.
  */
-object AccountManager {
+object AccessTokenManager {
 
     var accessToken: AccessToken? = null
 

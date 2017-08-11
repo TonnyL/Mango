@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.item_simple_list_shots.view.*
  * Created by lizhaotailang on 2017/7/20.
  */
 
-class LikedShotsAdapter(context: Context, list: MutableList<LikedShot>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class LikedShotsAdapter(context: Context, list: List<LikedShot>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val mContext = context
     private val mList = list

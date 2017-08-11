@@ -29,7 +29,6 @@ class LikesFragment : Fragment(), LikesContract.View {
 
     private var mLayoutManager: LinearLayoutManager? = null
     private var mAdapter: LikesAdapter? = null
-    private var mListSize = 0
     private var mIsLoading = true
 
     companion object {
@@ -51,16 +50,16 @@ class LikesFragment : Fragment(), LikesContract.View {
         mPresenter.subscribe()
 
         refresh_layout.setOnRefreshListener {
-            mAdapter?.clearData()
-            mPresenter.fetchLikes()
             mIsLoading = true
+            mPresenter.loadLikes()
         }
 
         recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0 && (mLayoutManager?.findLastCompletelyVisibleItemPosition() == mListSize - 1) && !mIsLoading) {
-                    mPresenter.fetchLikes()
+                if (dy > 0 && (mLayoutManager?.findLastVisibleItemPosition() == recycler_view.adapter.itemCount - 1) && !mIsLoading) {
+                    mPresenter.loadMoreLikes()
+                    mIsLoading = true
                 }
             }
         })
@@ -89,16 +88,16 @@ class LikesFragment : Fragment(), LikesContract.View {
         })
     }
 
-    override fun showMessage(message: String?) {
-        message?.let {
-            Snackbar.make(refresh_layout, it, Snackbar.LENGTH_SHORT).show()
-        } ?: run {
-            Snackbar.make(refresh_layout, R.string.something_wrong, Snackbar.LENGTH_SHORT).show()
-        }
+    override fun setEmptyViewVisibility(visible: Boolean) {
+        empty_view.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
-    override fun showLikes(likes: MutableList<Like>) {
-        mAdapter?.updateData(likes) ?: run {
+    override fun showNetworkError() {
+        Snackbar.make(refresh_layout, R.string.network_error, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun showLikes(likes: List<Like>) {
+        if (mAdapter == null) {
             mAdapter = LikesAdapter(context, likes)
             mAdapter?.setOnItemClickListener { _, position ->
                 context.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to likes[position].user)
@@ -106,18 +105,21 @@ class LikesFragment : Fragment(), LikesContract.View {
             recycler_view.adapter = mAdapter
         }
 
-        mListSize += likes.size
         mIsLoading = false
-
-        empty_view.visibility = if (likes.isEmpty()) {
-            View.VISIBLE
-        } else {
-            View.GONE
-        }
     }
 
     override fun updateTitle(likeCount: Int) {
         (activity as LikesActivity).title = getString(R.string.likes_formatted).format(likeCount)
+    }
+
+    override fun notifyDataAllRemoved(size: Int) {
+        mAdapter?.notifyItemRangeRemoved(0, size)
+        mIsLoading = false
+    }
+
+    override fun notifyDataAdded(startPosition: Int, size: Int) {
+        mAdapter?.notifyItemRangeInserted(startPosition, size)
+        mIsLoading = false
     }
 
     private fun initViews() {

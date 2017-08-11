@@ -2,10 +2,10 @@ package io.github.tonnyl.mango.data.repository
 
 import android.content.Context
 import io.github.tonnyl.mango.data.AccessToken
+import io.github.tonnyl.mango.data.datasource.AccessTokenDataSource
 import io.github.tonnyl.mango.data.local.AccessTokenLocalDataSource
 import io.github.tonnyl.mango.data.remote.AccessTokenRemoteDataSource
-import io.github.tonnyl.mango.data.datasource.AccessTokenDataSource
-import io.github.tonnyl.mango.util.AccountManager
+import io.github.tonnyl.mango.util.AccessTokenManager
 import io.reactivex.Observable
 
 /**
@@ -24,7 +24,7 @@ object AccessTokenRepository : AccessTokenDataSource {
                     .flatMap { accessToken ->
                         Observable.just(accessToken)
                                 .doOnNext {
-                                    AccountManager.accessToken = accessToken
+                                    AccessTokenManager.accessToken = accessToken
                                 }
                     }
         }
@@ -33,12 +33,16 @@ object AccessTokenRepository : AccessTokenDataSource {
                 .flatMap { accessToken ->
                     Observable.just(accessToken)
                             .doOnNext {
-                                AccountManager.accessToken = accessToken
+                                AccessTokenManager.accessToken = accessToken
                             }
                 }
     }
 
     override fun saveAccessToken(accessToken: AccessToken) {
         AccessTokenLocalDataSource.saveAccessToken(accessToken)
+    }
+
+    override fun removeAccessToken(accessToken: AccessToken): Observable<Unit> {
+        return AccessTokenLocalDataSource.removeAccessToken(accessToken)
     }
 }

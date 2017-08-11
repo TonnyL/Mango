@@ -15,15 +15,16 @@
 
         <activity
             android:name="io.github.tonnyl.mango.ui.main.MainActivity"
-            android:label="@string/app_name"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name="io.github.tonnyl.mango.ui.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:exported="true"
             android:finishOnTaskLaunch="true"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.AuthScreen">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,38 +43,42 @@
 
         <activity
             android:name="io.github.tonnyl.mango.ui.shot.ShotActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name="io.github.tonnyl.mango.ui.user.UserProfileActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name="io.github.tonnyl.mango.ui.user.followers.FollowersActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name="io.github.tonnyl.mango.ui.user.following.FollowingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name="io.github.tonnyl.mango.ui.shot.likes.LikesActivity"
-            android:label="@string/likes"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name="io.github.tonnyl.mango.ui.shot.comments.CommentsActivity"
-            android:label="@string/comments"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name="io.github.tonnyl.mango.ui.settings.SettingsActivity"
-            android:label="@string/settings"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name="io.github.tonnyl.mango.ui.settings.license.LicensesActivity"
-            android:label="@string/open_source_licenses"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity

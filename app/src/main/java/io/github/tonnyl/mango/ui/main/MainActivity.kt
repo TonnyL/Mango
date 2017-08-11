@@ -3,7 +3,7 @@ package io.github.tonnyl.mango.ui.main
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import io.github.tonnyl.mango.R
-import io.github.tonnyl.mango.util.AccountManager
+import io.github.tonnyl.mango.util.AccessTokenManager
 
 /**
  * Show the homepage view.
@@ -22,8 +22,8 @@ class MainActivity : AppCompatActivity() {
             mainFragment = MainFragment.newInstance()
         }
 
-        if (AccountManager.accessToken == null) {
-            AccountManager.init(this)
+        if (AccessTokenManager.accessToken == null) {
+            AccessTokenManager.init(this)
         }
 
         if (!mainFragment.isAdded) {

@@ -15,11 +15,19 @@ interface CommentsContract {
 
         fun setLoadingIndicator(loading: Boolean)
 
-        fun showMessage(message: String?)
+        fun showNetworkError()
+
+        fun setEmptyViewVisibility(visible: Boolean)
 
         fun cancelSendingIndicator(clearText: Boolean)
 
-        fun showComments(comments: MutableList<Comment>)
+        fun showCreateCommentFailed()
+
+        fun showComments(comments: List<Comment>)
+
+        fun notifyDataAllRemoved(size: Int)
+
+        fun notifyDataAdded(startPosition: Int, size: Int)
 
         fun updateTitle(commentsCount: Int)
 
@@ -31,7 +39,9 @@ interface CommentsContract {
 
         fun createComment(body: String)
 
-        fun fetchComments()
+        fun loadComments()
+
+        fun loadMoreComments()
 
     }
 

@@ -16,10 +16,24 @@ interface ShotsContract {
 
         fun setLoadingIndicator(loading: Boolean)
 
-        fun showShots(shots: MutableList<Shot>)
+        fun showShots(shots: List<Shot>)
+
+        fun notifyDataAllRemoved(size: Int)
+
+        fun notifyDataAdded(startPosition: Int, size: Int)
+
+        fun setEmptyViewVisibility(visible: Boolean)
+
+        fun showNetworkError()
 
     }
 
-    interface Presenter : BasePresenter
+    interface Presenter : BasePresenter {
+
+        fun loadShots()
+
+        fun loadShotsOfNextPage()
+
+    }
 
 }

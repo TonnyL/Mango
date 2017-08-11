@@ -1,52 +1,57 @@
 <resources>
     <string name="app_name">Mango</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!--Common-->
+    <string name="empty_content">Oops…nothing here</string>
+    <string name="network_error">Network error</string>
+    <string name="gif">GIF</string>
 
-    <string name="label_auth">Log in</string>
-    <string name="request_refresh_token_failed">Request refresh token failed</string>
-    <string name="request_user_info_failed">Request user info failed</string>
-    <string name="welcome_to_mango">WELCOME TO MANGO</string>
+    <!--Get start-->
     <string name="get_started">GET STARTED</string>
+    <string name="welcome_to_mango">WELCOME TO MANGO</string>
+    <string name="request_refresh_token_failed">Request refresh token failed</string>
 
+    <!--Main page-->
     <string name="popular">POPULAR</string>
     <string name="following">FOLLOWING</string>
     <string name="recent">RECENT</string>
     <string name="debuts">DEBUTS</string>
+    <string name="shot_title">%1$s - %2$s</string>
+    <!--Main page menus-->
+    <string name="action_main">action_main</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_log_out">Log out</string>
+    <string name="log_out">Log out</string>
+    <string name="logout_message">Are you sure to log out?</string>
+
+    <!--Shot detail-->
+    <string name="likes_formatted">Likes %1$d</string>
+    <string name="comments_formatted">Comments %1$d</string>
+    <string name="views_formatted">Views %1$d</string>
+    <string name="copy_to_clipboard">Copy to clipboard</string>
+    <string name="copied">Copied</string>
+    <string name="share_to">Share to</string>
+    <!--Shot detail menus-->
+    <string name="action_shot">action_shot</string>
     <string name="action_share">Share</string>
     <string name="action_open_in_browser">Open in browser</string>
-    <string name="nav_settings">Settings</string>
-    <string name="nav_info">Info</string>
-    <string name="something_wrong">Something wrong</string>
-    <string name="empty_content">Oops…nothing here</string>
-    <string name="add_comment_hint">Add comment</string>
-    <string name="shot_title">%1$s - %2$s</string>
 
-    <string name="likes">Likes</string>
-    <string name="comments">Comments</string>
-    <string name="views">Views</string>
-    <string name="comments_formatted">Comments %1$d</string>
-    <string name="likes_formatted">Likes %1$d</string>
-    <string name="views_formatted">Views %1$d</string>
+    <!--Comments-->
+    <string name="add_comment_hint">Add comment</string>
+    <string name="add_comment_failed">Add comment failed</string>
+
+    <!--User profile-->
     <string name="followers_formatted">Followers %1$d</string>
     <string name="following_formatted">Following %1$d</string>
     <string name="follow">Follow</string>
     <string name="unfollow">Unfollow</string>
-
-    <string name="add_comment_failed">Add comment failed</string>
-
-    <string name="gif">GIF</string>
-    <string name="log_out">Log out</string>
-    <string name="settings">Settings</string>
-    <string name="logout_message">Are you sure to log out?</string>
-
     <string name="tab_title_shots">SHOTS %1$d</string>
     <string name="tab_title_likes">LIKES %1$d</string>
-    <string name="copy_to_clipboard">Copy to clipboard</string>
-    <string name="copied">Copied</string>
-    <string name="share_to">Share to</string>
+    <!--User profile menus-->
+    <string name="action_user">action_user</string>
 
+    <!--Settings-->
+    <string name="settings">Settings</string>
     <string name="general">General</string>
     <string name="clear_cache_desc">Cache size: %1$d MB</string>
     <string name="clear_cache">Clear Cache</string>
@@ -67,9 +72,10 @@
     <string name="feedback_email_subject">Mango Feedback</string>
     <string name="feedback_desc">Help me to make Mango App better</string>
 
-    <string name="action_shot">action_shot</string>
-    <string name="action_main">action_main</string>
-    <string name="action_user">action_user</string>
-
+    <!--Image content descriptions-->
+    <string name="avatar_desc">Avatar</string>
+    <string name="send_desc">Send</string>
+    <string name="shot_desc">Shot</string>
+    <string name="like_desc">Like</string>
 
 </resources>

@@ -3,7 +3,7 @@ package io.github.tonnyl.mango.ui.auth
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.repository.AccessTokenRepository
 import io.github.tonnyl.mango.data.repository.AuthUserRepository
-import io.github.tonnyl.mango.util.AccountManager
+import io.github.tonnyl.mango.util.AccessTokenManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -46,7 +46,7 @@ class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
                         }
                     } else {
                         // Update the access token of AccountManager
-                        AccountManager.accessToken = token
+                        AccessTokenManager.accessToken = token
 
                         // Save the access token to database
                         AccessTokenRepository.saveAccessToken(token)
@@ -71,12 +71,12 @@ class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
                 .subscribe({ user ->
                     if (user.id != 0L) {
                         // Update the user id in access token
-                        AccountManager.accessToken?.let { it.id = user.id }
+                        AccessTokenManager.accessToken?.let { it.id = user.id }
 
                         // Save the user info to database
                         AuthUserRepository.saveAuthenticatedUser(user)
 
-                        mView.updateLoginStatus(AccountManager.accessToken!!)
+                        mView.updateLoginStatus(AccessTokenManager.accessToken!!)
                     }
                 }, { error ->
                     if (mView.isActive()) {

@@ -1,9 +1,12 @@
 package io.github.tonnyl.mango.ui.user.shots
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +27,7 @@ class ShotsFragment : Fragment(), ShotsContract.View {
 
     private lateinit var mPresenter: ShotsContract.Presenter
 
+    private var mIsLoading = false
     private var mAdapter: ShotsAdapter? = null
 
     companion object {
@@ -43,6 +47,23 @@ class ShotsFragment : Fragment(), ShotsContract.View {
         initViews()
 
         mPresenter.subscribe()
+
+        refresh_layout.setOnRefreshListener {
+            mIsLoading = true
+            mPresenter.loadShots()
+        }
+
+        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView?.layoutManager as GridLayoutManager
+                if (dy > 0 && layoutManager.findLastVisibleItemPosition() == recycler_view.adapter.itemCount - 1 && !mIsLoading) {
+                    Log.d("view", "load")
+                    mPresenter.loadShotsOfNextPage()
+                    mIsLoading = true
+                }
+            }
+        })
     }
 
     override fun onDestroyView() {
@@ -58,25 +79,39 @@ class ShotsFragment : Fragment(), ShotsContract.View {
         refresh_layout.isRefreshing = loading
     }
 
-    override fun showShots(shots: MutableList<Shot>) {
-        recycler_view.layoutManager = GridLayoutManager(context, 2)
+    override fun showShots(shots: List<Shot>) {
         if (mAdapter == null) {
             mAdapter = ShotsAdapter(context, shots)
             mAdapter?.setItemClickListener({ _, position ->
                 context.startActivity<ShotActivity>(ShotPresenter.EXTRA_SHOT to shots[position])
             })
+            recycler_view.adapter = mAdapter
         }
-        recycler_view.adapter = mAdapter
 
-        empty_view.visibility = if (shots.isEmpty()) {
-            View.VISIBLE
-        } else {
-            View.GONE
-        }
+        mIsLoading = false
+    }
+
+    override fun setEmptyViewVisibility(visible: Boolean) {
+        empty_view.visibility = if (visible) View.VISIBLE else View.GONE
+    }
+
+    override fun showNetworkError() {
+        Snackbar.make(recycler_view, R.string.network_error, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun notifyDataAllRemoved(size: Int) {
+        mAdapter?.notifyItemRangeRemoved(0, size)
+        mIsLoading = false
+    }
+
+    override fun notifyDataAdded(startPosition: Int, size: Int) {
+        mAdapter?.notifyItemRangeInserted(startPosition, size)
+        mIsLoading = false
     }
 
     private fun initViews() {
         refresh_layout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))
+        recycler_view.layoutManager = GridLayoutManager(context, 2)
         recycler_view.setHasFixedSize(true)
     }
 

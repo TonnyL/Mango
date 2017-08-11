@@ -14,6 +14,7 @@
         android:id="@+id/avatar"
         android:layout_width="@dimen/avatar_width_secondary"
         android:layout_height="@dimen/avatar_height_secondary"
+        android:contentDescription="@string/avatar_desc"
         tools:src="@drawable/ic_avatar_placeholder" />
 
     <LinearLayout

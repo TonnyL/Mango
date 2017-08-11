@@ -18,9 +18,15 @@ interface ShotsPageContract {
 
         fun setLoadingIndicator(loading: Boolean)
 
-        fun showResults(results: MutableList<Shot>)
+        fun showResults(results: List<Shot>)
 
-        fun showMessage(message: String)
+        fun notifyDataAllRemoved(size: Int)
+
+        fun notifyDataAdded(startPosition: Int, size: Int)
+
+        fun showNetworkError()
+
+        fun setEmptyContentVisibility(visible: Boolean)
 
     }
 

@@ -15,6 +15,7 @@
             android:id="@+id/avatar"
             android:layout_width="@dimen/avatar_width_secondary"
             android:layout_height="@dimen/avatar_height_secondary"
+            android:contentDescription="@string/avatar_desc"
             tools:src="@drawable/ic_avatar_placeholder" />
 
         <android.support.v7.widget.AppCompatTextView
@@ -36,7 +37,8 @@
         <ImageView
             android:id="@+id/shot_image_view"
             android:layout_width="match_parent"
-            android:layout_height="240dp" />
+            android:layout_height="@dimen/shot_item_height"
+            android:contentDescription="@string/shot_desc" />
 
         <TextView
             android:id="@+id/tag_gif"

@@ -18,14 +18,14 @@
                     android:id="@+id/action_about"
                     android:icon="@drawable/ic_settings_black_24dp"
                     android:orderInCategory="1"
-                    android:title="@string/settings"
+                    android:title="@string/action_settings"
                     app:showAsAction="never" />
 
                 <item
                     android:id="@+id/action_logout"
                     android:icon="@drawable/ic_logout_black_24dp"
                     android:orderInCategory="2"
-                    android:title="@string/log_out"
+                    android:title="@string/action_log_out"
                     app:showAsAction="never" />
 
             </group>

@@ -92,11 +92,6 @@ dependencies {
     implementation "android.arch.persistence.room:rxjava2:$archRoomVersion"
     kapt "android.arch.persistence.room:compiler:$archRoomVersion"
 
-    // Dagger2
-    implementation "com.google.dagger:dagger:$daggerVersion"
-    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
-
     // DeepLink dispatch
     implementation "com.airbnb:deeplinkdispatch:$deeplinkDispatchVersion"
     kapt "com.airbnb:deeplinkdispatch-processor:$deeplinkDispatchVersion"

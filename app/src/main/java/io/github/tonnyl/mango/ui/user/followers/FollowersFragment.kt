@@ -1,10 +1,13 @@
 package io.github.tonnyl.mango.ui.user.followers
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import io.github.tonnyl.mango.R
@@ -26,6 +29,8 @@ class FollowersFragment : Fragment(), FollowersContract.View {
 
     private var mLayoutManager: LinearLayoutManager? = null
 
+    private var mIsLoading = false
+
     companion object {
         @JvmStatic
         fun newInstance(): FollowersFragment {
@@ -42,12 +47,37 @@ class FollowersFragment : Fragment(), FollowersContract.View {
 
         initViews()
 
+        setHasOptionsMenu(true)
+
         mPresenter.subscribe()
+
+        refresh_layout.setOnRefreshListener {
+            mIsLoading = true
+            mPresenter.loadFollowers()
+        }
+
+        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0 && (mLayoutManager?.findLastVisibleItemPosition() == recycler_view.adapter.itemCount - 1) && !mIsLoading) {
+                    mIsLoading = true
+                    mPresenter.loadMoreFollowers()
+                }
+            }
+        })
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         mPresenter.unsubscribe()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == android.R.id.home) {
+            activity.onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun setPresenter(presenter: FollowersContract.Presenter) {
@@ -58,9 +88,16 @@ class FollowersFragment : Fragment(), FollowersContract.View {
         refresh_layout.isRefreshing = loading
     }
 
-    override fun showFollowers(followers: MutableList<Follower>) {
-        // todo
-        mAdapter?.notifyDataSetChanged() ?: run {
+    override fun setEmptyViewVisibility(visible: Boolean) {
+        empty_view.visibility = if (visible) View.VISIBLE else View.GONE
+    }
+
+    override fun showNetworkError() {
+        Snackbar.make(recycler_view, R.string.network_error, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun showFollowers(followers: List<Follower>) {
+        if (mAdapter == null) {
             mAdapter = FollowersAdapter(context, followers)
             mAdapter?.setOnItemClickListener { _, position ->
                 context.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to followers[position].follower)
@@ -68,8 +105,19 @@ class FollowersFragment : Fragment(), FollowersContract.View {
             recycler_view.adapter = mAdapter
         }
 
-        empty_view.visibility = if (followers.isEmpty()) View.VISIBLE else View.GONE
+        mIsLoading = false
     }
+
+    override fun notifyDataAllRemoved(size: Int) {
+        mAdapter?.notifyItemRangeRemoved(0, size)
+        mIsLoading = false
+    }
+
+    override fun notifyDataAdded(startPosition: Int, size: Int) {
+        mAdapter?.notifyItemRangeInserted(startPosition, size)
+        mIsLoading = false
+    }
+
 
     private fun initViews() {
         mLayoutManager = LinearLayoutManager(context)

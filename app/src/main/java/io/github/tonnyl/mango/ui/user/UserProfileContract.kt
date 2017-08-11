@@ -19,6 +19,8 @@ interface UserProfileContract {
 
         fun setFollowing(isFollowing: Boolean)
 
+        fun showNetworkError()
+
     }
 
     interface Presenter : BasePresenter {

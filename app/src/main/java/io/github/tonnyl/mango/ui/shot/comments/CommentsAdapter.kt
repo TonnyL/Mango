@@ -16,13 +16,11 @@ import kotlinx.android.synthetic.main.item_comment.view.*
  * Created by lizhaotailang on 2017/7/3.
  */
 
-class CommentsAdapter(context: Context, list: MutableList<Comment>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CommentsAdapter(context: Context, list: List<Comment>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var mContext = context
     private var mList = list
     private var mListener: ((View, Int) -> Unit)? = null
-
-    private var mClearData = false
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         return CommentViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_comment, parent, false), mListener)
@@ -49,20 +47,6 @@ class CommentsAdapter(context: Context, list: MutableList<Comment>) : RecyclerVi
 
     fun setOnAvatarClickListener(listener: ((View, Int) -> Unit)?) {
         mListener = listener
-    }
-
-    fun updateData(list: MutableList<Comment>) {
-        if (mClearData) {
-            mList.clear()
-            notifyItemRangeRemoved(0, mList.size)
-            mClearData = false
-        }
-        mList.addAll(list)
-        notifyItemRangeInserted(mList.size - list.size, list.size)
-    }
-
-    fun clearData() {
-        mClearData = true
     }
 
     class CommentViewHolder(itemView: View, listener: ((View, Int) -> Unit)?) : RecyclerView.ViewHolder(itemView) {

@@ -15,8 +15,7 @@ class UserUtils {
         // Only a player or team can be granted.
         @JvmStatic
         fun canUserComment(user: User?): Boolean {
-            //return (user != null) && ("Player" == user.type || "Team" == user.type)
-            return true
+            return (user != null) && ("Player" == user.type || "Team" == user.type)
         }
     }
 

@@ -28,7 +28,6 @@ class CommentsFragment : Fragment(), CommentsContract.View {
 
     private lateinit var mPresenter: CommentsContract.Presenter
     private var mCommentsAdapter: CommentsAdapter? = null
-    private var mListSize = 0
     private var mIsLoading = false
 
     companion object {
@@ -51,8 +50,7 @@ class CommentsFragment : Fragment(), CommentsContract.View {
         mPresenter.subscribe()
 
         refresh_layout.setOnRefreshListener {
-            mCommentsAdapter?.clearData()
-            mPresenter.fetchComments()
+            mPresenter.loadComments()
             mIsLoading = true
         }
 
@@ -60,8 +58,10 @@ class CommentsFragment : Fragment(), CommentsContract.View {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val layoutManager = recyclerView?.layoutManager as LinearLayoutManager
-                if (dy > 0 && layoutManager.findLastCompletelyVisibleItemPosition() == mListSize - 1 && !mIsLoading) {
-                    mPresenter.fetchComments()
+                if ((dy > 0) && (layoutManager.findLastVisibleItemPosition() == recycler_view.adapter.itemCount - 1)
+                        && !mIsLoading) {
+                    mPresenter.loadMoreComments()
+                    mIsLoading = true
                 }
             }
         })
@@ -89,14 +89,6 @@ class CommentsFragment : Fragment(), CommentsContract.View {
         })
     }
 
-    override fun showMessage(message: String?) {
-        message?.let {
-            Snackbar.make(refresh_layout, message, Snackbar.LENGTH_SHORT).show()
-        } ?: run {
-            Snackbar.make(refresh_layout, R.string.something_wrong, Snackbar.LENGTH_SHORT).show()
-        }
-    }
-
     override fun cancelSendingIndicator(clearText: Boolean) {
         button_send.isEnabled = true
         button_send.visibility = View.VISIBLE
@@ -106,8 +98,8 @@ class CommentsFragment : Fragment(), CommentsContract.View {
         }
     }
 
-    override fun showComments(comments: MutableList<Comment>) {
-        mCommentsAdapter?.updateData(comments) ?: run {
+    override fun showComments(comments: List<Comment>) {
+        if (mCommentsAdapter == null) {
             mCommentsAdapter = CommentsAdapter(context, comments)
             mCommentsAdapter?.setOnAvatarClickListener { _, position ->
                 context.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to comments[position].user)
@@ -115,18 +107,15 @@ class CommentsFragment : Fragment(), CommentsContract.View {
             recycler_view.adapter = mCommentsAdapter
         }
 
-        mListSize += comments.size
         mIsLoading = false
-
-        empty_view.visibility = if (comments.isEmpty()) {
-            View.VISIBLE
-        } else {
-            View.GONE
-        }
     }
 
     override fun updateTitle(commentsCount: Int) {
         (activity as CommentsActivity).title = getString(R.string.comments_formatted).format(commentsCount)
+    }
+
+    override fun setEmptyViewVisibility(visible: Boolean) {
+        empty_view.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
     override fun setEditorVisible(visible: Boolean, avatarUrl: String) {
@@ -137,6 +126,24 @@ class CommentsFragment : Fragment(), CommentsContract.View {
     private fun initViews() {
         recycler_view.layoutManager = LinearLayoutManager(context)
         refresh_layout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))
+    }
+
+    override fun showNetworkError() {
+        Snackbar.make(refresh_layout, R.string.network_error, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun notifyDataAllRemoved(size: Int) {
+        mCommentsAdapter?.notifyItemRangeRemoved(0, size)
+        mIsLoading = false
+    }
+
+    override fun notifyDataAdded(startPosition: Int, size: Int) {
+        mCommentsAdapter?.notifyItemRangeInserted(startPosition, size)
+        mIsLoading = false
+    }
+
+    override fun showCreateCommentFailed() {
+        Snackbar.make(layout_add_comment, R.string.add_comment_failed, Snackbar.LENGTH_SHORT).show()
     }
 
 }

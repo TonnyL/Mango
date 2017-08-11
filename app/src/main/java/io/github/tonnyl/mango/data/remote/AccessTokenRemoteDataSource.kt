@@ -34,4 +34,10 @@ object AccessTokenRemoteDataSource: AccessTokenDataSource {
         // Not required for the remote data source because the [io.github.tonnyl.mango.data.repository.AccessTokenRepository]
         // handle the saving data to cache and database.
     }
+
+    override fun removeAccessToken(accessToken: AccessToken): Observable<Unit> {
+        // Not required for the remote data source because the [io.github.tonnyl.mango.data.repository.AccessTokenRepository]
+        // handle the removing data from cache and database.
+        return Observable.empty()
+    }
 }

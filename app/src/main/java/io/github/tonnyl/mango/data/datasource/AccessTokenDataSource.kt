@@ -18,4 +18,6 @@ interface AccessTokenDataSource {
 
     fun saveAccessToken(accessToken: AccessToken)
 
+    fun removeAccessToken(accessToken: AccessToken): Observable<Unit>
+
 }

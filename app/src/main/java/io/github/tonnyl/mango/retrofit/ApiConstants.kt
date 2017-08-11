@@ -48,7 +48,7 @@ class ApiConstants private constructor() {
 
         // Callback urls
         val DRIBBBLE_AUTHORIZE_CALLBACK_URI: String = "x-mango-oauth-dribbble://callback"
-        val DRIBBBLE_AUTHORIZE_CALLBACK_URI_SCHEMA: String = "x-mango-oauth-dribbble"
+        //val DRIBBBLE_AUTHORIZE_CALLBACK_URI_SCHEMA: String = "x-mango-oauth-dribbble"
         val DRIBBBLE_AUTHORIZE_CALLBACK_URI_HOST: String = "callback"
         val DRIBBBLE_AUTHORIZE_SCOPE: String = "public+write+comment+upload"
 

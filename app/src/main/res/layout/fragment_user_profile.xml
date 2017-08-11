@@ -23,10 +23,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
+                android:theme="@style/AppTheme.ToolbarStyle"
                 app:layout_collapseMode="parallax"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:subtitleTextColor="@color/colorSecondaryText"
-                app:theme="@style/AppTheme.ToolbarStyle"
                 app:titleTextColor="@color/colorPrimaryText" />
 
             <LinearLayout
@@ -42,6 +42,7 @@
                     android:id="@+id/avatar"
                     android:layout_width="@dimen/avatar_width_primary"
                     android:layout_height="@dimen/avatar_height_primary"
+                    android:contentDescription="@string/avatar_desc"
                     android:fitsSystemWindows="true"
                     tools:src="@drawable/ic_avatar_placeholder" />
 
@@ -140,6 +141,8 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>

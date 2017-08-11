@@ -3,10 +3,11 @@ package io.github.tonnyl.mango.ui.user
 import io.github.tonnyl.mango.data.User
 import io.github.tonnyl.mango.data.repository.AuthUserRepository
 import io.github.tonnyl.mango.data.repository.UserRepository
-import io.github.tonnyl.mango.util.AccountManager
+import io.github.tonnyl.mango.util.AccessTokenManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import retrofit2.HttpException
 
 /**
  * Created by lizhaotailang on 2017/6/28.
@@ -36,7 +37,7 @@ class UserProfilePresenter(view: UserProfileContract.View, user: User) : UserPro
 
     override fun subscribe() {
         mView.showUserInfo(mUser)
-        if (AccountManager.accessToken?.id == mUser.id) {
+        if (AccessTokenManager.accessToken?.id == mUser.id) {
             mView.setFollowable(false)
             getUpdatedUserInfo()
         } else {
@@ -78,7 +79,8 @@ class UserProfilePresenter(view: UserProfileContract.View, user: User) : UserPro
                         mIsFollowing = false
                         mView.setFollowing(false)
                     }, {
-
+                        mView.showNetworkError()
+                        //it.printStackTrace()
                     })
         } else {
             UserRepository.follow(mUser.id)
@@ -88,7 +90,8 @@ class UserProfilePresenter(view: UserProfileContract.View, user: User) : UserPro
                         mIsFollowing = true
                         mView.setFollowing(true)
                     }, {
-
+                        mView.showNetworkError()
+                        //it.printStackTrace()
                     })
         }
     }
@@ -105,7 +108,11 @@ class UserProfilePresenter(view: UserProfileContract.View, user: User) : UserPro
                     mUser = it
                     mView.showUserInfo(it)
                 }, {
+                    mView.showNetworkError()
+                    if (it is HttpException) {
 
+                    }
+                    it.printStackTrace()
                 })
         mCompositeDisposable.add(disposable)
     }

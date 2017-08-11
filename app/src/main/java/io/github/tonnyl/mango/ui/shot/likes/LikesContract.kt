@@ -15,9 +15,15 @@ interface LikesContract {
 
         fun setLoadingIndicator(loading: Boolean)
 
-        fun showMessage(message: String?)
+        fun showNetworkError()
 
-        fun showLikes(likes: MutableList<Like>)
+        fun showLikes(likes: List<Like>)
+
+        fun notifyDataAllRemoved(size: Int)
+
+        fun notifyDataAdded(startPosition: Int, size: Int)
+
+        fun setEmptyViewVisibility(visible: Boolean)
 
         fun updateTitle(likeCount: Int)
 
@@ -25,7 +31,9 @@ interface LikesContract {
 
     interface Presenter: BasePresenter {
 
-        fun fetchLikes()
+        fun loadLikes()
+
+        fun loadMoreLikes()
 
     }
 

@@ -15,13 +15,11 @@ import kotlinx.android.synthetic.main.item_simple_list_shots.view.*
 /**
  * Created by lizhaotailang on 2017/7/20.
  */
-class ShotsAdapter(context: Context, list: MutableList<Shot>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ShotsAdapter(context: Context, list: List<Shot>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var mContext = context
     private var mList = list
     private var mListener: ((View, Int) -> Unit)? = null
-
-    private var mClearData = false
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         return ShotViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_simple_list_shots, parent, false), mListener)
@@ -38,16 +36,6 @@ class ShotsAdapter(context: Context, list: MutableList<Shot>) : RecyclerView.Ada
 
     fun setItemClickListener(listener: ((view: View, position: Int) -> Unit)?) {
         mListener = listener
-    }
-
-    fun updateData(list: MutableList<Shot>) {
-        if (mClearData) {
-            mList.clear()
-            notifyItemRangeRemoved(0, mList.size)
-            mClearData = false
-        }
-        mList.addAll(list)
-        notifyItemRangeInserted(mList.size - list.size, list.size)
     }
 
     inner class ShotViewHolder(itemView: View, listener: ((view: View, position: Int) -> Unit)?) : RecyclerView.ViewHolder(itemView), View.OnClickListener {

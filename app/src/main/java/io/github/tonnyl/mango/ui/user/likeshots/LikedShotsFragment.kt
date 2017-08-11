@@ -1,9 +1,12 @@
 package io.github.tonnyl.mango.ui.user.likeshots
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,8 +26,10 @@ import org.jetbrains.anko.startActivity
 class LikedShotsFragment : Fragment(), LikedShotsContract.View {
 
     private lateinit var mPresenter: LikedShotsContract.Presenter
-
     private var mAdapter: LikedShotsAdapter? = null
+
+    private var mIsLoading = false
+    private var mLayoutManager: LinearLayoutManager? = null
 
     companion object {
         @JvmStatic
@@ -43,6 +48,22 @@ class LikedShotsFragment : Fragment(), LikedShotsContract.View {
         initViews()
 
         mPresenter.subscribe()
+
+        refresh_layout.setOnRefreshListener {
+            mIsLoading = true
+            mPresenter.loadLikedShots()
+        }
+
+        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0 && (mLayoutManager?.findLastVisibleItemPosition() == recycler_view.adapter.itemCount - 1) && !mIsLoading) {
+                    mIsLoading = true
+                    mPresenter.loadMoreLikedShots()
+                }
+            }
+        })
+
     }
 
     override fun onDestroyView() {
@@ -58,8 +79,8 @@ class LikedShotsFragment : Fragment(), LikedShotsContract.View {
         refresh_layout.isRefreshing = loading
     }
 
-    override fun showShots(likeShots: MutableList<LikedShot>) {
-        recycler_view.layoutManager = GridLayoutManager(context, 2)
+    override fun showLikedShots(likeShots: List<LikedShot>) {
+        recycler_view.layoutManager = mLayoutManager
         if (mAdapter == null) {
             mAdapter = LikedShotsAdapter(context, likeShots)
             mAdapter?.setItemClickListener({ _, position ->
@@ -69,9 +90,28 @@ class LikedShotsFragment : Fragment(), LikedShotsContract.View {
         recycler_view.adapter = mAdapter
     }
 
+    override fun setEmptyViewVisibility(visible: Boolean) {
+        empty_view.visibility = if (visible) View.VISIBLE else View.GONE
+    }
+
+    override fun showNetworkError() {
+        Snackbar.make(refresh_layout, R.string.network_error, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun notifyDataAllRemoved(size: Int) {
+        mAdapter?.notifyItemRangeRemoved(0, size)
+        mIsLoading = false
+    }
+
+    override fun notifyDataAdded(startPosition: Int, size: Int) {
+        mAdapter?.notifyItemRangeInserted(startPosition, size)
+        mIsLoading = false
+    }
+
     private fun initViews() {
         refresh_layout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))
         recycler_view.setHasFixedSize(true)
+        mLayoutManager = GridLayoutManager(context, 2)
     }
 
 }

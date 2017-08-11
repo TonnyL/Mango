@@ -1,10 +1,13 @@
 package io.github.tonnyl.mango.ui.main
 
 import io.github.tonnyl.mango.data.User
+import io.github.tonnyl.mango.data.repository.AccessTokenRepository
 import io.github.tonnyl.mango.data.repository.AuthUserRepository
-import io.github.tonnyl.mango.util.AccountManager
+import io.github.tonnyl.mango.util.AccessTokenManager
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 
 /**
@@ -33,7 +36,7 @@ class MainPresenter(view: MainContract.View) : MainContract.Presenter {
     }
 
     override fun fetchUser() {
-        val disposable = AuthUserRepository.getAuthenticatedUser(AccountManager.accessToken?.id)
+        val disposable = AuthUserRepository.getAuthenticatedUser(AccessTokenManager.accessToken?.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
@@ -44,18 +47,27 @@ class MainPresenter(view: MainContract.View) : MainContract.Presenter {
     }
 
     override fun logoutUser() {
-        AccountManager.accessToken?.let {
-            val disposable = AuthUserRepository.getAuthenticatedUser(it.id)
+        AccessTokenManager.accessToken?.let { token ->
+            val disposable = AuthUserRepository.getAuthenticatedUser(token.id)
                     .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
                     .subscribe({
-                        AuthUserRepository.deleteAuthenticatedUser(it)
+                        val obs1: Observable<Unit> = AuthUserRepository.deleteAuthenticatedUser(it)
                                 .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
+
+                        val obs2: Observable<Unit> = AccessTokenRepository.removeAccessToken(token)
+                                .subscribeOn(Schedulers.io())
+
+                        Observable.zip(obs1, obs2, BiFunction<Unit, Unit, Unit> { _, _ ->
+                            Observable.just(Unit)
+                        }).observeOn(AndroidSchedulers.mainThread())
                                 .subscribe({
                                     mView.navigateToLogin()
                                 }, {
-
+                                    it.printStackTrace()
                                 })
+                    }, {
+                        it.printStackTrace()
                     })
             mCompositeDisposable.add(disposable)
         }

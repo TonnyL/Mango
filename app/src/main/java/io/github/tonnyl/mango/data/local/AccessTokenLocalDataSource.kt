@@ -28,14 +28,23 @@ object AccessTokenLocalDataSource: AccessTokenDataSource {
             mDatabase = DatabaseCreator.getDatabase()
         }
 
-        return Observable.just(mDatabase!!.accessTokenDao().query(id!!))
+        mDatabase?.let {
+            if (id != null) {
+                return Observable.just(it.accessTokenDao().query(id))
+            } else {
+                return Observable.empty()
+            }
+        }
+
+        return Observable.empty()
     }
 
     override fun saveAccessToken(accessToken: AccessToken) {
         if (mDatabase == null) {
             mDatabase = DatabaseCreator.getDatabase()
         }
-        if (mDatabase != null) {
+
+        mDatabase?.let {
             Thread(Runnable {
                 try {
                     mDatabase!!.beginTransaction()
@@ -45,6 +54,16 @@ object AccessTokenLocalDataSource: AccessTokenDataSource {
                     mDatabase!!.endTransaction()
                 }
             }).start()
+        }
+    }
+
+    override fun removeAccessToken(accessToken: AccessToken): Observable<Unit> {
+        if (mDatabase != null) {
+            mDatabase = DatabaseCreator.getDatabase()
+        }
+
+        return Observable.fromCallable {
+            mDatabase?.accessTokenDao()?.delete(accessToken)
         }
     }
 

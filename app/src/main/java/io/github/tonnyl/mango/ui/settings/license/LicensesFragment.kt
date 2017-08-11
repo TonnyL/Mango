@@ -63,7 +63,6 @@ class LicensesFragment : Fragment(), LicensesContract.View {
 
     private fun initViews() {
         val settings = web_view.settings
-        settings.javaScriptEnabled = true
         settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
         settings.defaultTextEncodingName = "UTF-8"
         settings.blockNetworkImage = false

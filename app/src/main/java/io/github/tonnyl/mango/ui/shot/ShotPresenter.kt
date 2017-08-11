@@ -86,8 +86,9 @@ class ShotPresenter(view: ShotContract.View, shotId: Long) : ShotContract.Presen
                             mView.setLikeStatus(false)
                             mIsLike = !mIsLike
                         }
-                    }, { error ->
-                        mView.showMessage(error.message)
+                    }, {
+                        mView.showNetworkError()
+                        it.printStackTrace()
                     })
             mCompositeDisposable.add(disposable)
         } else {
@@ -101,8 +102,9 @@ class ShotPresenter(view: ShotContract.View, shotId: Long) : ShotContract.Presen
                             mView.setLikeStatus(true)
                             mIsLike = !mIsLike
                         }
-                    }, { error ->
-                        mView.showMessage(error.message)
+                    }, {
+                        mView.showNetworkError()
+                        it.printStackTrace()
                     })
             mCompositeDisposable.add(disposable)
         }

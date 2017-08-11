@@ -16,10 +16,24 @@ interface LikedShotsContract {
 
         fun setLoadingIndicator(loading: Boolean)
 
-        fun showShots(likeShots: MutableList<LikedShot>)
+        fun setEmptyViewVisibility(visible: Boolean)
+
+        fun showNetworkError()
+
+        fun showLikedShots(likeShots: List<LikedShot>)
+
+        fun notifyDataAllRemoved(size: Int)
+
+        fun notifyDataAdded(startPosition: Int, size: Int)
 
     }
 
-    interface Presenter : BasePresenter
+    interface Presenter : BasePresenter {
+
+        fun loadLikedShots()
+
+        fun loadMoreLikedShots()
+
+    }
 
 }

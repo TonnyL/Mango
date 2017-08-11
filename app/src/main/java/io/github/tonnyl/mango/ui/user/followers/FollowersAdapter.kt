@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.item_user.view.*
  * Created by lizhaotailang on 2017/7/29.
  */
 
-class FollowersAdapter(context: Context, list: MutableList<Follower>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class FollowersAdapter(context: Context, list: List<Follower>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val mContext = context
     private val mList = list

@@ -48,9 +48,8 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
         initViews()
 
         refresh_layout.setOnRefreshListener {
-            mAdapter?.clearData()
-            mPresenter.listShots()
             mIsLoading = true
+            mPresenter.listShots()
         }
 
         recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -87,8 +86,8 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
         })
     }
 
-    override fun showResults(results: MutableList<Shot>) {
-        mAdapter?.updateData(results) ?: run {
+    override fun showResults(results: List<Shot>) {
+        if (mAdapter == null) {
             mAdapter = ShotsAdapter(context, results)
             mAdapter?.setItemClickListener(object : OnRecyclerViewItemClickListener {
 
@@ -108,16 +107,24 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
 
         mIsLoading = false
 
-        empty_view.visibility = if (results.isEmpty()) {
-            View.VISIBLE
-        } else {
-            View.GONE
-        }
-
     }
 
-    override fun showMessage(message: String) {
-        Snackbar.make(recycler_view, message, Snackbar.LENGTH_SHORT).show()
+    override fun showNetworkError() {
+        Snackbar.make(recycler_view, R.string.network_error, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun setEmptyContentVisibility(visible: Boolean) {
+        empty_view.visibility = if (visible) View.VISIBLE else View.GONE
+    }
+
+    override fun notifyDataAllRemoved(size: Int) {
+        mAdapter?.notifyItemRangeRemoved(0, size)
+        mIsLoading = false
+    }
+
+    override fun notifyDataAdded(startPosition: Int, size: Int) {
+        mAdapter?.notifyItemRangeInserted(startPosition, size)
+        mIsLoading = false
     }
 
 }

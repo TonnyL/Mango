@@ -1,10 +1,11 @@
 package io.github.tonnyl.mango.ui.shot.comments
 
+import io.github.tonnyl.mango.data.Comment
 import io.github.tonnyl.mango.data.Shot
 import io.github.tonnyl.mango.data.repository.AuthUserRepository
 import io.github.tonnyl.mango.data.repository.ShotRepository
-import io.github.tonnyl.mango.retrofit.ApiConstants
-import io.github.tonnyl.mango.util.AccountManager
+import io.github.tonnyl.mango.util.AccessTokenManager
+import io.github.tonnyl.mango.util.PageLinks
 import io.github.tonnyl.mango.util.UserUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -22,9 +23,8 @@ class CommentsPresenter(view: CommentsContract.View, shot: Shot) : CommentsContr
     private val mShot = shot
     private var mCompositeDisposable: CompositeDisposable
 
-    private var mPageCount = 0
-    private var mIsFirstLoad = true
-    private var mHasMore = true
+    private val mCachedComments = arrayListOf<Comment>()
+    private var mNextPageUrl: String? = null
 
     companion object {
         @JvmField
@@ -37,16 +37,18 @@ class CommentsPresenter(view: CommentsContract.View, shot: Shot) : CommentsContr
     }
 
     override fun subscribe() {
-        fetchComments()
+        loadComments()
+
         mView.updateTitle(mShot.commentsCount)
-        AccountManager.accessToken?.let {
+
+        AccessTokenManager.accessToken?.let {
             AuthUserRepository.getAuthenticatedUser(it.id)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         mView.setEditorVisible(UserUtils.canUserComment(it), it.avatarUrl)
                     }, {
-
+                        it.printStackTrace()
                     })
         }
     }
@@ -65,45 +67,70 @@ class CommentsPresenter(view: CommentsContract.View, shot: Shot) : CommentsContr
                         mView.cancelSendingIndicator(true)
                     } ?: run {
                         mView.cancelSendingIndicator(false)
-                        mView.showMessage(null)
                     }
-                }, { error ->
-                    mView.showMessage(error.message)
+                }, {
                     mView.cancelSendingIndicator(false)
+                    mView.showCreateCommentFailed()
                 })
         mCompositeDisposable.add(disposable)
     }
 
-    override fun fetchComments() {
-        if (mIsFirstLoad) {
-            mView.setLoadingIndicator(true)
-            mIsFirstLoad = false
-        }
-
-        if (!mHasMore) {
-            return
-        }
+    override fun loadComments() {
+        mView.setLoadingIndicator(true)
 
         val disposable = ShotRepository
-                .listComments(mShot.id, mPageCount)
+                .listComments(mShot.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
+                    mNextPageUrl = PageLinks(response).next
                     mView.setLoadingIndicator(false)
+
+
                     response.body()?.let {
-                        mView.showComments(it.toMutableList())
-                        mHasMore = (it.size % ApiConstants.PER_PAGE == 0)
-                        if (!mHasMore) {
-                            mPageCount = 0
+                        if (it.isNotEmpty()) {
+                            if (mCachedComments.isNotEmpty()) {
+                                val size = mCachedComments.size
+                                mCachedComments.clear()
+                                mView.notifyDataAllRemoved(size)
+                                mCachedComments.addAll(it)
+                                mView.notifyDataAdded(0, mCachedComments.size)
+                            } else {
+                                mCachedComments.addAll(it)
+                                mView.showComments(mCachedComments)
+                            }
                         } else {
-                            mPageCount = (it.size / ApiConstants.PER_PAGE) + 1
+                            mView.setEmptyViewVisibility(it.isEmpty())
                         }
                     }
-                }, { error ->
+                }, {
+                    mView.setEmptyViewVisibility(true)
                     mView.setLoadingIndicator(false)
-                    mView.showMessage(error.message)
+                    it.printStackTrace()
                 })
         mCompositeDisposable.add(disposable)
+    }
+
+    override fun loadMoreComments() {
+        mNextPageUrl?.let {
+            val disposable = ShotRepository
+                    .listCommentsOfNextPage(it)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ response ->
+                        mNextPageUrl = PageLinks(response).next
+
+                        response.body()?.let {
+                            val size = mCachedComments.size
+                            mCachedComments.addAll(it)
+                            mView.notifyDataAdded(size, it.size)
+                        }
+                    }, {
+                        mView.showNetworkError()
+                        it.printStackTrace()
+                    })
+            mCompositeDisposable.add(disposable)
+        }
     }
 
 }

@@ -51,6 +51,7 @@ interface ShotsService {
      * Get a shot list of next page according to the pre-request.
      *
      * @param url The next page url.
+     * @return The shot list.
      */
     @GET
     fun listShotsOfNextPage(@Url url: String): Observable<Response<List<Shot>>>
@@ -70,13 +71,20 @@ interface ShotsService {
      *
      * @param shotId The shot id of shot.
      * @param perPage The amount of shot results per page.
-     * @param page Which page you want to get.
      * @return The [Like] results.
      */
     @GET("/v1/shots/{shot_id}/likes")
     fun listLikesForShot(@Path("shot_id") shotId: Long,
-                         @Query("per_page") perPage: Int = ApiConstants.PER_PAGE,
-                         @Query("page") page: Int): Observable<Response<List<Like>>>
+                         @Query("per_page") perPage: Int = ApiConstants.PER_PAGE): Observable<Response<List<Like>>>
+
+    /**
+     * Get a like list of next page according to the pre-request.
+     *
+     * @param url The next page url.
+     * @return The like list.
+     */
+    @GET
+    fun listLikesOfNextPage(@Url url: String): Observable<Response<List<Like>>>
 
     /**
      * Like a shot. Authentication with `write` scope required.
@@ -101,13 +109,20 @@ interface ShotsService {
      *
      * @param shotId The shot id.
      * @param perPage The amount of shot results per page.
-     * @param page Which page you want to get.
      * @return The [Comment] results.
      */
     @GET("/v1/shots/{shot_id}/comments")
     fun listCommentsForShot(@Path("shot_id") shotId: Long,
-                            @Query("per_page") perPage: Int = ApiConstants.PER_PAGE,
-                            @Query("page") page: Int): Observable<Response<List<Comment>>>
+                            @Query("per_page") perPage: Int = ApiConstants.PER_PAGE): Observable<Response<List<Comment>>>
+
+    /**
+     * Get a comment list of next page according to the pre-request.
+     *
+     * @param url The next page url.
+     * @return The comment list.
+     */
+    @GET
+    fun listCommentsOfNextPage(@Url url: String): Observable<Response<List<Comment>>>
 
     /**
      * Create a comment for a specific shot.

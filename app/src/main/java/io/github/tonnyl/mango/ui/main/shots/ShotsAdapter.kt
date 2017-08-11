@@ -2,7 +2,6 @@ package io.github.tonnyl.mango.ui.main.shots
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,13 +15,11 @@ import kotlinx.android.synthetic.main.item_shot.view.*
  * Created by lizhaotailang on 2017/6/29.
  */
 
-class ShotsAdapter(context: Context, list: MutableList<Shot>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ShotsAdapter(context: Context, list: List<Shot>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var mContext = context
     private var mList = list
     private var mListener: OnRecyclerViewItemClickListener? = null
-
-    private var mClearData = false
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         return ShotViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_shot, parent, false), mListener)
@@ -44,21 +41,6 @@ class ShotsAdapter(context: Context, list: MutableList<Shot>) : RecyclerView.Ada
 
     fun setItemClickListener(listener: OnRecyclerViewItemClickListener) {
         mListener = listener
-    }
-
-    fun updateData(list: MutableList<Shot>) {
-        if (mClearData) {
-            mList.clear()
-            notifyItemRangeRemoved(0, mList.size)
-            mClearData = false
-        }
-        Log.d("add", "!!!")
-        mList.addAll(list)
-        notifyItemRangeInserted(mList.size - list.size, list.size)
-    }
-
-    fun clearData() {
-        mClearData = true
     }
 
     inner class ShotViewHolder(itemView: View, listener: OnRecyclerViewItemClickListener?) : RecyclerView.ViewHolder(itemView) {

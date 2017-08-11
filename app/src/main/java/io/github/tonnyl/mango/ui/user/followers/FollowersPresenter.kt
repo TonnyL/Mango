@@ -1,6 +1,8 @@
 package io.github.tonnyl.mango.ui.user.followers
 
+import io.github.tonnyl.mango.data.Follower
 import io.github.tonnyl.mango.data.repository.UserRepository
+import io.github.tonnyl.mango.util.PageLinks
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -17,6 +19,9 @@ class FollowersPresenter(view: FollowersContract.View, userId: Long) : Followers
     private val mUserId = userId
     private val mCompositeDisposable: CompositeDisposable
 
+    private val mCachedFollowers = arrayListOf<Follower>()
+    private var mNextPageUrl: String? = null
+
     companion object {
         const val EXTRA_USER_ID = "EXTRA_USER_ID"
         const val EXTRA_FOLLOWERS_TITLE = "EXTRA_FOLLOWERS_TITLE"
@@ -28,22 +33,65 @@ class FollowersPresenter(view: FollowersContract.View, userId: Long) : Followers
     }
 
     override fun subscribe() {
-        mView.setLoadingIndicator(true)
-        val disposable = UserRepository.listFollowerOfUser(mUserId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ response ->
-                    response.body()?.let {
-                        mView.showFollowers(it.toMutableList())
-                        mView.setLoadingIndicator(false)
-                    }
-                }, {
-                    mView.setLoadingIndicator(false)
-                })
-        mCompositeDisposable.add(disposable)
+        loadFollowers()
     }
 
     override fun unsubscribe() {
         mCompositeDisposable.clear()
     }
+
+    override fun loadFollowers() {
+        mView.setLoadingIndicator(true)
+        val disposable = UserRepository.listFollowersOfUser(mUserId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response ->
+                    mView.setLoadingIndicator(false)
+                    mNextPageUrl = PageLinks(response).next
+
+                    response.body()?.let {
+                        if (it.isNotEmpty()) {
+                            if (mCachedFollowers.isNotEmpty()) {
+                                val size = mCachedFollowers.size
+                                mCachedFollowers.clear()
+                                mView.notifyDataAllRemoved(size)
+                                mCachedFollowers.addAll(it)
+                                mView.notifyDataAdded(0, mCachedFollowers.size)
+                            } else {
+                                mCachedFollowers.addAll(it)
+                                mView.showFollowers(mCachedFollowers)
+                            }
+                        } else {
+                            mView.setEmptyViewVisibility(it.isEmpty())
+                        }
+                    }
+                }, {
+                    mView.setLoadingIndicator(false)
+                    mView.setEmptyViewVisibility(true)
+                    it.printStackTrace()
+                })
+        mCompositeDisposable.add(disposable)
+    }
+
+    override fun loadMoreFollowers() {
+        mNextPageUrl?.let {
+            val disposable = UserRepository.listFollowersOfNextPage(it)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ response ->
+                        mNextPageUrl = PageLinks(response).next
+
+                        response.body()?.let {
+                            val size = mCachedFollowers.size
+                            mCachedFollowers.addAll(it)
+                            mView.notifyDataAdded(size, it.size)
+                        }
+                    }, {
+                        mView.showNetworkError()
+                        it.printStackTrace()
+                    })
+            mCompositeDisposable.add(disposable)
+        }
+    }
+
 }

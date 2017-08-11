@@ -104,12 +104,8 @@ class ShotFragment : Fragment(), ShotContract.View {
         mPresenter = presenter
     }
 
-    override fun showMessage(message: String?) {
-        message?.let {
-            Snackbar.make(fab, message, Snackbar.LENGTH_SHORT).show()
-        } ?: run {
-            Snackbar.make(fab, getString(R.string.something_wrong), Snackbar.LENGTH_SHORT).show()
-        }
+    override fun showNetworkError() {
+        Snackbar.make(fab, R.string.network_error, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun show(shot: Shot) {
@@ -168,7 +164,7 @@ class ShotFragment : Fragment(), ShotContract.View {
     }
 
     override fun updateLikeCount(count: Int) {
-        button_likes.text = getString(R.string.likes).format(count)
+        button_likes.text = getString(R.string.likes_formatted).format(count)
     }
 
     override fun navigateToUserProfile(user: User) {
@@ -220,7 +216,7 @@ class ShotFragment : Fragment(), ShotContract.View {
                             .setAction(getString(R.string.copy_to_clipboard), {
                                 val manager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                                 manager.primaryClip = ClipData.newPlainText("text", color)
-                                showMessage(getString(R.string.copied))
+                                Snackbar.make(fab, R.string.copied, Snackbar.LENGTH_SHORT).show()
                             })
                             .show()
                 }

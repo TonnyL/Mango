@@ -1,6 +1,7 @@
 package io.github.tonnyl.mango.ui.main
 
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.view.*
@@ -11,6 +12,8 @@ import io.github.tonnyl.mango.ui.auth.AuthActivity
 import io.github.tonnyl.mango.ui.settings.SettingsActivity
 import io.github.tonnyl.mango.ui.user.UserProfileActivity
 import io.github.tonnyl.mango.ui.user.UserProfilePresenter
+import io.github.tonnyl.mango.util.AccessTokenManager
+import io.github.tonnyl.mango.util.Constants
 import kotlinx.android.synthetic.main.fragment_shots.*
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
@@ -95,7 +98,14 @@ class MainFragment : Fragment(), MainContract.View {
     }
 
     override fun navigateToLogin() {
+        AccessTokenManager.clear()
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putBoolean(Constants.IS_USER_LOGGED_IN, false)
+                .putString(Constants.ACCESS_TOKEN, null)
+                .apply()
         context.startActivity(context.intentFor<AuthActivity>().newTask().clearTask())
+        activity.finish()
     }
 
     private fun showLogoutDialog() {

@@ -15,10 +15,24 @@ interface FollowersContract {
 
         fun setLoadingIndicator(loading: Boolean)
 
-        fun showFollowers(followers: MutableList<Follower>)
+        fun setEmptyViewVisibility(visible: Boolean)
+
+        fun showNetworkError()
+
+        fun showFollowers(followers: List<Follower>)
+
+        fun notifyDataAllRemoved(size: Int)
+
+        fun notifyDataAdded(startPosition: Int, size: Int)
 
     }
 
-    interface Presenter : BasePresenter
+    interface Presenter : BasePresenter {
+
+        fun loadFollowers()
+
+        fun loadMoreFollowers()
+
+    }
 
 }
