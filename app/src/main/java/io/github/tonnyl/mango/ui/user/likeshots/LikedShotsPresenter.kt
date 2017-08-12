@@ -60,6 +60,10 @@ class LikedShotsPresenter(view: LikedShotsContract.View, userId: Long) : LikedSh
                             mView.setEmptyViewVisibility(it.isEmpty())
                         }
                     }
+                },{
+                    mView.setLoadingIndicator(false)
+                    mView.showNetworkError()
+                    it.printStackTrace()
                 })
         mCompositeDisposable.add(disposable)
     }
