@@ -6,7 +6,7 @@
     <string name="network_error">Network error</string>
     <string name="gif">GIF</string>
 
-    <!--Get start-->
+    <!--Get started-->
     <string name="get_started">GET STARTED</string>
     <string name="welcome_to_mango">WELCOME TO MANGO</string>
     <string name="request_refresh_token_failed">Request refresh token failed</string>
@@ -22,7 +22,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_log_out">Log out</string>
     <string name="log_out">Log out</string>
-    <string name="logout_message">Are you sure to log out?</string>
+    <string name="logout_message">Look forward to meet you again.</string>
 
     <!--Shot detail-->
     <string name="likes_formatted">Likes %1$d</string>
@@ -70,7 +70,7 @@
     <string name="feedback">Feedback</string>
     <string name="feedback_email">marktonymengyi@gmail.com</string>
     <string name="feedback_email_subject">Mango Feedback</string>
-    <string name="feedback_desc">Help me to make Mango App better</string>
+    <string name="feedback_desc">Help me make Mango App better</string>
 
     <!--Image content descriptions-->
     <string name="avatar_desc">Avatar</string>

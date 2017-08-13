@@ -1,12 +1,12 @@
 # Mango(In progress)
 [![Build Status](https://travis-ci.org/TonnyL/Mango.svg?branch=master)](https://travis-ci.org/TonnyL/Mango)
 
-Mango is an Android App for [Dribbble](https://dribbble.com/). Inspired by [Resplash](https://github.com/b-lam/Resplash), [Plaid](https://github.com/nickbutcher/plaid) and  [Protein](https://github.com/gejiaheng/Protein).
+Mango is an Android application for [Dribbble](https://dribbble.com/). Inspired by [Resplash](https://github.com/b-lam/Resplash), [Plaid](https://github.com/nickbutcher/plaid) and  [Protein](https://github.com/gejiaheng/Protein).
 
 ## Features
 + Kotlin and RxKotlin: Yes, fully written in Kotlin.
 + MVP architecture: Whole project is built on MVP architecture.
-+ Material Design: Trying my best. No bottom navigation bar🙈.
++ Material Design: Trying my best.
 + Deep link: Yes. Using [DeepLinkDispatch](https://github.com/airbnb/DeepLinkDispatch) from [Airbnb](https://github.com/airbnb).
 + Usage of several awesome libraries: [Anko common](https://github.com/Kotlin/anko) for simplified intents, [Flexbox layout](https://github.com/google/flexbox-layout)  for smart and elegant layout, [Glide](https://github.com/bumptech/glide) for image loading, [Gson](https://github.com/google/gson) for serialization&deserialization, [Retrofit](https://github.com/square/retrofit) for HTTP requests, [Room](https://developer.android.com/topic/libraries/architecture/room.html) for data persistence.
 
@@ -37,9 +37,12 @@ Open the `Mango/` directory in Android Studio.
 ### Dribbble OAuth
 The App client id, client secret and client access token are placed in [ApiConstants.kt](./app/src/main/java/io/github/tonnyl/mango/retrofit/ApiConstants.kt) file. But due to the [Rate Limiting](http://developer.dribbble.com/v1/#rate-limiting) and the possibility that Mango App may be available in Google Play (Check the [blueprints](https://github.com/TonnyL/Mango/wiki/Blueprints) for more details), if you want to continue the development, I suggest you register your own App at [Dribbble Developer Center](https://dribbble.com/account/applications/new) and modify the constants with your owns.
 
+## Contributing
+Discussions and pull requests are welcomed. The [GitHub Contributors Page](https://github.com/TonnyL/Mango/graphs/contributors) has an entry in the App.
+
 ## License
 ```
-MIT License
+The MIT License (MIT)
 
 Copyright (c) 2017 Lizhaotailang
 

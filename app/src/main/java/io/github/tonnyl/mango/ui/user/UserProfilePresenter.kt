@@ -7,7 +7,6 @@ import io.github.tonnyl.mango.util.AccessTokenManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import retrofit2.HttpException
 
 /**
  * Created by lizhaotailang on 2017/6/28.
@@ -80,7 +79,7 @@ class UserProfilePresenter(view: UserProfileContract.View, user: User) : UserPro
                         mView.setFollowing(false)
                     }, {
                         mView.showNetworkError()
-                        //it.printStackTrace()
+                        it.printStackTrace()
                     })
         } else {
             UserRepository.follow(mUser.id)
@@ -91,7 +90,7 @@ class UserProfilePresenter(view: UserProfileContract.View, user: User) : UserPro
                         mView.setFollowing(true)
                     }, {
                         mView.showNetworkError()
-                        //it.printStackTrace()
+                        it.printStackTrace()
                     })
         }
     }
@@ -108,10 +107,6 @@ class UserProfilePresenter(view: UserProfileContract.View, user: User) : UserPro
                     mUser = it
                     mView.showUserInfo(it)
                 }, {
-                    mView.showNetworkError()
-                    if (it is HttpException) {
-
-                    }
                     it.printStackTrace()
                 })
         mCompositeDisposable.add(disposable)

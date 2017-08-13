@@ -45,6 +45,7 @@ class LikedShotsPresenter(view: LikedShotsContract.View, userId: Long) : LikedSh
                     mNextPageUrl = PageLinks(response).next
 
                     response.body()?.let {
+                        mView.setEmptyViewVisibility(it.isEmpty())
                         if (it.isNotEmpty()) {
                             if (mCachedLikedShots.isNotEmpty()) {
                                 val size = mCachedLikedShots.size
@@ -56,13 +57,11 @@ class LikedShotsPresenter(view: LikedShotsContract.View, userId: Long) : LikedSh
                                 mCachedLikedShots.addAll(it)
                                 mView.showLikedShots(mCachedLikedShots)
                             }
-                        } else {
-                            mView.setEmptyViewVisibility(it.isEmpty())
                         }
                     }
                 },{
                     mView.setLoadingIndicator(false)
-                    mView.showNetworkError()
+                    mView.setEmptyViewVisibility(true)
                     it.printStackTrace()
                 })
         mCompositeDisposable.add(disposable)

@@ -62,6 +62,7 @@ class ShotsPagePresenter(view: ShotsPageContract.View, type: Int) : ShotsPageCon
                         mNextPageUrl = PageLinks(response).next
 
                         response.body()?.let {
+                            mView.setEmptyContentVisibility(it.isEmpty())
                             if (it.isNotEmpty()) {
                                 if (mShotsList.isNotEmpty()) {
                                     val size = mShotsList.size
@@ -73,10 +74,7 @@ class ShotsPagePresenter(view: ShotsPageContract.View, type: Int) : ShotsPageCon
                                     mShotsList.addAll(it)
                                     mView.showResults(mShotsList)
                                 }
-                            } else {
-                                mView.setEmptyContentVisibility(it.isEmpty())
                             }
-
                         }
                     }, {
                         mView.setEmptyContentVisibility(true)
@@ -93,6 +91,7 @@ class ShotsPagePresenter(view: ShotsPageContract.View, type: Int) : ShotsPageCon
                         mNextPageUrl = PageLinks(response).next
 
                         response.body()?.let {
+                            mView.setEmptyContentVisibility(it.isEmpty())
                             if (it.isNotEmpty()) {
                                 if (mShotsList.isNotEmpty()) {
                                     val size = mShotsList.size
@@ -104,10 +103,7 @@ class ShotsPagePresenter(view: ShotsPageContract.View, type: Int) : ShotsPageCon
                                     mShotsList.addAll(it)
                                     mView.showResults(mShotsList)
                                 }
-                            } else {
-                                mView.setEmptyContentVisibility(it.isEmpty())
                             }
-
                         }
                     }, {
                         mView.setLoadingIndicator(false)

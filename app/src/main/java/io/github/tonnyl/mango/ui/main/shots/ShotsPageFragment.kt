@@ -114,7 +114,7 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
     }
 
     override fun setEmptyContentVisibility(visible: Boolean) {
-        empty_view.visibility = if (visible) View.VISIBLE else View.GONE
+        empty_view.visibility = if (visible && (mAdapter == null)) View.VISIBLE else View.GONE
     }
 
     override fun notifyDataAllRemoved(size: Int) {

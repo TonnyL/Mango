@@ -52,6 +52,7 @@ class ShotsPresenter(view: ShotsContract.View, user: User) : ShotsContract.Prese
                     mNextPageUrl = PageLinks(response).next
 
                     response.body()?.let {
+                        mView.setEmptyViewVisibility(it.isEmpty())
                         if (it.isNotEmpty()) {
                             for (shot in it) {
                                 shot.user = mUser
@@ -66,9 +67,6 @@ class ShotsPresenter(view: ShotsContract.View, user: User) : ShotsContract.Prese
                                 mCachedShots.addAll(it)
                                 mView.showShots(mCachedShots)
                             }
-
-                        } else {
-                            mView.setEmptyViewVisibility(it.isEmpty())
                         }
                     }
                 }, {

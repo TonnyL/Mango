@@ -1,0 +1,81 @@
+<resources>
+    <string name="app_name">芒果</string>
+
+    <!--Common-->
+    <string name="empty_content">啊哦,这里什么都没有</string>
+    <string name="network_error">网络错误</string>
+    <string name="gif">GIF</string>
+
+    <!--Get started-->
+    <string name="get_started">开始吧</string>
+    <string name="welcome_to_mango">欢迎来到芒果</string>
+    <string name="request_refresh_token_failed">请求REFRESH TOKEN失败</string>
+
+    <!--Main page-->
+    <string name="popular">流行</string>
+    <string name="following">关注</string>
+    <string name="recent">最近</string>
+    <string name="debuts">首秀</string>
+    <string name="shot_title">%1$s - %2$s</string>
+    <!--Main page menus-->
+    <string name="action_main">action_main</string>
+    <string name="action_settings">设置</string>
+    <string name="action_log_out">登出</string>
+    <string name="log_out">登出</string>
+    <string name="logout_message">期待再次与您相遇。</string>
+
+    <!--Shot detail-->
+    <string name="likes_formatted">喜欢 %1$d</string>
+    <string name="comments_formatted">评论 %1$d</string>
+    <string name="views_formatted">查看 %1$d</string>
+    <string name="copy_to_clipboard">复制到剪贴板</string>
+    <string name="copied">已复制</string>
+    <string name="share_to">分享至</string>
+    <!--Shot detail menus-->
+    <string name="action_shot">action_shot</string>
+    <string name="action_share">分享</string>
+    <string name="action_open_in_browser">在浏览器中打开</string>
+
+    <!--Comments-->
+    <string name="add_comment_hint">添加评论</string>
+    <string name="add_comment_failed">评论失败</string>
+
+    <!--User profile-->
+    <string name="followers_formatted">被关注 %1$d</string>
+    <string name="following_formatted">关注中 %1$d</string>
+    <string name="follow">关注</string>
+    <string name="unfollow">取消关注</string>
+    <string name="tab_title_shots">作品 %1$d</string>
+    <string name="tab_title_likes">喜欢 %1$d</string>
+    <!--User profile menus-->
+    <string name="action_user">action_user</string>
+
+    <!--Settings-->
+    <string name="settings">设置</string>
+    <string name="general">通用</string>
+    <string name="clear_cache_desc">缓存: %1$d MB</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="about">关于</string>
+    <string name="version">版本</string>
+    <string name="version_desc">1.0.0</string>
+    <string name="open_source_licenses">开源许可</string>
+    <string name="authors">作者</string>
+    <string name="contributors">贡献者</string>
+    <string name="contributors_desc">https://github.com/TonnyL/Mango/graphs/contributors</string>
+    <string name="follow_me_on_github">在 GitHub 关注我</string>
+    <string name="follow_me_on_github_desc">https://github.com/TonnyL</string>
+    <string name="support">支持</string>
+    <string name="source_code">源代码</string>
+    <string name="source_code_desc">https://github.com/TonnyL/Mango</string>
+    <string name="feedback">反馈</string>
+    <string name="feedback_email">marktonymengyi@gmail.com</string>
+    <string name="feedback_email_subject">Mango Feedback</string>
+    <string name="feedback_desc">和我一起创作更美好的芒果App吧</string>
+
+    <!--Image content descriptions-->
+    <string name="avatar_desc">头像</string>
+    <string name="send_desc">发送</string>
+    <string name="shot_desc">作品</string>
+    <string name="like_desc">喜欢</string>
+
+</resources>

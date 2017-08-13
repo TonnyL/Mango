@@ -92,7 +92,7 @@ class ShotsFragment : Fragment(), ShotsContract.View {
     }
 
     override fun setEmptyViewVisibility(visible: Boolean) {
-        empty_view.visibility = if (visible) View.VISIBLE else View.GONE
+        empty_view.visibility = if (visible && (mAdapter == null)) View.VISIBLE else View.GONE
     }
 
     override fun showNetworkError() {

@@ -13,7 +13,7 @@ import io.reactivex.Observable
  * Concrete implementation of a data source as a db.
  */
 
-object AccessTokenLocalDataSource: AccessTokenDataSource {
+object AccessTokenLocalDataSource : AccessTokenDataSource {
 
     private var mDatabase: AppDatabase? = null
 
@@ -58,13 +58,11 @@ object AccessTokenLocalDataSource: AccessTokenDataSource {
     }
 
     override fun removeAccessToken(accessToken: AccessToken): Observable<Unit> {
-        if (mDatabase != null) {
+        if (mDatabase == null) {
             mDatabase = DatabaseCreator.getDatabase()
         }
 
-        return Observable.fromCallable {
-            mDatabase?.accessTokenDao()?.delete(accessToken)
-        }
+        return Observable.just(mDatabase?.accessTokenDao()?.delete(accessToken))
     }
 
 }

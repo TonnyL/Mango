@@ -115,7 +115,7 @@ class CommentsFragment : Fragment(), CommentsContract.View {
     }
 
     override fun setEmptyViewVisibility(visible: Boolean) {
-        empty_view.visibility = if (visible) View.VISIBLE else View.GONE
+        empty_view.visibility = if (visible && (mCommentsAdapter == null)) View.VISIBLE else View.GONE
     }
 
     override fun setEditorVisible(visible: Boolean, avatarUrl: String) {

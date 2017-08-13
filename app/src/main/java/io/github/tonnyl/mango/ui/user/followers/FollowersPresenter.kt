@@ -50,6 +50,7 @@ class FollowersPresenter(view: FollowersContract.View, userId: Long) : Followers
                     mNextPageUrl = PageLinks(response).next
 
                     response.body()?.let {
+                        mView.setEmptyViewVisibility(it.isEmpty())
                         if (it.isNotEmpty()) {
                             if (mCachedFollowers.isNotEmpty()) {
                                 val size = mCachedFollowers.size
@@ -61,8 +62,6 @@ class FollowersPresenter(view: FollowersContract.View, userId: Long) : Followers
                                 mCachedFollowers.addAll(it)
                                 mView.showFollowers(mCachedFollowers)
                             }
-                        } else {
-                            mView.setEmptyViewVisibility(it.isEmpty())
                         }
                     }
                 }, {

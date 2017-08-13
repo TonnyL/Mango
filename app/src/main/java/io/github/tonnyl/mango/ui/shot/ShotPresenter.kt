@@ -44,13 +44,15 @@ class ShotPresenter(view: ShotContract.View, shotId: Long) : ShotContract.Presen
             val disposable = ShotRepository.getShot(mShotId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { shot ->
+                    .subscribe({ shot ->
                         shot.body()?.let {
                             mShot = it
                             mShotId = it.id
                             mView.show(it)
                         }
-                    }
+                    }, {
+                        it.printStackTrace()
+                    })
             mCompositeDisposable.add(disposable)
         } else {
             mShot?.let {
@@ -65,6 +67,8 @@ class ShotPresenter(view: ShotContract.View, shotId: Long) : ShotContract.Presen
                     mIsLikeChecked = true
                     mIsLike = (response.body() != null)
                     mView.setLikeStatus(mIsLike)
+                }, {
+                    it.printStackTrace()
                 })
         mCompositeDisposable.add(disposable)
     }

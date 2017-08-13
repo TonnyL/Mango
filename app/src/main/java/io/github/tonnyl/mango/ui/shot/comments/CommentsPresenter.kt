@@ -88,6 +88,7 @@ class CommentsPresenter(view: CommentsContract.View, shot: Shot) : CommentsContr
 
 
                     response.body()?.let {
+                        mView.setEmptyViewVisibility(it.isEmpty())
                         if (it.isNotEmpty()) {
                             if (mCachedComments.isNotEmpty()) {
                                 val size = mCachedComments.size
@@ -99,8 +100,6 @@ class CommentsPresenter(view: CommentsContract.View, shot: Shot) : CommentsContr
                                 mCachedComments.addAll(it)
                                 mView.showComments(mCachedComments)
                             }
-                        } else {
-                            mView.setEmptyViewVisibility(it.isEmpty())
                         }
                     }
                 }, {

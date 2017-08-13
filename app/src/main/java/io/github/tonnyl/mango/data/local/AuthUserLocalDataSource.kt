@@ -21,6 +21,7 @@ object AuthUserLocalDataSource : AuthUserDataSource {
         if (!DatabaseCreator.isDatabaseCreated()) {
             DatabaseCreator.createDb(context)
         }
+        mDatabase = DatabaseCreator.getDatabase()
     }
 
     override fun getAuthenticatedUser(userId: Long?): Observable<User> {
@@ -67,9 +68,7 @@ object AuthUserLocalDataSource : AuthUserDataSource {
         if (mDatabase == null) {
             mDatabase = DatabaseCreator.getDatabase()
         }
-        return Observable.fromCallable {
-            mDatabase?.userDao()?.delete(user)
-        }
+        return Observable.just(mDatabase?.userDao()?.delete(user))
     }
 
     override fun refreshAuthenticatedUser(): Observable<User> {

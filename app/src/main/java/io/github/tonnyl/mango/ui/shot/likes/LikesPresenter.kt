@@ -55,6 +55,7 @@ class LikesPresenter(view: LikesContract.View, shot: Shot) : LikesContract.Prese
                     mNextPageUrl = PageLinks(response).next
 
                     response.body()?.let {
+                        mView.setEmptyViewVisibility(it.isEmpty())
                         if (it.isNotEmpty()) {
                             if (mCachedLikes.isNotEmpty()) {
                                 val size = mCachedLikes.size
@@ -66,8 +67,6 @@ class LikesPresenter(view: LikesContract.View, shot: Shot) : LikesContract.Prese
                                 mCachedLikes.addAll(it)
                                 mView.showLikes(mCachedLikes)
                             }
-                        } else {
-                            mView.setEmptyViewVisibility(it.isEmpty())
                         }
                     }
                 }, {
