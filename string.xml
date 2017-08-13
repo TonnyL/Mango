@@ -1,0 +1,81 @@
+<resources>
+    <string name="app_name">マンゴー</string>
+
+    <!--Common-->
+    <string name="empty_content">あれ？ここは何でもない</string>
+    <string name="network_error">ネットワークが間違う</string>
+    <string name="gif">GIF</string>
+
+    <!--Get started-->
+    <string name="get_started">始めよう</string>
+    <string name="welcome_to_mango">いらっしゃいませ</string>
+    <string name="request_refresh_token_failed">REFRESH TOKEN要請失敗</string>
+
+    <!--Main page-->
+    <string name="popular">人気</string>
+    <string name="following">フォロー</string>
+    <string name="recent">最近</string>
+    <string name="debuts">デビュー</string>
+    <string name="shot_title">%1$s - %2$s</string>
+    <!--Main page menus-->
+    <string name="action_main">action_main</string>
+    <string name="action_settings">設定</string>
+    <string name="action_log_out">ログアウト</string>
+    <string name="log_out">ログアウト</string>
+    <string name="logout_message">まだお越しくださいませ。</string>
+
+    <!--Shot detail-->
+    <string name="likes_formatted">いいね %1$d</string>
+    <string name="comments_formatted">コメント %1$d</string>
+    <string name="views_formatted">調べる %1$d</string>
+    <string name="copy_to_clipboard">クリップボードにコピーする</string>
+    <string name="copied">コピーしました</string>
+    <string name="share_to">ほかとシェア</string>
+    <!--Shot detail menus-->
+    <string name="action_shot">action_shot</string>
+    <string name="action_share">シェアする</string>
+    <string name="action_open_in_browser">ブラウザで開いて</string>
+
+    <!--Comments-->
+    <string name="add_comment_hint">コメントする</string>
+    <string name="add_comment_failed">コメント失敗</string>
+
+    <!--User profile-->
+    <string name="followers_formatted">フォローする %1$d</string>
+    <string name="following_formatted">フォロー中 %1$d</string>
+    <string name="follow">フォローする</string>
+    <string name="unfollow">フォロー解除</string>
+    <string name="tab_title_shots">作品 %1$d</string>
+    <string name="tab_title_likes">いいね %1$d</string>
+    <!--User profile menus-->
+    <string name="action_user">action_user</string>
+
+    <!--Settings-->
+    <string name="settings">設定</string>
+    <string name="general">全般</string>
+    <string name="clear_cache_desc">キャッシュ: %1$d MB</string>
+    <string name="clear_cache">キャッシュを削除</string>
+    <string name="about">Mangoについて</string>
+    <string name="version">バージョン</string>
+    <string name="version_desc">1.0.0</string>
+    <string name="open_source_licenses">オープンソースライセンス</string>
+    <string name="authors">作家</string>
+    <string name="contributors">貢献者</string>
+    <string name="contributors_desc">https://github.com/TonnyL/Mango/graphs/contributors</string>
+    <string name="follow_me_on_github">GitHubでフォローする</string>
+    <string name="follow_me_on_github_desc">https://github.com/TonnyL</string>
+    <string name="support">支持する</string>
+    <string name="source_code">ソースコード</string>
+    <string name="source_code_desc">https://github.com/TonnyL/Mango</string>
+    <string name="feedback">意見</string>
+    <string name="feedback_email">marktonymengyi@gmail.com</string>
+    <string name="feedback_email_subject">Mango Feedback</string>
+    <string name="feedback_desc">僕と一緒にMangoAPPを作りました。</string>
+
+    <!--Image content descriptions-->
+    <string name="avatar_desc">画像</string>
+    <string name="send_desc">発信する</string>
+    <string name="shot_desc">作品</string>
+    <string name="like_desc">いいよ</string>
+
+</resources>
