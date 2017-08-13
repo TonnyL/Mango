@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 /**
  * Created by lizhaotailang on 2017/6/29.
@@ -164,11 +165,11 @@ data class Shot(
 
         @SerializedName("created_at")
         @Expose
-        var createdAt: String,
+        var createdAt: Date,
 
         @SerializedName("updated_at")
         @Expose
-        var updatedAt: String,
+        var updatedAt: Date,
 
         @SerializedName("html_url")
         @Expose
@@ -229,8 +230,8 @@ data class Shot(
             attachmentsCount = parcel.readInt(),
             reboundsCount = parcel.readInt(),
             bucketsCount = parcel.readInt(),
-            createdAt = parcel.readString(),
-            updatedAt = parcel.readString(),
+            createdAt = Date(parcel.readLong()),
+            updatedAt = Date(parcel.readLong()) ,
             htmlUrl = parcel.readString(),
             attachmentsUrl = parcel.readString(),
             bucketsUrl = parcel.readString(),
@@ -257,8 +258,8 @@ data class Shot(
         parcel.writeInt(attachmentsCount)
         parcel.writeInt(reboundsCount)
         parcel.writeInt(bucketsCount)
-        parcel.writeString(createdAt)
-        parcel.writeString(updatedAt)
+        parcel.writeLong(createdAt.time)
+        parcel.writeLong(updatedAt.time)
         parcel.writeString(htmlUrl)
         parcel.writeString(attachmentsUrl)
         parcel.writeString(bucketsUrl)

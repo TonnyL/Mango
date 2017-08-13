@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 /**
  * Created by lizhaotailang on 2017/7/20.
@@ -125,7 +126,7 @@ data class LikedShot(
 
         @SerializedName("created_at")
         @Expose
-        var createdAt: String,
+        var createdAt: Date,
 
         @SerializedName("shot")
         @Expose
@@ -135,13 +136,13 @@ data class LikedShot(
 
     constructor(parcel: Parcel) : this(
             id = parcel.readLong(),
-            createdAt = parcel.readString(),
+            createdAt = Date(parcel.readLong()),
             shot = parcel.readParcelable(Shot::class.java.classLoader)
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(id)
-        parcel.writeString(createdAt)
+        parcel.writeLong(createdAt.time)
         parcel.writeParcelable(shot, flags)
     }
 

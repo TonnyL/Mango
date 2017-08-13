@@ -1,13 +1,12 @@
 package io.github.tonnyl.mango.data
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Embedded
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.*
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import io.github.tonnyl.mango.database.converter.DateConverter
+import java.util.*
 
 /**
  * Created by lizhaotailang on 2017/6/25.
@@ -49,6 +48,7 @@ import com.google.gson.annotations.SerializedName
  */
 
 @Entity(tableName = "user")
+@TypeConverters(DateConverter::class)
 class User() : Parcelable {
 
     @ColumnInfo(name = "name")
@@ -184,12 +184,12 @@ class User() : Parcelable {
     @ColumnInfo(name = "created_at")
     @SerializedName("created_at")
     @Expose
-    var createdAt: String = ""
+    var createdAt: Date = Date()
 
     @ColumnInfo(name = "updated_at")
     @SerializedName("updated_at")
     @Expose
-    var updatedAt: String = ""
+    var updatedAt: Date = Date()
 
     @ColumnInfo(name = "id")
     @field: PrimaryKey
@@ -224,8 +224,8 @@ class User() : Parcelable {
         likesUrl = parcel.readString()
         shotsUrl = parcel.readString()
         teamsUrl = parcel.readString()
-        createdAt = parcel.readString()
-        updatedAt = parcel.readString()
+        createdAt = Date(parcel.readLong())
+        updatedAt = Date(parcel.readLong())
         id = parcel.readLong()
     }
 
@@ -256,8 +256,8 @@ class User() : Parcelable {
         parcel.writeString(likesUrl)
         parcel.writeString(shotsUrl)
         parcel.writeString(teamsUrl)
-        parcel.writeString(createdAt)
-        parcel.writeString(updatedAt)
+        parcel.writeLong(createdAt.time)
+        parcel.writeLong(updatedAt.time)
         parcel.writeLong(id)
     }
 

@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 /**
  * Created by lizhaotailang on 2017/6/30.
@@ -70,11 +71,11 @@ data class Comment(
 
         @SerializedName("created_at")
         @Expose
-        var createdAt: String,
+        var createdAt: Date,
 
         @SerializedName("updated_at")
         @Expose
-        var updatedAt: String,
+        var updatedAt: Date,
 
         @SerializedName("user")
         @Expose
@@ -86,9 +87,9 @@ data class Comment(
             id = parcel.readLong(),
             body = parcel.readString(),
             likesCount = parcel.readInt(),
-            createdAt = parcel.readString(),
+            createdAt = Date(parcel.readLong()),
             likesUrl = parcel.readString(),
-            updatedAt = parcel.readString(),
+            updatedAt = Date(parcel.readLong()),
             user = parcel.readParcelable(User::class.java.classLoader))
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -96,8 +97,8 @@ data class Comment(
         parcel.writeString(body)
         parcel.writeInt(likesCount)
         parcel.writeString(likesUrl)
-        parcel.writeString(createdAt)
-        parcel.writeString(updatedAt)
+        parcel.writeLong(createdAt.time)
+        parcel.writeLong(updatedAt.time)
         parcel.writeParcelable(user, flags)
     }
 

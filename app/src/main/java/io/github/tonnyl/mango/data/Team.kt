@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 /**
  * Created by lizhaotailang on 2017/6/30.
@@ -161,11 +162,11 @@ class Team() : Parcelable {
 
     @SerializedName("created_at")
     @Expose
-    var createdAt: String = ""
+    var createdAt: Date = Date()
 
     @SerializedName("updated_at")
     @Expose
-    var updatedAt: String = ""
+    var updatedAt: Date = Date()
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readLong()
@@ -196,8 +197,8 @@ class Team() : Parcelable {
         membersUrl = parcel.readString()
         shotsUrl = parcel.readString()
         teamShotsUrl = parcel.readString()
-        createdAt = parcel.readString()
-        updatedAt = parcel.readString()
+        createdAt = Date(parcel.readLong())
+        updatedAt = Date(parcel.readLong())
     }
 
 
@@ -230,8 +231,8 @@ class Team() : Parcelable {
         parcel.writeString(membersUrl)
         parcel.writeString(shotsUrl)
         parcel.writeString(teamShotsUrl)
-        parcel.writeString(createdAt)
-        parcel.writeString(updatedAt)
+        parcel.writeLong(createdAt.time)
+        parcel.writeLong(updatedAt.time)
     }
 
     override fun describeContents(): Int {

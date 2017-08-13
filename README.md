@@ -14,7 +14,7 @@ Mango is an Android application for [Dribbble](https://dribbble.com/). Inspired 
 
 | Get Started     | Main     | Shot     |
 | :-------------: | :-------------: | :-------------: |
-| ![Get-Started](./art/Get-Started.png) | ![Shot](./art/Main.png) | ![User](./art/Shot.png) |
+| ![Get-Started](./art/Get-Started.png) | ![Main](./art/Main.png) | ![Shot](./art/Shot.png) |
 
 | User     | Likes     | Comments     |
 | :-------------: | :-------------: | :-------------: |

@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.support.v7.widget.RecyclerView
 import android.text.Html
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +40,7 @@ class CommentsAdapter(context: Context, list: List<Comment>) : RecyclerView.Adap
 
             itemView.name.text = comment.user.name
             itemView.user_name.text = comment.user.username
-            itemView.created_time.text = comment.createdAt.replace("T", " ").replace("Z", " ")
+            itemView.created_time.text = DateUtils.getRelativeTimeSpanString(comment.user.createdAt.time, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS)
         }
     }
 

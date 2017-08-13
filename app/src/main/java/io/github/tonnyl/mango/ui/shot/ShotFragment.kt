@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.graphics.Palette
 import android.text.Html
+import android.text.format.DateUtils
 import android.text.method.LinkMovementMethod
 import android.view.*
 import android.widget.LinearLayout
@@ -145,7 +146,7 @@ class ShotFragment : Fragment(), ShotContract.View {
 
         name.text = shot.user?.name
         user_name.text = shot.user?.username
-        created_time.text = shot.createdAt.replace("T", " ").replace("Z", "")
+        created_time.text = DateUtils.getRelativeTimeSpanString(shot.createdAt.time, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS)
 
         button_likes.text = getString(R.string.likes_formatted).format(shot.likesCount)
         button_views.text = getString(R.string.views_formatted).format(shot.viewsCount)
