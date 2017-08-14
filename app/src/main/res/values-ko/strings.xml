@@ -1,0 +1,81 @@
+<resources>
+    <string name="app_name">망고</string>
+
+    <!--Common-->
+    <string name="empty_content">아,여기는 아무도 없다.</string>
+    <string name="network_error">네트워크 오류</string>
+    <string name="gif">GIF</string>
+
+    <!--Get started-->
+    <string name="get_started">시작</string>
+    <string name="welcome_to_mango">망고 오신 것을 환영합니다.</string>
+    <string name="request_refresh_token_failed">요청 REFRESH TOKEN 실패</string>
+
+    <!--Main page-->
+    <string name="popular">유행</string>
+    <string name="following">관심</string>
+    <string name="recent">요즘</string>
+    <string name="debuts">처음 나타나다.</string>
+    <string name="shot_title">%1$s - %2$s</string>
+    <!--Main page menus-->
+    <string name="action_main">action_main</string>
+    <string name="action_settings">설치</string>
+    <string name="action_log_out">내보내다</string>
+    <string name="log_out">내보내다</string>
+    <string name="logout_message">다시 당신과 만날 기대합니다 .</string>
+
+    <!--Shot detail-->
+    <string name="likes_formatted">좋아한다 %1$d</string>
+    <string name="comments_formatted">评论 %1$d</string>
+    <string name="views_formatted">보기 %1$d</string>
+    <string name="copy_to_clipboard">클랍보드로를 복삽니다.</string>
+    <string name="copied">복사 되었다.</string>
+    <string name="share_to">나누다</string>
+    <!--Shot detail menus-->
+    <string name="action_shot">action_shot</string>
+    <string name="action_share">나누다</string>
+    <string name="action_open_in_browser">웹 브라우저를 엽니다.</string>
+
+    <!--Comments-->
+    <string name="add_comment_hint">추가 평론</string>
+    <string name="add_comment_failed">평론 실패</string>
+
+    <!--User profile-->
+    <string name="followers_formatted">관심을 받았다%1$d</string>
+    <string name="following_formatted">가운데 중 %1$d</string>
+    <string name="follow">관심</string>
+    <string name="unfollow">취소 관심</string>
+    <string name="tab_title_shots">작품 %1$d</string>
+    <string name="tab_title_likes">좋아한다.%1$d</string>
+    <!--User profile menus-->
+    <string name="action_user">action_user</string>
+
+    <!--Settings-->
+    <string name="settings">설치</string>
+    <string name="general">통용</string>
+    <string name="clear_cache_desc">캐시: %1$d MB</string>
+    <string name="clear_cache">캐시 비우기</string>
+    <string name="about">정보</string>
+    <string name="version">버전</string>
+    <string name="version_desc">1.0.0</string>
+    <string name="open_source_licenses">문서 번역 수 있다</string>
+    <string name="authors">저자</string>
+    <string name="contributors">공헌 사랑</string>
+    <string name="contributors_desc">https://github.com/TonnyL/Mango/graphs/contributors</string>
+    <string name="follow_me_on_github">GitHub 서 관심</string>
+    <string name="follow_me_on_github_desc">https://github.com/TonnyL</string>
+    <string name="support">지원</string>
+    <string name="source_code">소스 코드</string>
+    <string name="source_code_desc">https://github.com/TonnyL/Mango</string>
+    <string name="feedback">피드백</string>
+    <string name="feedback_email">marktonymengyi@gmail.com</string>
+    <string name="feedback_email_subject">Mango Feedback</string>
+    <string name="feedback_desc">나와 함께 만든 더 좋은 망고 app?</string>
+
+    <!--Image content descriptions-->
+    <string name="avatar_desc">두상</string>
+    <string name="send_desc">보내기</string>
+    <string name="shot_desc">작품</string>
+    <string name="like_desc">좋아한다</string>
+
+</resources>
