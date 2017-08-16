@@ -1,0 +1,81 @@
+<resources>
+    <string name="app_name">Mango</string>
+
+    <!--Common-->
+    <string name="empty_content">Ups…hier ist nichts</string>
+    <string name="network_error">Netzwerkfehler</string>
+    <string name="gif">GIF</string>
+
+    <!--Get started-->
+    <string name="get_started">BEGINNEN</string>
+    <string name="welcome_to_mango">WILKOMMEN ZU MANGO</string>
+    <string name="request_refresh_token_failed">Erneuern des Aktualisierungs-Token fehlgeschlagen</string>
+
+    <!--Main page-->
+    <string name="popular">Beliebt</string>
+    <string name="following">Folgend</string>
+    <string name="recent">KÜRZLICH</string>
+    <string name="debuts">POSTS</string>
+    <string name="shot_title">%1$s - %2$s</string>
+    <!--Main page menus-->
+    <string name="action_main">action_main</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="action_log_out">ausloggen</string>
+    <string name="log_out">ausloggen</string>
+    <string name="logout_message">Bis zum nächsten Mal.</string>
+
+    <!--Shot detail-->
+    <string name="likes_formatted">Likes %1$d</string>
+    <string name="comments_formatted">Kommentare %1$d</string>
+    <string name="views_formatted">Aufrufe %1$d</string>
+    <string name="copy_to_clipboard">In Zwischenablage kopieren</string>
+    <string name="copied">Kopiert</string>
+    <string name="share_to">Teilen mit</string>
+    <!--Shot detail menus-->
+    <string name="action_shot">action_shot</string>
+    <string name="action_share">Teilen</string>
+    <string name="action_open_in_browser">Im Browser öffnen</string>
+
+    <!--Comments-->
+    <string name="add_comment_hint">Kommentar hinzufügen</string>
+    <string name="add_comment_failed">Konnte keinen Kommentar hinzufügen</string>
+
+    <!--User profile-->
+    <string name="followers_formatted">Followers %1$d</string>
+    <string name="following_formatted">Folge ich %1$d</string>
+    <string name="follow">Folgen</string>
+    <string name="unfollow">Entfolgen</string>
+    <string name="tab_title_shots">Arbeit %1$d</string>
+    <string name="tab_title_likes">LIKES %1$d</string>
+    <!--User profile menus-->
+    <string name="action_user">action_user</string>
+
+    <!--Settings-->
+    <string name="settings">Einstellungen</string>
+    <string name="general">Generell</string>
+    <string name="clear_cache_desc">Cache größe: %1$d MB</string>
+    <string name="clear_cache">Cache leeren</string>
+    <string name="about">Über</string>
+    <string name="version">Version</string>
+    <string name="version_desc">1.0.0</string>
+    <string name="open_source_licenses">Open Source Lizensen</string>
+    <string name="authors">Authoren</string>
+    <string name="contributors">Kontributoren</string>
+    <string name="contributors_desc">https://github.com/TonnyL/Mango/graphs/contributors</string>
+    <string name="follow_me_on_github">Folge mir auf GitHub</string>
+    <string name="follow_me_on_github_desc">https://github.com/TonnyL</string>
+    <string name="support">Hilfe</string>
+    <string name="source_code">Quellcode</string>
+    <string name="source_code_desc">https://github.com/TonnyL/Mango</string>
+    <string name="feedback">Feedback</string>
+    <string name="feedback_email">marktonymengyi@gmail.com</string>
+    <string name="feedback_email_subject">Mango Feedback</string>
+    <string name="feedback_desc">Helfe mir die Mango App besser zu machen</string>
+
+    <!--Image content descriptions-->
+    <string name="avatar_desc">Profilbild</string>
+    <string name="send_desc">Senden</string>
+    <string name="shot_desc">Arbeiten</string>
+    <string name="like_desc">Like</string>
+
+</resources>
