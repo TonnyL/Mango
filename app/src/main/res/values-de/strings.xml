@@ -3,7 +3,7 @@
 
     <!--Common-->
     <string name="empty_content">Ups…hier ist nichts</string>
-    <string name="network_error">Netzwerk fehler</string>
+    <string name="network_error">Netzwerkfehler</string>
     <string name="gif">GIF</string>
 
     <!--Get started-->
@@ -73,7 +73,7 @@
     <string name="feedback_desc">Helfe mir die Mango App besser zu machen</string>
 
     <!--Image content descriptions-->
-    <string name="avatar_desc">Avatar</string>
+    <string name="avatar_desc">Profilbild</string>
     <string name="send_desc">Senden</string>
     <string name="shot_desc">Arbeiten</string>
     <string name="like_desc">Like</string>
