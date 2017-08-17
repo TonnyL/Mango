@@ -57,7 +57,7 @@ class PageLinks(response: Response<*>) {
                 }
                 linkPart = linkPart.substring(1, linkPart.length - 1)
 
-                for (i in 1..segments.size - 1) {
+                for (i in 1 until segments.size) {
                     val rel = segments[i].trim { it <= ' ' }.split("=") //$NON-NLS-1$
                     if (rel.size < 2 || META_REL != rel[0]) {
                         continue

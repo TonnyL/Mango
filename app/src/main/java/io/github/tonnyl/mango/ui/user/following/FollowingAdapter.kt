@@ -47,7 +47,7 @@ class FollowingAdapter(context: Context, list: List<Followee>) : RecyclerView.Ad
 
     class FollowingViewHolder(itemView: View, listener: ((view: View, position: Int) -> Unit)?) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        val mListener = listener
+        private val mListener = listener
 
         init {
             itemView.setOnClickListener(this)

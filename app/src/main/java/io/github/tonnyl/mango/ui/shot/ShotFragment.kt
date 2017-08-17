@@ -92,11 +92,11 @@ class ShotFragment : Fragment(), ShotContract.View {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val id = item?.itemId
         if (id == android.R.id.home) {
-            activity.onBackPressed()
+              activity.onBackPressed()
         } else if (id == R.id.action_open_in_browser) {
-            mPresenter.openInBrowser()
+           mPresenter.openInBrowser()
         } else if (id == R.id.action_share) {
-            mPresenter.share()
+               mPresenter.share()
         }
         return true
     }

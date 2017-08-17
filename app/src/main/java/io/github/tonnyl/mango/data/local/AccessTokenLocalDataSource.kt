@@ -29,10 +29,10 @@ object AccessTokenLocalDataSource : AccessTokenDataSource {
         }
 
         mDatabase?.let {
-            if (id != null) {
-                return Observable.just(it.accessTokenDao().query(id))
+            return if (id != null) {
+                Observable.just(it.accessTokenDao().query(id))
             } else {
-                return Observable.empty()
+                Observable.empty()
             }
         }
 

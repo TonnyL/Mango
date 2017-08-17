@@ -16,14 +16,14 @@ class FileUtil {
         @JvmStatic
         fun dirSize(dir: File?): Long {
             dir?.let {
-                var result: Long = 0L
+                var result = 0L
                 if (dir.exists()) {
                     val fileArray = dir.listFiles()
                     for (file in fileArray) {
-                        if (file.isDirectory) {
-                            result += dirSize(file)
+                        result += if (file.isDirectory) {
+                            dirSize(file)
                         } else {
-                            result += file.length()
+                            file.length()
                         }
                     }
                     return result / 1024 / 1024
