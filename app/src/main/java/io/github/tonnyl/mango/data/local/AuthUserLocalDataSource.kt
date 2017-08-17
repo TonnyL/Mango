@@ -30,10 +30,10 @@ object AuthUserLocalDataSource : AuthUserDataSource {
         }
 
         mDatabase?.let {
-            if (userId != null) {
-                return it.userDao().query(userId).toObservable()
+            return if (userId != null) {
+                it.userDao().query(userId).toObservable()
             } else {
-                return Observable.empty()
+                Observable.empty()
             }
         }
         return Observable.empty()

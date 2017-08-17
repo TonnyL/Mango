@@ -89,12 +89,10 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val id = item?.itemId
-        if (id == android.R.id.home) {
-            activity.onBackPressed()
-        } else if (id == R.id.action_follow_unfollow) {
-            mPresenter.toggleFollow()
-        } else if (id == R.id.action_open_in_browser) {
-            context.browse(mPresenter.getUser().htmlUrl)
+        when (id) {
+            android.R.id.home -> activity.onBackPressed()
+            R.id.action_follow_unfollow -> mPresenter.toggleFollow()
+            R.id.action_open_in_browser -> context.browse(mPresenter.getUser().htmlUrl)
         }
         activity.invalidateOptionsMenu()
         return true

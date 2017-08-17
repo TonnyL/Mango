@@ -52,7 +52,7 @@ class CommentsAdapter(context: Context, list: List<Comment>) : RecyclerView.Adap
 
     class CommentViewHolder(itemView: View, listener: ((View, Int) -> Unit)?) : RecyclerView.ViewHolder(itemView) {
 
-        val mListener = listener
+        private val mListener = listener
 
         init {
             itemView.avatar.setOnClickListener({ view ->

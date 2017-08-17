@@ -47,7 +47,7 @@ class AuthFragment : Fragment(), AuthContract.View {
         mPresenter.subscribe()
 
         button_get_started.setOnClickListener {
-            val intent: Intent = Intent(Intent.ACTION_VIEW)
+            val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(ApiConstants.DRIBBBLE_AUTHORIZE_URL
                     + "?client_id=" + ApiConstants.CLIENT_ID
                     + "&redirect_uri=" + ApiConstants.DRIBBBLE_AUTHORIZE_CALLBACK_URI
@@ -103,11 +103,11 @@ class AuthFragment : Fragment(), AuthContract.View {
 
     override fun setLoginIndicator(isLoading: Boolean) {
         if (isLoading) {
-            progress_bar.visibility = View.VISIBLE
-            button_get_started.visibility = View.GONE
+            progress_bar?.visibility = View.VISIBLE
+            button_get_started?.visibility = View.GONE
         } else {
-            progress_bar.visibility = View.GONE
-            button_get_started.visibility = View.VISIBLE
+            progress_bar?.visibility = View.GONE
+            button_get_started?.visibility = View.VISIBLE
         }
     }
 

@@ -40,7 +40,7 @@ class ShotsAdapter(context: Context, list: List<Shot>) : RecyclerView.Adapter<Re
 
     inner class ShotViewHolder(itemView: View, listener: ((view: View, position: Int) -> Unit)?) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        val mListener = listener
+        private val mListener = listener
 
         init {
             itemView.setOnClickListener(this)

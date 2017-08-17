@@ -42,7 +42,7 @@ class LikesAdapter(context: Context, list: List<Like>) : RecyclerView.Adapter<Re
 
     inner class LikeViewHolder(itemView: View, listener: ((View, Int) -> Unit)?) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        val mListener = listener
+        private val mListener = listener
 
         init {
             itemView.setOnClickListener(this)

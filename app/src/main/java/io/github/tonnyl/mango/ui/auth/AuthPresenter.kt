@@ -76,7 +76,7 @@ class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
                         // Save the user info to database
                         AuthUserRepository.saveAuthenticatedUser(user)
 
-                        mView.updateLoginStatus(AccessTokenManager.accessToken!!)
+                        AccessTokenManager.accessToken?.let { mView.updateLoginStatus(it) }
                     }
                 }, { error ->
                     if (mView.isActive()) {

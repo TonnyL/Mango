@@ -28,11 +28,10 @@ class MainPagerAdapter(context: Context, fm: FragmentManager) : FragmentPagerAda
     }
 
     override fun getItem(position: Int): Fragment? {
-        val fragment: ShotsPageFragment
-        if (mShotsPageFragments.size > position) {
-            fragment = mShotsPageFragments[position]
+        val fragment: ShotsPageFragment = if (mShotsPageFragments.size > position) {
+            mShotsPageFragments[position]
         } else {
-            fragment = ShotsPageFragment.newInstance()
+            ShotsPageFragment.newInstance()
         }
         when (position) {
             0 -> {
