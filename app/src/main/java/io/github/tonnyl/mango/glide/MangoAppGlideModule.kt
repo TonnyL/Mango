@@ -1,6 +1,7 @@
 package io.github.tonnyl.mango.glide
 
 import android.content.Context
+import com.bumptech.glide.Glide
 import com.bumptech.glide.GlideBuilder
 import com.bumptech.glide.Registry
 import com.bumptech.glide.annotation.GlideModule
@@ -43,8 +44,8 @@ class MangoAppGlideModule : AppGlideModule() {
         builder?.setDiskCache(InternalCacheDiskCacheFactory(context, CACHE_FILE_NAME, MAX_CACHE_SIZE))
     }
 
-    override fun registerComponents(context: Context?, registry: Registry?) {
-        super.registerComponents(context, registry)
+    override fun registerComponents(context: Context?, glide: Glide?, registry: Registry?) {
+        super.registerComponents(context, glide, registry)
         // Replace the http connection with okhttp
         registry?.replace(GlideUrl::class.java, InputStream::class.java, OkHttpUrlLoader.Factory())
     }

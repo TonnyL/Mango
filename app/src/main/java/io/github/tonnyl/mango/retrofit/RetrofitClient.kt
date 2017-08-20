@@ -1,6 +1,8 @@
 package io.github.tonnyl.mango.retrofit
 
+import android.content.Context
 import io.github.tonnyl.mango.data.AccessToken
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -17,6 +19,9 @@ import retrofit2.converter.gson.GsonConverterFactory
  *
  * See [http://developer.dribbble.com/] for the complete Dribbble developer guide and
  * [http://developer.dribbble.com/v1/] for the detailed API docs.
+ *
+ * Written by gejiaheng, modified by lizhaotailang.
+ * See [See https://github.com/gejiaheng/Protein/blob/master/app/src/main/java/com/ge/protein/data/api/ServiceGenerator.java].
  */
 object RetrofitClient {
 
@@ -24,6 +29,15 @@ object RetrofitClient {
     private var mLastToken: String? = null
     // The [retrofit2.Retrofit] instance for whole app.
     private var mRetrofit: Retrofit? = null
+
+    private var cache: Cache? = null
+
+    fun init(context: Context) {
+        cache?.let {
+            throw IllegalStateException("Retrofit cache already initialized.")
+        }
+        cache = Cache(context.cacheDir, 20 * 1024 * 1024)
+    }
 
     fun <T> createService(serviceClass: Class<T>, accessToken: AccessToken?): T {
         val currentToken: String = accessToken?.accessToken ?: ApiConstants.CLIENT_ACCESS_TOKEN
@@ -44,7 +58,7 @@ object RetrofitClient {
                         .method(original.method(), original.body())
                 val request = requestBuilder.build()
                 chain.proceed(request)
-            }
+            }.cache(cache)
 
             // Set the corresponding convert factory and call adapter factory.
             val retrofitBuilder = Retrofit.Builder()

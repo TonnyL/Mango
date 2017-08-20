@@ -40,6 +40,13 @@ The App client id, client secret and client access token are placed in [ApiConst
 ## Contributing
 Discussions and pull requests are welcomed. The [GitHub Contributors Page](https://github.com/TonnyL/Mango/graphs/contributors) has an entry in the App.
 
+## Translating
+
++ Deutsch - [christopherkardas](https://github.com/christopherkardas)
++ 한국어 - [prprpr](http://weibo.com/u/3883693517)
++ 日本語 - [jassica53](https://github.com/jassica53)
++ 简体中文 - [TonnyL](https://github.com/TonnyL)
+
 ## License
 ```
 The MIT License (MIT)

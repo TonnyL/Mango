@@ -3,10 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-kapt {
-    generateStubs = true
-}
-
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
@@ -21,7 +17,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -35,6 +31,14 @@ android {
 
 }
 
+kapt {
+    generateStubs = true
+}
+
+androidExtensions {
+    experimental = true
+}
+
 ext {
     ankoLibVersion = "0.10.1"
     supportLibVersion = '26.0.1'
@@ -43,7 +47,7 @@ ext {
     rxKotlinVersion = '2.1.0'
     rxAndroidVersion = '2.0.1'
     retrofitVersion = '2.3.0'
-    glideVersion = '4.0.0-RC1'
+    glideVersion = '4.0.0'
     flexboxVersion = '0.3.0-alpha4'
     archRoomVersion = '1.0.0-alpha8'
     daggerVersion = '2.11'

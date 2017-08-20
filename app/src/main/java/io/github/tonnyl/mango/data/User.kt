@@ -49,185 +49,185 @@ import java.util.*
 
 @Entity(tableName = "user")
 @TypeConverters(DateConverter::class)
-class User() : Parcelable {
+data class User(
+        @ColumnInfo(name = "name")
+        @SerializedName("name")
+        @Expose
+        var name: String,
 
-    @ColumnInfo(name = "name")
-    @SerializedName("name")
-    @Expose
-    var name: String = ""
+        @ColumnInfo(name = "username")
+        @SerializedName("username")
+        @Expose
+        var username: String,
 
-    @ColumnInfo(name = "username")
-    @SerializedName("username")
-    @Expose
-    var username: String = ""
+        @ColumnInfo(name = "html_url")
+        @SerializedName("html_url")
+        @Expose
+        var htmlUrl: String,
 
-    @ColumnInfo(name = "html_url")
-    @SerializedName("html_url")
-    @Expose
-    var htmlUrl: String = ""
+        @ColumnInfo(name = "avatar_url")
+        @SerializedName("avatar_url")
+        @Expose
+        var avatarUrl: String,
 
-    @ColumnInfo(name = "avatar_url")
-    @SerializedName("avatar_url")
-    @Expose
-    var avatarUrl: String = ""
+        @ColumnInfo(name = "bio")
+        @SerializedName("bio")
+        @Expose
+        var bio: String,
 
-    @ColumnInfo(name = "bio")
-    @SerializedName("bio")
-    @Expose
-    var bio: String = ""
+        @ColumnInfo(name = "location")
+        @SerializedName("location")
+        @Expose
+        var location: String?,
 
-    @ColumnInfo(name = "location")
-    @SerializedName("location")
-    @Expose
-    var location: String? = ""
+        @Embedded
+        @SerializedName("links")
+        @Expose
+        var links: Links,
 
-    @Embedded
-    @SerializedName("links")
-    @Expose
-    var links: Links = Links()
+        @ColumnInfo(name = "buckets_count")
+        @SerializedName("buckets_count")
+        @Expose
+        var bucketsCount: Int,
 
-    @ColumnInfo(name = "buckets_count")
-    @SerializedName("buckets_count")
-    @Expose
-    var bucketsCount: Int = 0
+        @ColumnInfo(name = "comments_received_count")
+        @SerializedName("comments_received_count")
+        @Expose
+        var commentsReceivedCount: Int,
 
-    @ColumnInfo(name = "comments_received_count")
-    @SerializedName("comments_received_count")
-    @Expose
-    var commentsReceivedCount: Int = 0
+        @ColumnInfo(name = "followers_count")
+        @SerializedName("followers_count")
+        @Expose
+        var followersCount: Int,
 
-    @ColumnInfo(name = "followers_count")
-    @SerializedName("followers_count")
-    @Expose
-    var followersCount: Int = 0
+        @ColumnInfo(name = "followings_count")
+        @SerializedName("followings_count")
+        @Expose
+        var followingsCount: Int,
 
-    @ColumnInfo(name = "followings_count")
-    @SerializedName("followings_count")
-    @Expose
-    var followingsCount: Int = 0
+        @ColumnInfo(name = "likes_count")
+        @SerializedName("likes_count")
+        @Expose
+        var likesCount: Int,
 
-    @ColumnInfo(name = "likes_count")
-    @SerializedName("likes_count")
-    @Expose
-    var likesCount: Int = 0
+        @ColumnInfo(name = "likes_received_count")
+        @SerializedName("likes_received_count")
+        @Expose
+        var likesReceivedCount: Int,
 
-    @ColumnInfo(name = "likes_received_count")
-    @SerializedName("likes_received_count")
-    @Expose
-    var likesReceivedCount: Int = 0
+        @ColumnInfo(name = "projects_count")
+        @SerializedName("projects_count")
+        @Expose
+        var projectsCount: Int,
 
-    @ColumnInfo(name = "projects_count")
-    @SerializedName("projects_count")
-    @Expose
-    var projectsCount: Int = 0
+        @ColumnInfo(name = "rebounds_received_count")
+        @SerializedName("rebounds_received_count")
+        @Expose
+        var reboundsReceivedCount: Int,
 
-    @ColumnInfo(name = "rebounds_received_count")
-    @SerializedName("rebounds_received_count")
-    @Expose
-    var reboundsReceivedCount: Int = 0
+        @ColumnInfo(name = "shots_count")
+        @SerializedName("shots_count")
+        @Expose
+        var shotsCount: Int,
 
-    @ColumnInfo(name = "shots_count")
-    @SerializedName("shots_count")
-    @Expose
-    var shotsCount: Int = 0
+        @ColumnInfo(name = "teams_count")
+        @SerializedName("teams_count")
+        @Expose
+        var teamsCount: Int,
 
-    @ColumnInfo(name = "teams_count")
-    @SerializedName("teams_count")
-    @Expose
-    var teamsCount: Int = 0
+        @ColumnInfo(name = "can_upload_shot")
+        @SerializedName("can_upload_shot")
+        @Expose
+        var canUploadShot: Boolean,
 
-    @ColumnInfo(name = "can_upload_shot")
-    @SerializedName("can_upload_shot")
-    @Expose
-    var canUploadShot: Boolean = false
+        @ColumnInfo(name = "type")
+        @SerializedName("type")
+        @Expose
+        var type: String,
 
-    @ColumnInfo(name = "type")
-    @SerializedName("type")
-    @Expose
-    var type: String = ""
+        @ColumnInfo(name = "pro")
+        @SerializedName("pro")
+        @Expose
+        var pro: Boolean,
 
-    @ColumnInfo(name = "pro")
-    @SerializedName("pro")
-    @Expose
-    var pro: Boolean = false
+        @ColumnInfo(name = "buckets_url")
+        @SerializedName("buckets_url")
+        @Expose
+        var bucketsUrl: String,
 
-    @ColumnInfo(name = "buckets_url")
-    @SerializedName("buckets_url")
-    @Expose
-    var bucketsUrl: String = ""
+        @ColumnInfo(name = "followers_url")
+        @SerializedName("followers_url")
+        @Expose
+        var followersUrl: String,
 
-    @ColumnInfo(name = "followers_url")
-    @SerializedName("followers_url")
-    @Expose
-    var followersUrl: String = ""
+        @ColumnInfo(name = "following_url")
+        @SerializedName("following_url")
+        @Expose
+        var followingUrl: String,
 
-    @ColumnInfo(name = "following_url")
-    @SerializedName("following_url")
-    @Expose
-    var followingUrl: String = ""
+        @ColumnInfo(name = "likes_url")
+        @SerializedName("likes_url")
+        @Expose
+        var likesUrl: String,
 
-    @ColumnInfo(name = "likes_url")
-    @SerializedName("likes_url")
-    @Expose
-    var likesUrl: String = ""
+        @ColumnInfo(name = "shots_url")
+        @SerializedName("shots_url")
+        @Expose
+        var shotsUrl: String,
 
-    @ColumnInfo(name = "shots_url")
-    @SerializedName("shots_url")
-    @Expose
-    var shotsUrl: String = ""
+        @ColumnInfo(name = "teams_url")
+        @SerializedName("teams_url")
+        @Expose
+        var teamsUrl: String?,
 
-    @ColumnInfo(name = "teams_url")
-    @SerializedName("teams_url")
-    @Expose
-    var teamsUrl: String? = ""
+        @ColumnInfo(name = "created_at")
+        @SerializedName("created_at")
+        @Expose
+        var createdAt: Date,
 
-    @ColumnInfo(name = "created_at")
-    @SerializedName("created_at")
-    @Expose
-    var createdAt: Date = Date()
+        @ColumnInfo(name = "updated_at")
+        @SerializedName("updated_at")
+        @Expose
+        var updatedAt: Date,
 
-    @ColumnInfo(name = "updated_at")
-    @SerializedName("updated_at")
-    @Expose
-    var updatedAt: Date = Date()
+        @PrimaryKey
+        @ColumnInfo(name = "id")
+        @SerializedName("id")
+        @Expose
+        var id: Long
 
-    @ColumnInfo(name = "id")
-    @field: PrimaryKey
-    @SerializedName("id")
-    @Expose
-    var id: Long = 0L
+) : Parcelable {
 
-    constructor(parcel: Parcel) : this() {
-        name = parcel.readString()
-        username = parcel.readString()
-        htmlUrl = parcel.readString()
-        avatarUrl = parcel.readString()
-        bio = parcel.readString()
-        location = parcel.readString()
-        links = parcel.readParcelable(Links::class.java.classLoader)
-        bucketsCount = parcel.readInt()
-        commentsReceivedCount = parcel.readInt()
-        followersCount = parcel.readInt()
-        followingsCount = parcel.readInt()
-        likesCount = parcel.readInt()
-        likesReceivedCount = parcel.readInt()
-        projectsCount = parcel.readInt()
-        reboundsReceivedCount = parcel.readInt()
-        shotsCount = parcel.readInt()
-        teamsCount = parcel.readInt()
-        canUploadShot = parcel.readByte() != 0.toByte()
-        type = parcel.readString()
-        pro = parcel.readByte() != 0.toByte()
-        bucketsUrl = parcel.readString()
-        followersUrl = parcel.readString()
-        followingUrl = parcel.readString()
-        likesUrl = parcel.readString()
-        shotsUrl = parcel.readString()
-        teamsUrl = parcel.readString()
-        createdAt = Date(parcel.readLong())
-        updatedAt = Date(parcel.readLong())
-        id = parcel.readLong()
-    }
+    constructor(parcel: Parcel) : this(
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readParcelable(Links::class.java.classLoader),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readByte() != 0.toByte(),
+            parcel.readString(),
+            parcel.readByte() != 0.toByte(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            Date(parcel.readLong()),
+            Date(parcel.readLong()),
+            parcel.readLong())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)

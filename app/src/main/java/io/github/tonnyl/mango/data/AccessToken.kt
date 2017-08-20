@@ -19,34 +19,35 @@ import com.google.gson.annotations.SerializedName
  */
 
 @Entity(tableName = "access_token")
-class AccessToken() : Parcelable {
+data class AccessToken(
+        @ColumnInfo(name = "access_token")
+        @SerializedName("access_token")
+        @Expose
+        var accessToken: String,
 
-    @ColumnInfo(name = "access_token")
-    @SerializedName("access_token")
-    @Expose
-    var accessToken: String = ""
+        @ColumnInfo(name = "token_type")
+        @SerializedName("token_type")
+        @Expose
+        var tokenType: String,
 
-    @ColumnInfo(name = "token_type")
-    @SerializedName("token_type")
-    @Expose
-    var tokenType: String = ""
+        @ColumnInfo(name = "scope")
+        @SerializedName("scope")
+        @Expose
+        var scope: String,
 
-    @ColumnInfo(name = "scope")
-    @SerializedName("scope")
-    @Expose
-    var scope: String = ""
+        // User id
+        @PrimaryKey
+        @ColumnInfo(name = "id")
+        @Expose
+        var id: Long
+) : Parcelable {
 
-    @ColumnInfo(name = "id")
-    @field: PrimaryKey
-    @Expose
-    var id: Long = 0L
-
-    constructor(parcel: Parcel) : this() {
-        parcel.readString()
-        parcel.readString()
-        parcel.readString()
+    constructor(parcel: Parcel) : this(
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
         parcel.readLong()
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(accessToken)
