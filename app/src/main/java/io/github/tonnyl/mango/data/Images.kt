@@ -38,7 +38,6 @@ data class Images(
 
 ) : Parcelable {
 
-
     constructor(parcel: Parcel) : this(
             hidpi = parcel.readString(),
             normal = parcel.readString(),

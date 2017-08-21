@@ -15,22 +15,24 @@ import com.google.gson.annotations.SerializedName
  * }
  */
 
-class Links() : Parcelable {
+data class Links(
 
-    @ColumnInfo(name = "web")
-    @SerializedName("web")
-    @Expose
-    var web: String = ""
+        @ColumnInfo(name = "web")
+        @SerializedName("web")
+        @Expose
+        var web: String,
 
-    @ColumnInfo(name = "twitter")
-    @SerializedName("twitter")
-    @Expose
-    var twitter: String = ""
+        @ColumnInfo(name = "twitter")
+        @SerializedName("twitter")
+        @Expose
+        var twitter: String
 
-    constructor(parcel: Parcel) : this() {
-        web = parcel.readString()
-        twitter = parcel.readString()
-    }
+) : Parcelable {
+
+    constructor(parcel: Parcel) : this(
+            web = parcel.readString(),
+            twitter = parcel.readString()
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(web)

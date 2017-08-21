@@ -24,6 +24,11 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+# ===== Kotlin =====
+-dontwarn kotlin.**
+-keepclassmembers class **$WhenMappings {
+    <fields>;
+}
 
 # ===== Retrofit =====
 -dontwarn okio.**
@@ -56,3 +61,35 @@
 # tries to instantiate the layout manager using reflection.
 # This is to prevent the layout manager from being obfuscated.
 -keep public class com.google.android.flexbox.FlexboxLayoutManager
+
+# ===== Gson =====
+-keep class com.google.gson.** { *; }
+-keepattributes Signature
+
+
+# ===== RxJava =====
+-dontwarn rx.**
+-keep class rx.schedulers.Schedulers {
+    public static <methods>;
+}
+-keep class rx.schedulers.ImmediateScheduler {
+    public <methods>;
+}
+-keep class rx.schedulers.TestScheduler {
+    public <methods>;
+}
+-keep class rx.schedulers.Schedulers {
+    public static ** test();
+}
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+    long producerIndex;
+    long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    long producerNode;
+    long consumerNode;
+}
+
+# ===== Room =====
+-dontwarn android.arch.util.paging.CountedDataSource
+-dontwarn android.arch.persistence.room.paging.LimitOffsetDataSource
