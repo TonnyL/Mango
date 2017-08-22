@@ -1,0 +1,79 @@
+<resources>
+    <string name="app_name">Mango</string>
+    <!--Common-->
+    <string name="empty_content">Rất tiếc…không có gì ở đây</string>
+    <string name="network_error">Lỗi mạng</string>
+    <string name="gif">GIF</string>
+
+    <!--Get started-->
+    <string name="get_started">BẮT ĐẦU</string>
+    <string name="welcome_to_mango">CHÀO MỪNG ĐẾN MANGO</string>
+    <string name="request_refresh_token_failed">Yêu cầu làm mới token không thành công</string>
+
+    <!--Main page-->
+    <string name="popular">PHỔ BIẾN</string>
+    <string name="following">THEO DÕI</string>
+    <string name="recent">GẦN ĐÂY</string>
+    <string name="debuts">KHỞI ĐẦU</string>
+    <string name="shot_title">%1$s - %2$s</string>
+    <!--Main page menus-->
+    <string name="action_main">action_main</string>
+    <string name="action_settings">Cài đặt</string>
+    <string name="action_log_out">Đăng xuất</string>
+    <string name="log_out">Đăng xuất</string>
+    <string name="logout_message">Hẹn gặp lại bạn lần sau.</string>
+
+    <!--Shot detail-->
+    <string name="likes_formatted">%1$d lượt thích</string>
+    <string name="comments_formatted">%1$d bình luận</string>
+    <string name="views_formatted">%1$d lượt xem</string>
+    <string name="copy_to_clipboard">Sao chép vào clipboard</string>
+    <string name="copied">Đã copy</string>
+    <string name="share_to">Chia sẻ tới</string>
+    <!--Shot detail menus-->
+    <string name="action_shot">action_shot</string>
+    <string name="action_share">Chia sẻ</string>
+    <string name="action_open_in_browser">Mở trong trình duyệt</string>
+
+    <!--Comments-->
+    <string name="add_comment_hint">Thêm bình luận</string>
+    <string name="add_comment_failed">Thêm bình luận không thành công</string>
+
+    <!--User profile-->
+    <string name="followers_formatted">%1$d người theo dõi</string>
+    <string name="following_formatted">Đang theo dõi %1$d</string>
+    <string name="follow">Theo dõi</string>
+    <string name="unfollow">Hủy theo dõi</string>
+    <string name="tab_title_shots">%1$d BỨC ẢNH</string>
+    <string name="tab_title_likes">%1$d LƯỌT THÍCH</string>
+    <!--User profile menus-->
+    <string name="action_user">action_user</string>
+
+    <!--Settings-->
+    <string name="settings">Cài đặt</string>
+    <string name="general">Tổng quan</string>
+    <string name="clear_cache_desc">Kích thước bộ nhớ cache: %1$d MB</string>
+    <string name="clear_cache">Xóa Cache</string>
+    <string name="about">Thông tin</string>
+    <string name="version">Phiên bản</string>
+    <string name="version_desc">1.0.0</string>
+    <string name="open_source_licenses">Giấy Phép Mã Nguồn Mở</string>
+    <string name="authors">Tác giả</string>
+    <string name="contributors">Cộng tác viên</string>
+    <string name="contributors_desc">https://github.com/TonnyL/Mango/graphs/contributors</string>
+    <string name="follow_me_on_github">Theo dõi tôi trên GitHub</string>
+    <string name="follow_me_on_github_desc">https://github.com/TonnyL</string>
+    <string name="support">Hỗ trợ</string>
+    <string name="source_code">Mã Nguồn</string>
+    <string name="source_code_desc">https://github.com/TonnyL/Mango</string>
+    <string name="feedback">Phản hồi</string>
+    <string name="feedback_email">marktonymengyi@gmail.com</string>
+    <string name="feedback_email_subject">Phản hồi Mango</string>
+    <string name="feedback_desc">Giúp tôi làm ứng dụng Mango tốt hơn</string>
+
+    <!--Image content descriptions-->
+    <string name="avatar_desc">Hình đại diện</string>
+    <string name="send_desc">Gửi</string>
+    <string name="shot_desc">Ảnh</string>
+    <string name="like_desc">Thích</string>
+</resources>
