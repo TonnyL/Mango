@@ -20,12 +20,12 @@ data class Links(
         @ColumnInfo(name = "web")
         @SerializedName("web")
         @Expose
-        var web: String,
+        var web: String?,
 
         @ColumnInfo(name = "twitter")
         @SerializedName("twitter")
         @Expose
-        var twitter: String
+        var twitter: String?
 
 ) : Parcelable {
 

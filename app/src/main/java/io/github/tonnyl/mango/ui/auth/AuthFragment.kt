@@ -1,7 +1,11 @@
 package io.github.tonnyl.mango.ui.auth
 
 import android.content.Intent
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
+import android.graphics.drawable.Icon
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
@@ -80,6 +84,8 @@ class AuthFragment : Fragment(), AuthContract.View {
                 .putString(Constants.ACCESS_TOKEN, Gson().toJson(accessToken, AccessToken::class.java))
                 .apply()
 
+        enableShortCuts()
+
         navigateToMainActivity()
     }
 
@@ -108,6 +114,76 @@ class AuthFragment : Fragment(), AuthContract.View {
         } else {
             progress_bar?.visibility = View.GONE
             button_get_started?.visibility = View.VISIBLE
+        }
+    }
+
+    // Enable the App Shortcuts for devices running Android 7.1 and above.
+    // See [https://developer.android.com/guide/topics/ui/shortcuts.html].
+    private fun enableShortCuts() {
+
+        // doFromSdk(Build.VERSION_CODES.N_MR1), not work, sad story
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            val pop = ShortcutInfo.Builder(context, Constants.SHORTCUT_ID_POPULAR)
+                    .apply {
+                        setLongLabel(getString(R.string.popular))
+                        setShortLabel(getString(R.string.popular))
+                        setIcon(Icon.createWithResource(context, R.drawable.ic_shortcut_pop))
+                        setIntent(
+                                Intent(context.applicationContext, MainActivity::class.java)
+                                        .apply {
+                                            action = Constants.INTENT_ACTION_POPULAR
+                                            addCategory(ShortcutInfo.SHORTCUT_CATEGORY_CONVERSATION)
+                                        }
+                        )
+                    }.build()
+
+            val following = ShortcutInfo.Builder(context, Constants.SHORTCUT_ID_FOLLOWING)
+                    .apply {
+                        setLongLabel(getString(R.string.following))
+                        setShortLabel(getString(R.string.following))
+                        setIcon(Icon.createWithResource(context, R.drawable.ic_shortcut_following))
+                        setIntent(
+                                Intent(context.applicationContext, MainActivity::class.java)
+                                        .apply {
+                                            action = Constants.INTENT_ACTION_FOLLOWING
+                                            addCategory(ShortcutInfo.SHORTCUT_CATEGORY_CONVERSATION)
+                                        }
+                        )
+                    }
+                    .build()
+
+            val recent = ShortcutInfo.Builder(context, Constants.SHORTCUT_ID_RECENT)
+                    .apply {
+                        setLongLabel(getString(R.string.recent))
+                        setShortLabel(getString(R.string.recent))
+                        setIcon(Icon.createWithResource(context, R.drawable.ic_shortcut_recent))
+                        setIntent(
+                                Intent(context.applicationContext, MainActivity::class.java)
+                                        .apply {
+                                            action = Constants.INTENT_ACTION_RECENT
+                                            addCategory(ShortcutInfo.SHORTCUT_CATEGORY_CONVERSATION)
+                                        }
+                        )
+                    }
+                    .build()
+
+            val debuts = ShortcutInfo.Builder(context, Constants.SHORTCUT_ID_DEBUTS)
+                    .apply {
+                        setLongLabel(getString(R.string.debuts))
+                        setShortLabel(getString(R.string.debuts))
+                        setIcon(Icon.createWithResource(context, R.drawable.ic_shortcut_debuts))
+                        setIntent(
+                                Intent(context.applicationContext, MainActivity::class.java)
+                                        .apply {
+                                            action = Constants.INTENT_ACTION_DEBUTS
+                                            addCategory(ShortcutInfo.SHORTCUT_CATEGORY_CONVERSATION)
+                                        }
+                        )
+                    }
+                    .build()
+
+            activity.getSystemService(ShortcutManager::class.java).dynamicShortcuts = mutableListOf<ShortcutInfo>(pop, following, recent, debuts)
+
         }
     }
 

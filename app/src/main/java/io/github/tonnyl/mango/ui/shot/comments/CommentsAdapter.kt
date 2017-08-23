@@ -40,7 +40,7 @@ class CommentsAdapter(context: Context, list: List<Comment>) : RecyclerView.Adap
 
             itemView.name.text = comment.user.name
             itemView.user_name.text = comment.user.username
-            itemView.created_time.text = DateUtils.getRelativeTimeSpanString(comment.user.createdAt.time, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS)
+            itemView.created_time.text = DateUtils.getRelativeTimeSpanString(comment.createdAt.time, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS)
         }
     }
 

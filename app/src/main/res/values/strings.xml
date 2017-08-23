@@ -12,10 +12,10 @@
     <string name="request_refresh_token_failed">Request refresh token failed</string>
 
     <!--Main page-->
-    <string name="popular">POPULAR</string>
-    <string name="following">FOLLOWING</string>
-    <string name="recent">RECENT</string>
-    <string name="debuts">DEBUTS</string>
+    <string name="popular">Popular</string>
+    <string name="following">Following</string>
+    <string name="recent">Recent</string>
+    <string name="debuts">Debuts</string>
     <string name="shot_title">%1$s - %2$s</string>
     <!--Main page menus-->
     <string name="action_main">action_main</string>

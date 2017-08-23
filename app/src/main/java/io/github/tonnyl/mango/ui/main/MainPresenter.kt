@@ -62,6 +62,8 @@ class MainPresenter(view: MainContract.View) : MainContract.Presenter {
                             Observable.just(Unit)
                         }).observeOn(AndroidSchedulers.mainThread())
                                 .subscribe({
+                                    mView.disableShortcuts()
+
                                     mView.navigateToLogin()
                                 }, {
                                     it.printStackTrace()

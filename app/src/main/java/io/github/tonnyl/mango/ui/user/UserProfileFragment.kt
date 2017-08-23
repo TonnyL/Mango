@@ -105,15 +105,16 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
     override fun showUserInfo(user: User) {
         GlideLoader.loadAvatar(context, avatar, user.avatarUrl)
 
-        if (user.links.twitter.isEmpty()) {
+        user.links.twitter?.let {
+            user_info_twitter.text = it
+        } ?: run {
             user_info_twitter.visibility = View.GONE
-        } else {
-            user_info_twitter.text = user.links.twitter
         }
-        if (user.links.web.isEmpty()) {
+
+        user.links.web?.let {
+            user_info_web.text = it
+        } ?: run {
             user_info_web.visibility = View.GONE
-        } else {
-            user_info_web.text = user.links.web
         }
 
         user.location?.let {

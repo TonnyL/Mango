@@ -1,5 +1,7 @@
 package io.github.tonnyl.mango.ui.main
 
+import android.content.pm.ShortcutManager
+import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
@@ -53,6 +55,16 @@ class MainFragment : Fragment(), MainContract.View {
         user_info_layout.setOnClickListener {
             mPresenter.getUser()?.let {
                 context.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to it)
+            }
+        }
+
+        // Handle the intent actions from app shortcuts
+        activity.intent.action?.let {
+            view_pager.currentItem = when (it) {
+                Constants.INTENT_ACTION_FOLLOWING -> 1
+                Constants.INTENT_ACTION_RECENT -> 2
+                Constants.INTENT_ACTION_DEBUTS -> 3
+                else -> 0
             }
         }
 
@@ -125,6 +137,16 @@ class MainFragment : Fragment(), MainContract.View {
         super.onSaveInstanceState(outState)
         if (mPagerAdapter != null) {
             mPagerAdapter
+        }
+    }
+
+    override fun disableShortcuts() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            activity.getSystemService(ShortcutManager::class.java)
+                    .disableShortcuts(arrayListOf(Constants.SHORTCUT_ID_POPULAR,
+                            Constants.SHORTCUT_ID_FOLLOWING,
+                            Constants.SHORTCUT_ID_RECENT,
+                            Constants.SHORTCUT_ID_DEBUTS))
         }
     }
 

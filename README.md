@@ -8,6 +8,7 @@ Mango is an Android application for [Dribbble](https://dribbble.com/). Inspired 
 + MVP architecture: Whole project is built on MVP architecture.
 + Material Design: Trying my best.
 + Deep link: Yes. Using [DeepLinkDispatch](https://github.com/airbnb/DeepLinkDispatch) from [Airbnb](https://github.com/airbnb).
++ App shortcuts: Supporting devices running Android 7.1+.
 + Usage of several awesome libraries: [Anko common](https://github.com/Kotlin/anko) for simplified intents, [Flexbox layout](https://github.com/google/flexbox-layout)  for smart and elegant layout, [Glide](https://github.com/bumptech/glide) for image loading, [Gson](https://github.com/google/gson) for serialization&deserialization, [Retrofit](https://github.com/square/retrofit) for HTTP requests, [Room](https://developer.android.com/topic/libraries/architecture/room.html) for data persistence.
 
 ## Screenshots
@@ -30,7 +31,7 @@ Open the `Mango/` directory in Android Studio.
 
 ### Troubleshooting
 + Update the Android Studio to latest version.
-+ Update the Kotlin to lates version.
++ Update the Kotlin to latest version.
 + Try to clean the project and rebuild it.
 + If none of the solutions above, file an issue or email me.
 
@@ -42,10 +43,11 @@ Discussions and pull requests are welcomed. The [GitHub Contributors Page](https
 
 ## Translating
 
-+ Deutsch - [christopherkardas](https://github.com/christopherkardas)
-+ 한국어 - [prprpr](http://weibo.com/u/3883693517)
-+ 日本語 - [jassica53](https://github.com/jassica53)
-+ 简体中文 - [TonnyL](https://github.com/TonnyL)
++ Chinese(Simplified) - [TonnyL](https://github.com/TonnyL)
++ German - [christopherkardas](https://github.com/christopherkardas)
++ Japanese - [jassica53](https://github.com/jassica53)
++ Korean - [prprpr](http://weibo.com/u/3883693517)
++ Vietnamese - [ldhnam](https://github.com/ldhnam)
 
 ## License
 ```

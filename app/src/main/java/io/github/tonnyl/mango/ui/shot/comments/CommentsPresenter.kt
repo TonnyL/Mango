@@ -86,7 +86,6 @@ class CommentsPresenter(view: CommentsContract.View, shot: Shot) : CommentsContr
                     mNextPageUrl = PageLinks(response).next
                     mView.setLoadingIndicator(false)
 
-
                     response.body()?.let {
                         mView.setEmptyViewVisibility(it.isEmpty())
                         if (it.isNotEmpty()) {
