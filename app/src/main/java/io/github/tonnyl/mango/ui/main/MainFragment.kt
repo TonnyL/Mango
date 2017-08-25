@@ -9,7 +9,7 @@ import android.support.v7.app.AlertDialog
 import android.view.*
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.User
-import io.github.tonnyl.mango.glide.GlideLoader
+import io.github.tonnyl.mango.extension.loadAvatar
 import io.github.tonnyl.mango.ui.auth.AuthActivity
 import io.github.tonnyl.mango.ui.settings.SettingsActivity
 import io.github.tonnyl.mango.ui.user.UserProfileActivity
@@ -106,7 +106,7 @@ class MainFragment : Fragment(), MainContract.View {
 
     override fun showAuthUserInfo(user: User) {
         user_name.text = user.name
-        GlideLoader.loadAvatar(context, avatar, user.avatarUrl)
+        avatar.loadAvatar(user.avatarUrl)
     }
 
     override fun navigateToLogin() {

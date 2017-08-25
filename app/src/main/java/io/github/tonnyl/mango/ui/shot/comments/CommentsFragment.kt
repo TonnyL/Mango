@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Comment
-import io.github.tonnyl.mango.glide.GlideLoader
+import io.github.tonnyl.mango.extension.loadAvatar
 import io.github.tonnyl.mango.ui.user.UserProfileActivity
 import io.github.tonnyl.mango.ui.user.UserProfilePresenter
 import kotlinx.android.synthetic.main.fragment_comments.*
@@ -120,7 +120,7 @@ class CommentsFragment : Fragment(), CommentsContract.View {
 
     override fun setEditorVisible(visible: Boolean, avatarUrl: String) {
         layout_add_comment.visibility = if (visible) View.VISIBLE else View.GONE
-        GlideLoader.loadAvatar(context, avatar, avatarUrl)
+        avatar.loadAvatar(avatarUrl)
     }
 
     private fun initViews() {

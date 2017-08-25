@@ -8,7 +8,7 @@ import android.view.ViewGroup
 
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Shot
-import io.github.tonnyl.mango.glide.GlideLoader
+import io.github.tonnyl.mango.extension.loadNormal
 
 import kotlinx.android.synthetic.main.item_simple_list_shots.view.*
 
@@ -29,7 +29,7 @@ class ShotsAdapter(context: Context, list: List<Shot>) : RecyclerView.Adapter<Re
         val viewHolder = holderFollower as ShotViewHolder
         val shot = mList[position]
         viewHolder.itemView.tag_gif.visibility = if (shot.images.normal.endsWith(".gif")) View.VISIBLE else View.GONE
-        GlideLoader.loadNormal(mContext, viewHolder.itemView.image_view, shot.images.best())
+        viewHolder.itemView.image_view.loadNormal(shot.images.best())
     }
 
     override fun getItemCount() = mList.size

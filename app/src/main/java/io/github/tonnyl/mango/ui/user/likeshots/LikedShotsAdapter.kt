@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.LikedShot
-import io.github.tonnyl.mango.glide.GlideLoader
+import io.github.tonnyl.mango.extension.loadNormal
 import kotlinx.android.synthetic.main.item_simple_list_shots.view.*
 
 /**
@@ -28,7 +28,7 @@ class LikedShotsAdapter(context: Context, list: List<LikedShot>) : RecyclerView.
         val shotLike = mList[position]
         with(holderFollower as ShotLikeViewHolder) {
             itemView.tag_gif.visibility = if (shotLike.shot.images.normal.endsWith(".gif")) View.VISIBLE else View.GONE
-            GlideLoader.loadNormal(mContext, itemView.image_view, shotLike.shot.images.best())
+            itemView.image_view.loadNormal(shotLike.shot.images.best())
         }
     }
 

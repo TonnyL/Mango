@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Shot
-import io.github.tonnyl.mango.glide.GlideLoader
+import io.github.tonnyl.mango.extension.loadAvatar
+import io.github.tonnyl.mango.extension.loadNormal
 
 import kotlinx.android.synthetic.main.item_shot.view.*
 
@@ -29,8 +30,8 @@ class ShotsAdapter(context: Context, list: List<Shot>) : RecyclerView.Adapter<Re
         if (position <= mList.size) {
             val shot = mList[position]
             with(holderFollower as ShotViewHolder) {
-                GlideLoader.loadAvatar(mContext, itemView.avatar, shot.user?.avatarUrl)
-                GlideLoader.loadNormal(mContext, itemView.shot_image_view, shot.images.best())
+                itemView.avatar.loadAvatar(shot.user?.avatarUrl)
+                itemView.shot_image_view.loadNormal(shot.images.best())
                 itemView.tag_gif.visibility = if (shot.images.normal.endsWith(".gif")) View.VISIBLE else View.GONE
                 itemView.shot_title.text = mContext.getString(R.string.shot_title).format(shot.user?.name, shot.title)
             }
