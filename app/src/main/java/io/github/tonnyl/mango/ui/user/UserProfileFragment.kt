@@ -8,7 +8,7 @@ import android.text.Html
 import android.view.*
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.User
-import io.github.tonnyl.mango.glide.GlideLoader
+import io.github.tonnyl.mango.extension.loadAvatar
 import io.github.tonnyl.mango.ui.user.followers.FollowersActivity
 import io.github.tonnyl.mango.ui.user.followers.FollowersPresenter
 import io.github.tonnyl.mango.ui.user.following.FollowingActivity
@@ -103,7 +103,7 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
     }
 
     override fun showUserInfo(user: User) {
-        GlideLoader.loadAvatar(context, avatar, user.avatarUrl)
+        avatar.loadAvatar(user.avatarUrl)
 
         user.links.twitter?.let {
             user_info_twitter.text = it

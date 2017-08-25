@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Followee
-import io.github.tonnyl.mango.glide.GlideLoader
+import io.github.tonnyl.mango.extension.loadAvatar
 import kotlinx.android.synthetic.main.item_user.view.*
 
 /**
@@ -28,7 +28,7 @@ class FollowingAdapter(context: Context, list: List<Followee>) : RecyclerView.Ad
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         val followee = mList[position]
         with(holder as FollowingViewHolder) {
-            GlideLoader.loadAvatar(mContext, itemView.avatar, followee.followee.avatarUrl)
+            itemView.avatar.loadAvatar(followee.followee.avatarUrl)
             itemView.name.text = followee.followee.name
             itemView.user_name.text = followee.followee.username
             itemView.bio.text = if (Build.VERSION.SDK_INT >= 24) {

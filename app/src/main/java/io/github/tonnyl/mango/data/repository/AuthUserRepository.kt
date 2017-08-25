@@ -14,7 +14,7 @@ import io.reactivex.Observable
 
 object AuthUserRepository : AuthUserDataSource {
 
-    private var mCachedUsers: MutableMap<Long, User> = LinkedHashMap()
+    private var mCachedUsers: MutableMap<Long, User> = linkedMapOf()
 
     override fun init(context: Context) {
         AuthUserLocalDataSource.init(context)
