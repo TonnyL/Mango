@@ -10,6 +10,7 @@ import io.github.tonnyl.mango.util.UserUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 /**
  * Created by lizhaotailang on 2017/7/8.
@@ -65,6 +66,10 @@ class CommentsPresenter(view: CommentsContract.View, shot: Shot) : CommentsContr
                 .subscribe({ response ->
                     response.body()?.let {
                         mView.cancelSendingIndicator(true)
+
+                        if (mNextPageUrl == null) {
+                            insertNewComment(body)
+                        }
                     } ?: run {
                         mView.cancelSendingIndicator(false)
                     }
@@ -128,6 +133,20 @@ class CommentsPresenter(view: CommentsContract.View, shot: Shot) : CommentsContr
                         it.printStackTrace()
                     })
             mCompositeDisposable.add(disposable)
+        }
+    }
+
+    private fun insertNewComment(commentBody: String) {
+        AccessTokenManager.accessToken?.let { token ->
+            AuthUserRepository.getAuthenticatedUser(token.id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        mCachedComments.add(Comment(id = token.id, body = commentBody, likesCount = 0, likesUrl = "", createdAt = Date(System.currentTimeMillis()), updatedAt = Date(System.currentTimeMillis()), user = it))
+                        mView.notifyDataAdded(mCachedComments.size - 1, 1)
+                    }, {
+                        it.printStackTrace()
+                    })
         }
     }
 

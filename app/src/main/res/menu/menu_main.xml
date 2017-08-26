@@ -15,7 +15,7 @@
             <group android:checkableBehavior="none">
 
                 <item
-                    android:id="@+id/action_about"
+                    android:id="@+id/action_settings"
                     android:icon="@drawable/ic_settings_black_24dp"
                     android:orderInCategory="1"
                     android:title="@string/action_settings"

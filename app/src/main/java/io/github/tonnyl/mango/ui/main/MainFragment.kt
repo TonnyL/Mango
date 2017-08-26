@@ -84,7 +84,7 @@ class MainFragment : Fragment(), MainContract.View {
         val id = item?.itemId
         if (id == R.id.action_logout) {
             showLogoutDialog()
-        } else if (id == R.id.action_about) {
+        } else if (id == R.id.action_settings) {
             context.startActivity<SettingsActivity>()
         }
         return true
