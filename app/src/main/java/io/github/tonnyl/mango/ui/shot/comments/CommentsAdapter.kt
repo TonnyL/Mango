@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Comment
-import io.github.tonnyl.mango.extension.loadAvatar
+import io.github.tonnyl.mango.glide.GlideLoader
 import kotlinx.android.synthetic.main.item_comment.view.*
 
 /**
@@ -30,7 +30,8 @@ class CommentsAdapter(context: Context, list: List<Comment>) : RecyclerView.Adap
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder?, position: Int) {
         val comment = mList[position]
         with(viewHolder as CommentViewHolder) {
-            itemView.avatar.loadAvatar(comment.user.avatarUrl)
+
+            GlideLoader.loadAvatar(itemView.avatar, comment.user.avatarUrl)
 
             itemView.comment_body.text = if (Build.VERSION.SDK_INT >= 24) {
                 Html.fromHtml(comment.body, Html.FROM_HTML_MODE_LEGACY)

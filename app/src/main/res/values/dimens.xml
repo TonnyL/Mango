@@ -20,4 +20,8 @@
     <dimen name="add_comment_text_size">13sp</dimen>
     <dimen name="add_comment_height">48dp</dimen>
 
+    <dimen name="anim_view_dimen_primary">128dp</dimen>
+    <dimen name="anim_view_dimen_secondary">160dp</dimen>
+    <dimen name="anim_view_dimen_tertiary">240dp</dimen>
+
 </resources>

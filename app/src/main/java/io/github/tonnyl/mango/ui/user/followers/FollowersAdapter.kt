@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Follower
-import io.github.tonnyl.mango.extension.loadAvatar
+import io.github.tonnyl.mango.glide.GlideLoader
 import kotlinx.android.synthetic.main.item_user.view.*
 
 /**
@@ -29,7 +29,7 @@ class FollowersAdapter(context: Context, list: List<Follower>) : RecyclerView.Ad
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         val follower = mList[position]
         with(holder as FollowerViewHolder) {
-            itemView.avatar.loadAvatar(follower.follower.avatarUrl)
+            GlideLoader.loadAvatar(itemView.avatar, follower.follower.avatarUrl)
 
             itemView.name.text = follower.follower.name
             itemView.user_name.text = follower.follower.username

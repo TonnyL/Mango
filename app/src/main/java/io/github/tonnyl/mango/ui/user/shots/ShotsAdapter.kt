@@ -5,11 +5,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Shot
-import io.github.tonnyl.mango.extension.loadNormal
-
+import io.github.tonnyl.mango.glide.GlideLoader
 import kotlinx.android.synthetic.main.item_simple_list_shots.view.*
 
 /**
@@ -26,10 +24,11 @@ class ShotsAdapter(context: Context, list: List<Shot>) : RecyclerView.Adapter<Re
     }
 
     override fun onBindViewHolder(holderFollower: RecyclerView.ViewHolder?, position: Int) {
-        val viewHolder = holderFollower as ShotViewHolder
         val shot = mList[position]
-        viewHolder.itemView.tag_gif.visibility = if (shot.images.normal.endsWith(".gif")) View.VISIBLE else View.GONE
-        viewHolder.itemView.image_view.loadNormal(shot.images.best())
+        with(holderFollower as ShotViewHolder) {
+            itemView.tag_gif.visibility = if (shot.animated) View.VISIBLE else View.GONE
+            GlideLoader.loadNormal(itemView.image_view, itemView.animation_view, shot.images.best())
+        }
     }
 
     override fun getItemCount() = mList.size

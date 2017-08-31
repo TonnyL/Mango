@@ -51,7 +51,7 @@ ext {
     glideVersion = '4.0.0'
     flexboxVersion = '0.3.0-alpha4'
     archRoomVersion = '1.0.0-alpha9'
-    daggerVersion = '2.11'
+    lottieVersion = '2.2.0'
     deeplinkDispatchVersion = "3.1.0"
     junitVersion = "4.12"
     androidTestRunnerRulesVersion = "0.5"
@@ -100,6 +100,9 @@ dependencies {
     // DeepLink dispatch
     implementation "com.airbnb:deeplinkdispatch:$deeplinkDispatchVersion"
     kapt "com.airbnb:deeplinkdispatch-processor:$deeplinkDispatchVersion"
+
+    // Lottie
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 
     // The dependency for Jacoco to generate report
     androidTestImplementation "com.android.support.test:rules:$androidTestRunnerRulesVersion"

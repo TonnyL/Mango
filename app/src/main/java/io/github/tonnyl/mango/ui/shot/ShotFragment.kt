@@ -18,9 +18,8 @@ import android.widget.TextView
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Shot
 import io.github.tonnyl.mango.data.User
-import io.github.tonnyl.mango.extension.OnPaletteProcessCallback
-import io.github.tonnyl.mango.extension.loadAvatar
-import io.github.tonnyl.mango.extension.loadHighQualityWithPalette
+import io.github.tonnyl.mango.glide.GlideLoader
+import io.github.tonnyl.mango.glide.OnPaletteProcessingCallback
 import io.github.tonnyl.mango.ui.shot.comments.CommentsActivity
 import io.github.tonnyl.mango.ui.shot.comments.CommentsPresenter
 import io.github.tonnyl.mango.ui.shot.likes.LikesActivity
@@ -111,7 +110,7 @@ class ShotFragment : Fragment(), ShotContract.View {
 
     override fun show(shot: Shot) {
         // Show the menu_shot image
-        shot_image_view.loadHighQualityWithPalette(shot.images.best(), object : OnPaletteProcessCallback {
+        GlideLoader.loadHighQualityWithPalette(shot_image_view, animation_view, shot.images.best(), object : OnPaletteProcessingCallback {
             override fun OnPaletteGenerated(palette: Palette?) {
                 palette?.let {
                     showPalette(palette)
@@ -127,9 +126,7 @@ class ShotFragment : Fragment(), ShotContract.View {
             }
         })
 
-        shot.user?.let {
-            avatar.loadAvatar(it.avatarUrl)
-        }
+        GlideLoader.loadAvatar(avatar, shot.user?.avatarUrl)
 
         toolbar.title = shot.title
 
