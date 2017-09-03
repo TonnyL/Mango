@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2017 Lizhaotailang
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 package io.github.tonnyl.mango.ui.shot
 
 import android.content.ClipData
@@ -110,7 +132,7 @@ class ShotFragment : Fragment(), ShotContract.View {
 
     override fun show(shot: Shot) {
         // Show the menu_shot image
-        GlideLoader.loadHighQualityWithPalette(shot_image_view, animation_view, shot.images.best(), object : OnPaletteProcessingCallback {
+        GlideLoader.loadHighQualityWithPalette(shot_image_view, shot.images.best(), object : OnPaletteProcessingCallback {
             override fun OnPaletteGenerated(palette: Palette?) {
                 palette?.let {
                     showPalette(palette)
@@ -188,10 +210,11 @@ class ShotFragment : Fragment(), ShotContract.View {
     private fun showTags(tags: List<String>) {
         for (tag in tags) {
             val textView = TextView(context)
-            textView.background = ContextCompat.getDrawable(context, R.drawable.bg_shot_tag)
+            textView.background = ContextCompat.getDrawable(context, R.drawable.bg_shot)
             textView.text = tag
+            textView.setTextColor(ContextCompat.getColor(context, android.R.color.white))
             textView.gravity = Gravity.CENTER
-            textView.setPadding(16, 0, 16, 0)
+            textView.setPadding(16, 8, 16, 8)
             tags_box.addView(textView)
         }
     }

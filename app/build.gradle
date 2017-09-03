@@ -13,12 +13,24 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-            useProguard false
+            minifyEnabled true
+            useProguard true
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -51,7 +63,6 @@ ext {
     glideVersion = '4.0.0'
     flexboxVersion = '0.3.0-alpha4'
     archRoomVersion = '1.0.0-alpha9'
-    lottieVersion = '2.2.0'
     deeplinkDispatchVersion = "3.1.0"
     junitVersion = "4.12"
     androidTestRunnerRulesVersion = "0.5"
@@ -101,15 +112,13 @@ dependencies {
     implementation "com.airbnb:deeplinkdispatch:$deeplinkDispatchVersion"
     kapt "com.airbnb:deeplinkdispatch-processor:$deeplinkDispatchVersion"
 
-    // Lottie
-    implementation "com.airbnb.android:lottie:$lottieVersion"
-
     // The dependency for Jacoco to generate report
     androidTestImplementation "com.android.support.test:rules:$androidTestRunnerRulesVersion"
+
     // Set this dependency to use JUnit 4 rules
     androidTestImplementation "com.android.support.test:runner:$androidTestRunnerRulesVersion"
+
     // Espresso
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
-
     testImplementation "junit:junit:$junitVersion"
 }

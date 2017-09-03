@@ -1,3 +1,25 @@
+<!--
+  ~ Copyright (c) 2017 Lizhaotailang
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in
+  ~ all copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  ~ THE SOFTWARE.
+  -->
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -25,6 +47,7 @@
     <li><a href="#android-core-ui-support-library">Android Core UI Support Library</a></li>
     <li><a href="#android-core-utils-support-library">Android Core Utils Support Library</a></li>
     <li><a href="#android-db-support-library">Android Db Support Library</a></li>
+    <li><a href="#android-db-impl-support-library">Android Db Impl Support Library</a></li>
     <li><a href="#android-fragments-support-library">Android Fragments Support Library</a></li>
     <li><a href="#android-media-compat-support-library">Android Media Compat Support Library</a>
     </li>
@@ -36,12 +59,15 @@
     <li><a href="#android-vector-drawable-support-library">Android Vector Drawable Support
         Library</a></li>
     <li><a href="#anko">Anko</a></li>
-    <li><a href="#deeplink-dispatch">DeeplinkDispatch</a></li>
+    <li><a href="#anchor-deeplink-dispatch">DeepLinkDispatch</a></li>
+    <li><a href="#anchor-disklrucache">DiskLruCache</a></li>
     <li><a href="#flexbox-layout">Flexbox-layout</a></li>
     <li><a href="#glide">Glide</a></li>
     <li><a href="#gson">Gson</a></li>
     <li><a href="#inject">inject</a></li>
     <li><a href="#jsr-305">JSR 305</a></li>
+    <li><a href="#kotlin-android-extensions-runtime">Kotlin Android Extensions Runtime</a></li>
+    <li><a href="#kotlin-stdlib">Kotlin Stdlib</a></li>
     <li><a href="#okhttp">OkHttp</a></li>
     <li><a href="#okio">Okio</a></li>
     <li><a href="#retrofit">Retrofit</a></li>
@@ -52,7 +78,7 @@
 </ul>
 
 <ul>
-    <li><a name="android-animated-vector-drawable-library">Android Animated Vector Drawable
+    <li><a id="android-animated-vector-drawable-library">Android Animated Vector Drawable
         Library</a></li>
 </ul>
 <pre>
@@ -72,7 +98,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="android-annotations-library">Android Annotations Library</a></li>
+    <li><a id="android-annotations-library">Android Annotations Library</a></li>
 </ul>
 <pre>
 Copyright 2005-2011 The Android Open Source Project
@@ -91,7 +117,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="android-annotations-support-library">Android Annotations Support Library</a></li>
+    <li><a id="android-annotations-support-library">Android Annotations Support Library</a></li>
 </ul>
 <pre>
 Copyright 2005-2011 The Android Open Source Project
@@ -110,7 +136,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="android-common">Android Common</a></li>
+    <li><a id="android-common">Android Common</a></li>
 </ul>
 <pre>
 Copyright 2005-2011 The Android Open Source Project
@@ -129,7 +155,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="android-compatibility-library-v4">Android Compatibility Library v4</a></li>
+    <li><a id="android-compatibility-library-v4">Android Compatibility Library v4</a></li>
 </ul>
 <pre>
 Copyright 2005-2011 The Android Open Source Project
@@ -148,7 +174,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="android-compatibility-library-v7">Android Compatibility Library v7</a></li>
+    <li><a id="android-compatibility-library-v7">Android Compatibility Library v7</a></li>
 </ul>
 <pre>
 Copyright 2005-2011 The Android Open Source Project
@@ -167,7 +193,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="android-core-ui-support-library">Android Core UI Support Library</a></li>
+    <li><a id="android-core-ui-support-library">Android Core UI Support Library</a></li>
 </ul>
 <pre>
 Copyright 2005-2011 The Android Open Source Project
@@ -186,7 +212,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="android-core-utils-support-library">Android Core Utils Support Library</a></li>
+    <li><a id="android-core-utils-support-library">Android Core Utils Support Library</a></li>
 </ul>
 <pre>
 Copyright 2005-2011 The Android Open Source Project
@@ -205,7 +231,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="android-db-support-library">Android Db Support Library</a></li>
+    <li><a id="android-db-support-library">Android Db Support Library</a></li>
 </ul>
 <pre>
 Copyright 2005-2011 The Android Open Source Project
@@ -224,7 +250,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="android-fragments-support-library">Android Fragments Support Library</a></li>
+    <li><a id="android-db-impl-support-library">Android Db Impl Support Library</a></li>
 </ul>
 <pre>
 Copyright 2005-2011 The Android Open Source Project
@@ -243,7 +269,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="android-media-compat-support-library">Android Media Compat Support Library</a></li>
+    <li><a id="android-fragments-support-library">Android Fragments Support Library</a></li>
 </ul>
 <pre>
 Copyright 2005-2011 The Android Open Source Project
@@ -262,7 +288,26 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="android-palette-library-v7">Android Palette Library v7</a></li>
+    <li><a id="android-media-compat-support-library">Android Media Compat Support Library</a></li>
+</ul>
+<pre>
+Copyright 2005-2011 The Android Open Source Project
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</pre>
+
+<ul>
+    <li><a id="android-palette-library-v7">Android Palette Library v7</a></li>
 </ul>
 <pre>
 Copyright 2014 The Android Open Source Project
@@ -281,7 +326,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="android-preference-library-v7">Android Preference Library v7</a></li>
+    <li><a id="android-preference-library-v7">Android Preference Library v7</a></li>
 </ul>
 <pre>
 Copyright (C) 2015 The Android Open Source Project
@@ -300,7 +345,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="android-preference-library-v14">Android Preference Library v14</a></li>
+    <li><a id="android-preference-library-v14">Android Preference Library v14</a></li>
 </ul>
 <pre>
 Copyright (C) 2015 The Android Open Source Project
@@ -319,7 +364,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="android-recyclerview-library-v7">Android RecyclerView Library v7</a></li>
+    <li><a id="android-recyclerview-library-v7">Android RecyclerView Library v7</a></li>
 </ul>
 <pre>
 Copyright (C) 2015 The Android Open Source Project
@@ -338,7 +383,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="android-transition-support-library">Android Transition Support Library</a></li>
+    <li><a id="android-transition-support-library">Android Transition Support Library</a></li>
 </ul>
 <pre>
 Copyright 2005-2011 The Android Open Source Project
@@ -357,8 +402,8 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="android-vector-drawable-support-library">Android Vector Drawable Support
-        Library</a></li>
+    <li><a id="android-vector-drawable-support-library">Android Vector Drawable Support Library</a>
+    </li>
 </ul>
 <pre>
 Copyright 2005-2011 The Android Open Source Project
@@ -377,7 +422,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="anko">Anko</a></li>
+    <li><a id="anko">Anko</a></li>
 </ul>
 <pre>
 Copyright 2014 JetBrains, Inc
@@ -396,7 +441,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="#deeplink-dispatch">DeeplinkDispatch</a></li>
+    <li><a id="#anchor-deeplink-dispatch">Deep Link Dispatch</a></li>
 </ul>
 <pre>
 Copyright 2015 Airbnb, Inc.
@@ -415,10 +460,29 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="flexbox-layout">Flexbox-layout</a></li>
+    <li><a id="#anchor-disklrucache">DiskLruCache</a></li>
 </ul>
 <pre>
-Copyright 2016 Google Inc.
+Copyright (C) 2011 The Android Open Source Project
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</pre>
+
+<ul>
+    <li><a id="flexbox-layout">Flexbox-layout</a></li>
+</ul>
+<pre>
+Copyright (C) 2016 Google Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -434,7 +498,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="glide">Glide</a></li>
+    <li><a id="glide">Glide</a></li>
 </ul>
 <pre>
 License for everything not in third_party and not otherwise marked:
@@ -541,7 +605,7 @@ that this copyright notice remain intact.
 </pre>
 
 <ul>
-    <li><a name="gson">Gson</a></li>
+    <li><a id="gson">Gson</a></li>
 </ul>
 <pre>
 Copyright 2008 Google Inc.
@@ -560,7 +624,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="inject">inject</a></li>
+    <li><a id="inject">inject</a></li>
 </ul>
 <pre>
 Copyright (C) 2009 The JSR-330 Expert Group
@@ -579,7 +643,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="jsr-305">JSR 305</a></li>
+    <li><a id="jsr-305">JSR 305</a></li>
 </ul>
 <pre>
 Copyright (C) 2007-2009, JSR-305 expert group
@@ -591,7 +655,45 @@ distributed under the terms of the New BSD license:
 </pre>
 
 <ul>
-    <li><a name="okhttp">OkHttp</a></li>
+    <li><a id="kotlin-android-extensions-runtime">Kotlin Android Extensions Runtime</a></li>
+</ul>
+<pre>
+Copyright 2010-2017 JetBrains s.r.o.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</pre>
+
+<ul>
+    <li><a id="kotlin-stdlib">Kotlin Stdlib</a></li>
+</ul>
+<pre>
+Copyright 2010-2015 JetBrains s.r.o.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</pre>
+
+<ul>
+    <li><a id="okhttp">OkHttp</a></li>
 </ul>
 <pre>
 Copyright 2014 Square, Inc.
@@ -610,7 +712,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="okio">Okio</a></li>
+    <li><a id="okio">Okio</a></li>
 </ul>
 <pre>
 Copyright 2013 Square, Inc.
@@ -629,7 +731,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="retrofit">Retrofit</a></li>
+    <li><a id="retrofit">Retrofit</a></li>
 </ul>
 <pre>
 Copyright 2013 Square, Inc.
@@ -648,7 +750,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="retrofit-gson-converter">Retrofit Gson Converter</a></li>
+    <li><a id="retrofit-gson-converter">Retrofit Gson Converter</a></li>
 </ul>
 <pre>
 Copyright 2013 Square, Inc.
@@ -667,7 +769,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="retrofit-rxjava-adapter">Retrofit RxJava Adapter</a></li>
+    <li><a id="retrofit-rxjava-adapter">Retrofit RxJava Adapter</a></li>
 </ul>
 <pre>
 Copyright 2013 Square, Inc.
@@ -686,7 +788,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="rxandroid">RxAndroid</a></li>
+    <li><a id="rxandroid">RxAndroid</a></li>
 </ul>
 <pre>
 Copyright 2015 The RxAndroid authors
@@ -705,7 +807,7 @@ limitations under the License.
 </pre>
 
 <ul>
-    <li><a name="rxkotlin">RxKotlin</a></li>
+    <li><a id="rxkotlin">RxKotlin</a></li>
 </ul>
 <pre>
 Copyright (c) 2016 RxKotlin Contributors.
