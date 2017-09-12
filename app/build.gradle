@@ -28,8 +28,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            useProguard true
+            minifyEnabled false
+            useProguard false
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -112,10 +112,7 @@ dependencies {
     implementation "com.airbnb:deeplinkdispatch:$deeplinkDispatchVersion"
     kapt "com.airbnb:deeplinkdispatch-processor:$deeplinkDispatchVersion"
 
-    // The dependency for Jacoco to generate report
     androidTestImplementation "com.android.support.test:rules:$androidTestRunnerRulesVersion"
-
-    // Set this dependency to use JUnit 4 rules
     androidTestImplementation "com.android.support.test:runner:$androidTestRunnerRulesVersion"
 
     // Espresso
