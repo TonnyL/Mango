@@ -25,9 +25,6 @@ Mango is an Android application for [Dribbble](https://dribbble.com/). Inspired 
 | :-------------: | :-------------: | :-------------: |
 | ![User](./art/User.png) | ![Likes](./art/Likes.png) | ![Comments](./art/Comments.png) |
 
-## Download
-[<img src="./art/google_play_badge.png" alt="Get it on Google Play"  height="80">](https://play.google.com/store/apps/details?id=io.github.tonnyl.mango)
-
 ## Build
 ### Open the project in Android Studio
 ```
