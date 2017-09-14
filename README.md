@@ -1,10 +1,6 @@
 # Mango
 [![Build Status](https://travis-ci.org/TonnyL/Mango.svg?branch=master)](https://travis-ci.org/TonnyL/Mango)
 
-<div align="center">
-	<img src="./art/web_hi_res_512.png" width="128" alt="logo">
-</div>
-
 Mango is an Android application for [Dribbble](https://dribbble.com/). Inspired by [Resplash](https://github.com/b-lam/Resplash), [Plaid](https://github.com/nickbutcher/plaid) and  [Protein](https://github.com/gejiaheng/Protein).
 
 ## Features
@@ -24,6 +20,9 @@ Mango is an Android application for [Dribbble](https://dribbble.com/). Inspired 
 | User     | Likes     | Comments     |
 | :-------------: | :-------------: | :-------------: |
 | ![User](./art/User.png) | ![Likes](./art/Likes.png) | ![Comments](./art/Comments.png) |
+
+## Download
+[<img src="./art/google_play_badge.png" alt="Google Play Badge" height="80">](https://play.google.com/store/apps/details?id=io.github.tonnyl.mango)
 
 ## Build
 ### Open the project in Android Studio
