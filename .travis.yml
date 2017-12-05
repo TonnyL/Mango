@@ -4,18 +4,18 @@ sudo: false
 
 env:
   global:
-    - ANDROID_API_LEVEL=26
-    - ANDROID_BUILD_TOOLS_VERSION=26.0.1
+    - ANDROID_API_LEVEL=27
+    - ANDROID_BUILD_TOOLS_VERSION=27.0.1
     - ANDROID_TAG=google_apis
 
 android:
   components:
       - tools
-      - platform-tools # latest
-      - tools # to install the latest android sdk tools
+      - platform-tools
+      - tools
 
-      - build-tools-$ANDROID_BUILD_TOOLS_VERSION # build-tools-26.0.1
-      - android-$ANDROID_API_LEVEL # android-26
+      - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+      - android-$ANDROID_API_LEVEL
       - extra-google-m2repository
       - extra-android-m2repository
 
@@ -34,4 +34,3 @@ notifications:
 
 script:
   - ./gradlew assembleRelease
-

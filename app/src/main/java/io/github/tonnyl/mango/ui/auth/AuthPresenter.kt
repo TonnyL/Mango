@@ -61,7 +61,7 @@ class AuthPresenter(view: AuthContract.View) : AuthContract.Presenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ token ->
-                    if (token.accessToken.isNullOrEmpty()) {
+                    if (token.accessToken.isEmpty()) {
                         if (mView.isActive()) {
                             mView.setLoginIndicator(false)
                             mView.showMessage(R.string.request_refresh_token_failed)

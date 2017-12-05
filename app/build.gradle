@@ -4,12 +4,12 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.1'
     defaultConfig {
         applicationId "io.github.tonnyl.mango"
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 2
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -54,20 +54,20 @@ androidExtensions {
 }
 
 ext {
-    ankoLibVersion = "0.10.1"
-    supportLibVersion = '26.1.0'
+    ankoLibVersion = "0.10.3"
+    supportLibVersion = '27.0.2'
     gsonVersion = '2.8.0'
     rxKotlinVersion = '2.1.0'
     rxAndroidVersion = '2.0.1'
     retrofitVersion = '2.3.0'
-    glideVersion = '4.0.0'
+    glideVersion = '4.3.0'
     flexboxVersion = '0.3.1'
-    archRoomVersion = '1.0.0-rc1'
-    deeplinkDispatchVersion = "3.1.0"
+    archRoomVersion = '1.0.0'
+    deeplinkDispatchVersion = "3.1.1"
     constraintLayoutVersion = '1.0.2'
     junitVersion = "4.12"
     androidTestRunnerRulesVersion = "0.5"
-    espressoVersion = "2.2.2"
+    espressoVersion = "3.0.1"
 }
 
 dependencies {
@@ -115,7 +115,6 @@ dependencies {
 
     // ConstraintLayout
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
-
     androidTestImplementation "com.android.support.test:rules:$androidTestRunnerRulesVersion"
     androidTestImplementation "com.android.support.test:runner:$androidTestRunnerRulesVersion"
 

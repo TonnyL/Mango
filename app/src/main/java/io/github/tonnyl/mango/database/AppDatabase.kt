@@ -33,7 +33,7 @@ import io.github.tonnyl.mango.database.dao.UserDao
  * Created by lizhaotailang on 2017/6/28.
  */
 
-@Database(entities = arrayOf(AccessToken::class, User::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(AccessToken::class, User::class), version = 1, exportSchema = true)
 abstract class AppDatabase: RoomDatabase() {
 
     companion object {
