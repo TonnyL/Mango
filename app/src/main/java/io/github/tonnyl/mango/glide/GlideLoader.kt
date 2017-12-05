@@ -114,10 +114,10 @@ object GlideLoader {
                             resource?.let {
                                 // The maximum color count is higher, the time of palette processing is more.
                                 Palette.from(it).maximumColorCount(4).generate { palette ->
-                                    callback.OnPaletteGenerated(palette)
+                                    callback.onPaletteGenerated(palette)
                                 }
                             } ?: run {
-                                callback.OnPaletteNotAvailable()
+                                callback.onPaletteNotAvailable()
                             }
                         }
                     })

@@ -60,12 +60,12 @@ class CommentsFragment : Fragment(), CommentsContract.View {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        return inflater?.inflate(R.layout.fragment_comments, container, false)
+        return inflater.inflate(R.layout.fragment_comments, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
 
@@ -96,7 +96,7 @@ class CommentsFragment : Fragment(), CommentsContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == android.R.id.home) {
-            activity.onBackPressed()
+            activity?.onBackPressed()
         }
         return true
     }
@@ -122,9 +122,9 @@ class CommentsFragment : Fragment(), CommentsContract.View {
 
     override fun showComments(comments: List<Comment>) {
         if (mCommentsAdapter == null) {
-            mCommentsAdapter = CommentsAdapter(context, comments)
+            context?.let { mCommentsAdapter = CommentsAdapter(it, comments) }
             mCommentsAdapter?.setOnAvatarClickListener { _, position ->
-                context.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to comments[position].user)
+                context?.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to comments[position].user)
             }
             recycler_view.adapter = mCommentsAdapter
         }
@@ -147,7 +147,7 @@ class CommentsFragment : Fragment(), CommentsContract.View {
 
     private fun initViews() {
         recycler_view.layoutManager = LinearLayoutManager(context)
-        refresh_layout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))
+        context?.let { refresh_layout.setColorSchemeColors(ContextCompat.getColor(it, R.color.colorAccent)) }
     }
 
     override fun showNetworkError() {

@@ -52,12 +52,12 @@ class LicensesFragment : Fragment(), LicensesContract.View {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        return inflater?.inflate(R.layout.fragment_licenses, container, false)
+        return inflater.inflate(R.layout.fragment_licenses, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
@@ -74,7 +74,7 @@ class LicensesFragment : Fragment(), LicensesContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == android.R.id.home) {
-            activity.onBackPressed()
+            activity?.onBackPressed()
         }
         return true
     }

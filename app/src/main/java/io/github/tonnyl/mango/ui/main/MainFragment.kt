@@ -62,12 +62,12 @@ class MainFragment : Fragment(), MainContract.View {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        return inflater?.inflate(R.layout.fragment_shots, container, false)
+        return inflater.inflate(R.layout.fragment_shots, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
@@ -76,12 +76,12 @@ class MainFragment : Fragment(), MainContract.View {
 
         user_info_layout.setOnClickListener {
             mPresenter.getUser()?.let {
-                context.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to it)
+                context?.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to it)
             }
         }
 
         // Handle the intent actions from app shortcuts
-        activity.intent.action?.let {
+        activity?.intent?.action?.let {
             view_pager.currentItem = when (it) {
                 Constants.INTENT_ACTION_FOLLOWING -> 1
                 Constants.INTENT_ACTION_RECENT -> 2
@@ -107,7 +107,7 @@ class MainFragment : Fragment(), MainContract.View {
         if (id == R.id.action_logout) {
             showLogoutDialog()
         } else if (id == R.id.action_settings) {
-            context.startActivity<SettingsActivity>()
+            context?.startActivity<SettingsActivity>()
         }
         return true
     }
@@ -115,7 +115,7 @@ class MainFragment : Fragment(), MainContract.View {
     override fun initViews() {
         (activity as MainActivity).setSupportActionBar(toolbar)
 
-        mPagerAdapter = MainPagerAdapter(context, childFragmentManager)
+        context?.let { mPagerAdapter = MainPagerAdapter(it, childFragmentManager) }
         view_pager.adapter = mPagerAdapter
         view_pager.offscreenPageLimit = 4
 
@@ -138,24 +138,26 @@ class MainFragment : Fragment(), MainContract.View {
                 .putBoolean(Constants.IS_USER_LOGGED_IN, false)
                 .putString(Constants.ACCESS_TOKEN, null)
                 .apply()
-        context.startActivity(context.intentFor<AuthActivity>().newTask().clearTask())
-        activity.finish()
+        context?.let { it.startActivity(it.intentFor<AuthActivity>().newTask().clearTask()) }
+        activity?.finish()
     }
 
     private fun showLogoutDialog() {
-        AlertDialog.Builder(context)
-                .setTitle(R.string.log_out)
-                .setMessage(getString(R.string.logout_message))
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                    mPresenter.logoutUser()
-                }
-                .setNegativeButton(android.R.string.cancel) { _, _ ->
+        context?.let {
+            AlertDialog.Builder(it)
+                    .setTitle(R.string.log_out)
+                    .setMessage(getString(R.string.logout_message))
+                    .setPositiveButton(android.R.string.ok) { _, _ ->
+                        mPresenter.logoutUser()
+                    }
+                    .setNegativeButton(android.R.string.cancel) { _, _ ->
 
-                }
-                .show()
+                    }
+                    .show()
+        }
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         if (mPagerAdapter != null) {
             mPagerAdapter
@@ -164,8 +166,8 @@ class MainFragment : Fragment(), MainContract.View {
 
     override fun disableShortcuts() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-            activity.getSystemService(ShortcutManager::class.java)
-                    .disableShortcuts(arrayListOf(Constants.SHORTCUT_ID_POPULAR,
+            activity?.getSystemService(ShortcutManager::class.java)
+                    ?.disableShortcuts(arrayListOf(Constants.SHORTCUT_ID_POPULAR,
                             Constants.SHORTCUT_ID_FOLLOWING,
                             Constants.SHORTCUT_ID_RECENT,
                             Constants.SHORTCUT_ID_DEBUTS))

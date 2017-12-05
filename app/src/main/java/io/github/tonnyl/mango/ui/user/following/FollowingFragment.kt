@@ -59,11 +59,11 @@ class FollowingFragment : Fragment(), FollowingContract.View {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_simple_list, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_simple_list, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
@@ -96,7 +96,7 @@ class FollowingFragment : Fragment(), FollowingContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == android.R.id.home) {
-            activity.onBackPressed()
+            activity?.onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -119,9 +119,9 @@ class FollowingFragment : Fragment(), FollowingContract.View {
 
     override fun showFollowings(followings: List<Followee>) {
         if (mAdapter == null) {
-            mAdapter = FollowingAdapter(context, followings)
+            context?.let { mAdapter = FollowingAdapter(it, followings) }
             mAdapter?.setOnItemClickListener { _, position ->
-                context.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to followings[position].followee)
+                context?.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to followings[position].followee)
             }
             recycler_view.adapter = mAdapter
         }
@@ -142,7 +142,7 @@ class FollowingFragment : Fragment(), FollowingContract.View {
     private fun initViews() {
         mLayoutManager = LinearLayoutManager(context)
         recycler_view.layoutManager = mLayoutManager
-        refresh_layout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))
+        context?.let { refresh_layout.setColorSchemeColors(ContextCompat.getColor(it, R.color.colorAccent)) }
     }
 
 }
