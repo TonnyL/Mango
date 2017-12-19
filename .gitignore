@@ -1,6 +1,7 @@
 *.iml
 .gradle
 /local.properties
+/mango.properties
 /.idea/**
 .DS_Store
 /build

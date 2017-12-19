@@ -22,10 +22,11 @@
 
 package io.github.tonnyl.mango.data
 
-import android.os.Parcel
+import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by lizhaotailang on 2017/7/31.
@@ -70,8 +71,9 @@ import com.google.gson.annotations.SerializedName
  * }
  */
 
+@Parcelize
+@SuppressLint("ParcelCreator")
 data class Followee(
-
         @SerializedName("id")
         @Expose
         val id: Long,
@@ -83,29 +85,4 @@ data class Followee(
         @SerializedName("followee")
         @Expose
         val followee: User
-
-) : Parcelable {
-
-    constructor(parcel: Parcel) : this(
-            id = parcel.readLong(),
-            createAt = parcel.readString(),
-            followee = parcel.readParcelable(User::class.java.classLoader))
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeLong(id)
-        parcel.writeString(createAt)
-        parcel.writeParcelable(followee, flags)
-    }
-
-    override fun describeContents() = 0
-
-    companion object CREATOR : Parcelable.Creator<Followee> {
-        override fun createFromParcel(parcel: Parcel): Followee {
-            return Followee(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Followee?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
+) : Parcelable

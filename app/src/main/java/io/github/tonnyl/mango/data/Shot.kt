@@ -22,10 +22,11 @@
 
 package io.github.tonnyl.mango.data
 
-import android.os.Parcel
+import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 /**
@@ -136,34 +137,35 @@ import java.util.*
  * }
  */
 
+@Parcelize
+@SuppressLint("ParcelCreator")
 data class Shot(
-
         @SerializedName("id")
-        var id: Long,
+        val id: Long,
 
         @SerializedName("title")
         @Expose
-        var title: String,
+        val title: String,
 
         @SerializedName("description")
         @Expose
-        var description: String?,
+        val description: String?,
 
         @SerializedName("width")
         @Expose
-        var width: Int,
+        val width: Int,
 
         @SerializedName("height")
         @Expose
-        var height: Int,
+        val height: Int,
 
         @SerializedName("images")
         @Expose
-        var images: Images,
+        val images: Images,
 
         @SerializedName("views_count")
         @Expose
-        var viewsCount: Int,
+        val viewsCount: Int,
 
         @SerializedName("likes_count")
         @Expose
@@ -175,59 +177,59 @@ data class Shot(
 
         @SerializedName("attachments_count")
         @Expose
-        var attachmentsCount: Int,
+        val attachmentsCount: Int,
 
         @SerializedName("rebounds_count")
         @Expose
-        var reboundsCount: Int,
+        val reboundsCount: Int,
 
         @SerializedName("buckets_count")
         @Expose
-        var bucketsCount: Int,
+        val bucketsCount: Int,
 
         @SerializedName("created_at")
         @Expose
-        var createdAt: Date,
+        val createdAt: Date,
 
         @SerializedName("updated_at")
         @Expose
-        var updatedAt: Date,
+        val updatedAt: Date,
 
         @SerializedName("html_url")
         @Expose
-        var htmlUrl: String,
+        val htmlUrl: String,
 
         @SerializedName("attachments_url")
         @Expose
-        var attachmentsUrl: String,
+        val attachmentsUrl: String,
 
         @SerializedName("buckets_url")
         @Expose
-        var bucketsUrl: String,
+        val bucketsUrl: String,
 
         @SerializedName("comments_url")
         @Expose
-        var commentsUrl: String,
+        val commentsUrl: String,
 
         @SerializedName("likes_url")
         @Expose
-        var likesUrl: String,
+        val likesUrl: String,
 
         @SerializedName("projects_url")
         @Expose
-        var projectsUrl: String,
+        val projectsUrl: String,
 
         @SerializedName("rebounds_url")
         @Expose
-        var reboundsUrl: String,
+        val reboundsUrl: String,
 
         @SerializedName("animated")
         @Expose
-        var animated: Boolean,
+        val animated: Boolean,
 
         @SerializedName("tags")
         @Expose
-        var tags: List<String>,
+        val tags: List<String>,
 
         @SerializedName("user")
         @Expose
@@ -235,77 +237,5 @@ data class Shot(
 
         @SerializedName("team")
         @Expose
-        var team: Team?
-
-) : Parcelable {
-
-    constructor(parcel: Parcel) : this(
-            id = parcel.readLong(),
-            title = parcel.readString(),
-            description = parcel.readString(),
-            width = parcel.readInt(),
-            height = parcel.readInt(),
-            images = parcel.readParcelable(Images::class.java.classLoader),
-            viewsCount = parcel.readInt(),
-            likesCount = parcel.readInt(),
-            commentsCount = parcel.readInt(),
-            attachmentsCount = parcel.readInt(),
-            reboundsCount = parcel.readInt(),
-            bucketsCount = parcel.readInt(),
-            createdAt = Date(parcel.readLong()),
-            updatedAt = Date(parcel.readLong()) ,
-            htmlUrl = parcel.readString(),
-            attachmentsUrl = parcel.readString(),
-            bucketsUrl = parcel.readString(),
-            commentsUrl = parcel.readString(),
-            likesUrl = parcel.readString(),
-            projectsUrl = parcel.readString(),
-            reboundsUrl = parcel.readString(),
-            animated = parcel.readByte() != 0.toByte(),
-            tags = parcel.createStringArrayList(),
-            user = parcel.readParcelable(User::class.java.classLoader),
-            team = parcel.readParcelable(Team::class.java.classLoader)
-    )
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeLong(id)
-        parcel.writeString(title)
-        parcel.writeString(description)
-        parcel.writeInt(width)
-        parcel.writeInt(height)
-        parcel.writeParcelable(images, flags)
-        parcel.writeInt(viewsCount)
-        parcel.writeInt(likesCount)
-        parcel.writeInt(commentsCount)
-        parcel.writeInt(attachmentsCount)
-        parcel.writeInt(reboundsCount)
-        parcel.writeInt(bucketsCount)
-        parcel.writeLong(createdAt.time)
-        parcel.writeLong(updatedAt.time)
-        parcel.writeString(htmlUrl)
-        parcel.writeString(attachmentsUrl)
-        parcel.writeString(bucketsUrl)
-        parcel.writeString(commentsUrl)
-        parcel.writeString(likesUrl)
-        parcel.writeString(projectsUrl)
-        parcel.writeString(reboundsUrl)
-        parcel.writeByte(if (animated) 1.toByte() else 0.toByte())
-        parcel.writeStringList(tags)
-        parcel.writeParcelable(user, flags)
-        parcel.writeParcelable(team, flags)
-    }
-
-    override fun describeContents() = 0
-
-    companion object CREATOR : Parcelable.Creator<Shot> {
-        override fun createFromParcel(parcel: Parcel): Shot {
-            return Shot(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Shot?> {
-            return arrayOfNulls(size)
-        }
-    }
-
-
-}
+        val team: Team?
+) : Parcelable

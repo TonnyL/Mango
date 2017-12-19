@@ -20,34 +20,26 @@
  * THE SOFTWARE.
  */
 
-package io.github.tonnyl.mango.data
+package io.github.tonnyl.mango.epoxy
 
-import android.annotation.SuppressLint
-import android.arch.persistence.room.ColumnInfo
-import android.os.Parcelable
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import android.view.View
+import com.airbnb.epoxy.EpoxyHolder
+import com.airbnb.epoxy.EpoxyModelClass
+import com.airbnb.epoxy.EpoxyModelWithHolder
+import io.github.tonnyl.mango.R
 
 /**
- * Created by lizhaotailang on 2017/6/26.
- *
- * "links" : {
- * "web" : "http://simplebits.com",
- * "twitter" : "https://twitter.com/simplebits"
- * }
+ * Created by lizhaotailang on 13/12/2017.
  */
+@EpoxyModelClass(layout = R.layout.item_load_more)
+abstract class LoadMoreModel : EpoxyModelWithHolder<LoadMoreModel.LoadMoreHolder>() {
 
-@Parcelize
-@SuppressLint("ParcelCreator")
-data class Links(
-        @ColumnInfo(name = "web")
-        @SerializedName("web")
-        @Expose
-        val web: String?,
+    override fun createNewHolder(): LoadMoreHolder = LoadMoreHolder()
 
-        @ColumnInfo(name = "twitter")
-        @SerializedName("twitter")
-        @Expose
-        val twitter: String?
-) : Parcelable
+    inner class LoadMoreHolder : EpoxyHolder() {
+
+        override fun bindView(itemView: View?) {}
+
+    }
+
+}

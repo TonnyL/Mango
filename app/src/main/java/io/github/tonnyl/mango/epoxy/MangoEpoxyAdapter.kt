@@ -20,34 +20,43 @@
  * THE SOFTWARE.
  */
 
-package io.github.tonnyl.mango.data
+package io.github.tonnyl.mango.epoxy
 
-import android.annotation.SuppressLint
-import android.arch.persistence.room.ColumnInfo
-import android.os.Parcelable
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import com.airbnb.epoxy.EpoxyAdapter
+import com.airbnb.epoxy.EpoxyModel
 
 /**
- * Created by lizhaotailang on 2017/6/26.
- *
- * "links" : {
- * "web" : "http://simplebits.com",
- * "twitter" : "https://twitter.com/simplebits"
- * }
+ * Created by lizhaotailang on 13/12/2017.
  */
+class MangoEpoxyAdapter : EpoxyAdapter() {
 
-@Parcelize
-@SuppressLint("ParcelCreator")
-data class Links(
-        @ColumnInfo(name = "web")
-        @SerializedName("web")
-        @Expose
-        val web: String?,
+    private val mLoadMoreModel = LoadMoreModel_()
 
-        @ColumnInfo(name = "twitter")
-        @SerializedName("twitter")
-        @Expose
-        val twitter: String?
-) : Parcelable
+    public override fun addModel(modelToAdd: EpoxyModel<*>) {
+        super.addModel(modelToAdd)
+    }
+
+    public override fun addModels(modelsToAdd: Array<EpoxyModel<*>>) {
+        super.addModels(*modelsToAdd)
+    }
+
+    public override fun addModels(modelsToAdd: Collection<EpoxyModel<*>>) {
+        super.addModels(modelsToAdd)
+    }
+
+    public override fun removeAllModels() {
+        super.removeAllModels()
+    }
+
+    public override fun removeModel(model: EpoxyModel<*>) {
+        super.removeModel(model)
+    }
+
+    fun showLoadingMore(loading: Boolean) {
+        if (loading) {
+            addModel(mLoadMoreModel)
+        } else {
+            removeModel(mLoadMoreModel)
+        }
+    }
+}

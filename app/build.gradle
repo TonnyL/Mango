@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.1'
+    buildToolsVersion '27.0.2'
     defaultConfig {
         applicationId "io.github.tonnyl.mango"
         minSdkVersion 21
@@ -18,6 +18,23 @@ android {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
+        }
+
+        Properties properties = new Properties()
+        boolean hasPropertiesFile = false
+        if (project.rootProject.file('mango.properties').exists()) {
+            hasPropertiesFile = true
+            properties.load(project.rootProject.file('mango.properties').newDataInputStream())
+        }
+
+        if (hasPropertiesFile) {
+            buildConfigField "String", "CLIENT_ID", "\"${properties.CLIENT_ID}\""
+            buildConfigField "String", "CLIENT_SECRET", "\"${properties.CLIENT_SECRET}\""
+            buildConfigField "String", "CLIENT_ACCESS_TOKEN", "\"${properties.CLIENT_ACCESS_TOKEN}\""
+        } else {
+            buildConfigField "String", "CLIENT_ID", "\"${System.getenv("CLIENT_ID")}\""
+            buildConfigField "String", "CLIENT_SECRET", "\"${System.getenv("CLIENT_SECRET")}\""
+            buildConfigField "String", "CLIENT_ACCESS_TOKEN", "\"${System.getenv("CLIENT_ACCESS_TOKEN")}\""
         }
     }
 
@@ -47,6 +64,7 @@ android {
 
 kapt {
     generateStubs = true
+    correctErrorTypes = true
 }
 
 androidExtensions {
@@ -54,7 +72,7 @@ androidExtensions {
 }
 
 ext {
-    ankoLibVersion = "0.10.3"
+    ankoLibVersion = '0.10.3'
     supportLibVersion = '27.0.2'
     gsonVersion = '2.8.0'
     rxKotlinVersion = '2.1.0'
@@ -62,11 +80,12 @@ ext {
     retrofitVersion = '2.3.0'
     glideVersion = '4.3.0'
     flexboxVersion = '0.3.1'
-    archRoomVersion = '1.0.0'
-    deeplinkDispatchVersion = "3.1.1"
+    architectureComponentsVersion = '1.0.0'
+    deeplinkDispatchVersion = '3.1.1'
+    epoxyVersion = '2.7.3'
     constraintLayoutVersion = '1.0.2'
-    junitVersion = "4.12"
-    androidTestRunnerRulesVersion = "0.5"
+    junitVersion = '4.12'
+    androidTestRunnerRulesVersion = '0.5'
     espressoVersion = "3.0.1"
 }
 
@@ -104,20 +123,28 @@ dependencies {
     // FlexBox layout
     implementation "com.google.android:flexbox:$flexboxVersion"
 
-    // Room
-    implementation "android.arch.persistence.room:runtime:$archRoomVersion"
-    implementation "android.arch.persistence.room:rxjava2:$archRoomVersion"
-    kapt "android.arch.persistence.room:compiler:$archRoomVersion"
+    // Architecture components
+    implementation "android.arch.persistence.room:runtime:$architectureComponentsVersion"
+    implementation "android.arch.persistence.room:rxjava2:$architectureComponentsVersion"
+//    implementation "android.arch.lifecycle:runtime:$architectureComponentsVersion"
+//    implementation "android.arch.lifecycle:extensions:$architectureComponentsVersion"
+    kapt "android.arch.persistence.room:compiler:$architectureComponentsVersion"
+//    kapt "android.arch.lifecycle:compiler:$architectureComponentsVersion"
 
     // DeepLink dispatch
     implementation "com.airbnb:deeplinkdispatch:$deeplinkDispatchVersion"
     kapt "com.airbnb:deeplinkdispatch-processor:$deeplinkDispatchVersion"
 
+    implementation "com.airbnb.android:epoxy:$epoxyVersion"
+    kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
+
     // ConstraintLayout
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+
     androidTestImplementation "com.android.support.test:rules:$androidTestRunnerRulesVersion"
     androidTestImplementation "com.android.support.test:runner:$androidTestRunnerRulesVersion"
-
+    // Room tester
+//    testImplementation "android.arch.persistence.room:testing:$architectureComponentsVersion"
     // Espresso
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
     testImplementation "junit:junit:$junitVersion"
