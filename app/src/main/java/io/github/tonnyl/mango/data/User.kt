@@ -22,12 +22,13 @@
 
 package io.github.tonnyl.mango.data
 
+import android.annotation.SuppressLint
 import android.arch.persistence.room.*
-import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import io.github.tonnyl.mango.database.converter.DateConverter
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 /**
@@ -71,228 +72,153 @@ import java.util.*
 
 @Entity(tableName = "user")
 @TypeConverters(DateConverter::class)
+@Parcelize
+@SuppressLint("ParcelCreator")
 data class User(
         @ColumnInfo(name = "name")
         @SerializedName("name")
         @Expose
-        var name: String,
+        val name: String,
 
         @ColumnInfo(name = "username")
         @SerializedName("username")
         @Expose
-        var username: String,
+        val username: String,
 
         @ColumnInfo(name = "html_url")
         @SerializedName("html_url")
         @Expose
-        var htmlUrl: String,
+        val htmlUrl: String,
 
         @ColumnInfo(name = "avatar_url")
         @SerializedName("avatar_url")
         @Expose
-        var avatarUrl: String,
+        val avatarUrl: String,
 
         @ColumnInfo(name = "bio")
         @SerializedName("bio")
         @Expose
-        var bio: String,
+        val bio: String,
 
         @ColumnInfo(name = "location")
         @SerializedName("location")
         @Expose
-        var location: String?,
+        val location: String?,
 
         @Embedded
         @SerializedName("links")
         @Expose
-        var links: Links,
+        val links: Links,
 
         @ColumnInfo(name = "buckets_count")
         @SerializedName("buckets_count")
         @Expose
-        var bucketsCount: Int,
+        val bucketsCount: Int,
 
         @ColumnInfo(name = "comments_received_count")
         @SerializedName("comments_received_count")
         @Expose
-        var commentsReceivedCount: Int,
+        val commentsReceivedCount: Int,
 
         @ColumnInfo(name = "followers_count")
         @SerializedName("followers_count")
         @Expose
-        var followersCount: Int,
+        val followersCount: Int,
 
         @ColumnInfo(name = "followings_count")
         @SerializedName("followings_count")
         @Expose
-        var followingsCount: Int,
+        val followingsCount: Int,
 
         @ColumnInfo(name = "likes_count")
         @SerializedName("likes_count")
         @Expose
-        var likesCount: Int,
+        val likesCount: Int,
 
         @ColumnInfo(name = "likes_received_count")
         @SerializedName("likes_received_count")
         @Expose
-        var likesReceivedCount: Int,
+        val likesReceivedCount: Int,
 
         @ColumnInfo(name = "projects_count")
         @SerializedName("projects_count")
         @Expose
-        var projectsCount: Int,
+        val projectsCount: Int,
 
         @ColumnInfo(name = "rebounds_received_count")
         @SerializedName("rebounds_received_count")
         @Expose
-        var reboundsReceivedCount: Int,
+        val reboundsReceivedCount: Int,
 
         @ColumnInfo(name = "shots_count")
         @SerializedName("shots_count")
         @Expose
-        var shotsCount: Int,
+        val shotsCount: Int,
 
         @ColumnInfo(name = "teams_count")
         @SerializedName("teams_count")
         @Expose
-        var teamsCount: Int,
+        val teamsCount: Int,
 
         @ColumnInfo(name = "can_upload_shot")
         @SerializedName("can_upload_shot")
         @Expose
-        var canUploadShot: Boolean,
+        val canUploadShot: Boolean,
 
         @ColumnInfo(name = "type")
         @SerializedName("type")
         @Expose
-        var type: String,
+        val type: String,
 
         @ColumnInfo(name = "pro")
         @SerializedName("pro")
         @Expose
-        var pro: Boolean,
+        val pro: Boolean,
 
         @ColumnInfo(name = "buckets_url")
         @SerializedName("buckets_url")
         @Expose
-        var bucketsUrl: String,
+        val bucketsUrl: String,
 
         @ColumnInfo(name = "followers_url")
         @SerializedName("followers_url")
         @Expose
-        var followersUrl: String,
+        val followersUrl: String,
 
         @ColumnInfo(name = "following_url")
         @SerializedName("following_url")
         @Expose
-        var followingUrl: String,
+        val followingUrl: String,
 
         @ColumnInfo(name = "likes_url")
         @SerializedName("likes_url")
         @Expose
-        var likesUrl: String,
+        val likesUrl: String,
 
         @ColumnInfo(name = "shots_url")
         @SerializedName("shots_url")
         @Expose
-        var shotsUrl: String,
+        val shotsUrl: String,
 
         @ColumnInfo(name = "teams_url")
         @SerializedName("teams_url")
         @Expose
-        var teamsUrl: String?,
+        val teamsUrl: String?,
 
         @ColumnInfo(name = "created_at")
         @SerializedName("created_at")
         @Expose
-        var createdAt: Date,
+        val createdAt: Date,
 
         @ColumnInfo(name = "updated_at")
         @SerializedName("updated_at")
         @Expose
-        var updatedAt: Date,
+        val updatedAt: Date,
 
         @PrimaryKey
         @ColumnInfo(name = "id")
         @SerializedName("id")
         @Expose
-        var id: Long
+        val id: Long
 
-) : Parcelable {
-
-    constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readParcelable(Links::class.java.classLoader),
-            parcel.readInt(),
-            parcel.readInt(),
-            parcel.readInt(),
-            parcel.readInt(),
-            parcel.readInt(),
-            parcel.readInt(),
-            parcel.readInt(),
-            parcel.readInt(),
-            parcel.readInt(),
-            parcel.readInt(),
-            parcel.readByte() != 0.toByte(),
-            parcel.readString(),
-            parcel.readByte() != 0.toByte(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            Date(parcel.readLong()),
-            Date(parcel.readLong()),
-            parcel.readLong())
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(name)
-        parcel.writeString(username)
-        parcel.writeString(htmlUrl)
-        parcel.writeString(avatarUrl)
-        parcel.writeString(bio)
-        parcel.writeString(location)
-        parcel.writeParcelable(links, flags)
-        parcel.writeInt(bucketsCount)
-        parcel.writeInt(commentsReceivedCount)
-        parcel.writeInt(followersCount)
-        parcel.writeInt(followingsCount)
-        parcel.writeInt(likesCount)
-        parcel.writeInt(likesReceivedCount)
-        parcel.writeInt(projectsCount)
-        parcel.writeInt(reboundsReceivedCount)
-        parcel.writeInt(shotsCount)
-        parcel.writeInt(teamsCount)
-        parcel.writeByte(if (canUploadShot) 1.toByte() else 0.toByte())
-        parcel.writeString(type)
-        parcel.writeByte(if (pro) 1.toByte() else 0.toByte())
-        parcel.writeString(bucketsUrl)
-        parcel.writeString(followersUrl)
-        parcel.writeString(followingUrl)
-        parcel.writeString(likesUrl)
-        parcel.writeString(shotsUrl)
-        parcel.writeString(teamsUrl)
-        parcel.writeLong(createdAt.time)
-        parcel.writeLong(updatedAt.time)
-        parcel.writeLong(id)
-    }
-
-    override fun describeContents() = 0
-
-    companion object CREATOR : Parcelable.Creator<User> {
-        override fun createFromParcel(parcel: Parcel): User {
-            return User(parcel)
-        }
-
-        override fun newArray(size: Int): Array<User?> {
-            return arrayOfNulls(size)
-        }
-    }
-
-}
+) : Parcelable

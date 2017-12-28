@@ -60,11 +60,11 @@ class LikedShotsFragment : Fragment(), LikedShotsContract.View {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_simple_list, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_simple_list, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
@@ -104,9 +104,9 @@ class LikedShotsFragment : Fragment(), LikedShotsContract.View {
     override fun showLikedShots(likeShots: List<LikedShot>) {
         recycler_view.layoutManager = mLayoutManager
         if (mAdapter == null) {
-            mAdapter = LikedShotsAdapter(context, likeShots)
+            mAdapter = LikedShotsAdapter(context ?: return, likeShots)
             mAdapter?.setItemClickListener({ _, position ->
-                context.startActivity<ShotActivity>(ShotPresenter.EXTRA_SHOT to likeShots[position].shot)
+                context?.startActivity<ShotActivity>(ShotPresenter.EXTRA_SHOT to likeShots[position].shot)
             })
         }
         recycler_view.adapter = mAdapter
@@ -131,7 +131,7 @@ class LikedShotsFragment : Fragment(), LikedShotsContract.View {
     }
 
     private fun initViews() {
-        refresh_layout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))
+        refresh_layout.setColorSchemeColors(ContextCompat.getColor(context ?: return, R.color.colorAccent))
         recycler_view.setHasFixedSize(true)
         mLayoutManager = GridLayoutManager(context, 2)
     }

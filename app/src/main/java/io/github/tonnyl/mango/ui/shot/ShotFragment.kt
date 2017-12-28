@@ -73,12 +73,12 @@ class ShotFragment : Fragment(), ShotContract.View {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        return inflater?.inflate(R.layout.fragment_shot, container, false)
+        return inflater.inflate(R.layout.fragment_shot, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mPresenter.subscribe()
 
@@ -115,7 +115,7 @@ class ShotFragment : Fragment(), ShotContract.View {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val id = item?.itemId
         when (id) {
-            android.R.id.home -> activity.onBackPressed()
+            android.R.id.home -> activity?.onBackPressed()
             R.id.action_open_in_browser -> mPresenter.openInBrowser()
             R.id.action_share -> mPresenter.share()
         }
@@ -133,7 +133,7 @@ class ShotFragment : Fragment(), ShotContract.View {
     override fun show(shot: Shot) {
         // Show the menu_shot image
         GlideLoader.loadHighQualityWithPalette(shot_image_view, shot.images.best(), object : OnPaletteProcessingCallback {
-            override fun OnPaletteGenerated(palette: Palette?) {
+            override fun onPaletteGenerated(palette: Palette?) {
                 palette?.let {
                     showPalette(palette)
                 } ?: run {
@@ -141,8 +141,8 @@ class ShotFragment : Fragment(), ShotContract.View {
                 }
             }
 
-            override fun OnPaletteNotAvailable() {
-                context.runOnUiThread {
+            override fun onPaletteNotAvailable() {
+                context?.runOnUiThread {
                     palette_layout.visibility = View.GONE
                 }
             }
@@ -188,34 +188,39 @@ class ShotFragment : Fragment(), ShotContract.View {
     }
 
     override fun navigateToUserProfile(user: User) {
-        context.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to user)
+        context?.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to user)
     }
 
     override fun navigateToComments(shot: Shot) {
-        context.startActivity<CommentsActivity>(CommentsPresenter.EXTRA_SHOT to shot)
+        context?.startActivity<CommentsActivity>(CommentsPresenter.EXTRA_SHOT to shot)
     }
 
     override fun navigateToLikes(shot: Shot) {
-        context.startActivity<LikesActivity>(LikesPresenter.EXTRA_SHOT to shot)
+        context?.startActivity<LikesActivity>(LikesPresenter.EXTRA_SHOT to shot)
     }
 
     override fun openInBrowser(url: String) {
-        context.browse(url, true)
+        context?.browse(url, true)
     }
 
     override fun share(url: String) {
-        context.share(url, getString(R.string.share_to))
+        context?.share(url, getString(R.string.share_to))
     }
 
     private fun showTags(tags: List<String>) {
         for (tag in tags) {
-            val textView = TextView(context)
-            textView.background = ContextCompat.getDrawable(context, R.drawable.bg_shot)
-            textView.text = tag
-            textView.setTextColor(ContextCompat.getColor(context, android.R.color.white))
-            textView.gravity = Gravity.CENTER
-            textView.setPadding(16, 8, 16, 8)
-            tags_box.addView(textView)
+            context?.let {
+                with(it) {
+                    val textView = TextView(context)
+                    textView.background = ContextCompat.getDrawable(this, R.drawable.bg_shot)
+                    textView.text = tag
+                    textView.setTextColor(ContextCompat.getColor(this, android.R.color.white))
+                    textView.gravity = Gravity.CENTER
+                    textView.setPadding(16, 8, 16, 8)
+                    tags_box.addView(textView)
+                }
+            }
+
         }
     }
 
@@ -235,7 +240,7 @@ class ShotFragment : Fragment(), ShotContract.View {
                 textView.setOnClickListener {
                     Snackbar.make(fab, color, Snackbar.LENGTH_SHORT)
                             .setAction(getString(R.string.copy_to_clipboard), {
-                                val manager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                val manager = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                                 manager.primaryClip = ClipData.newPlainText("text", color)
                                 Snackbar.make(fab, R.string.copied, Snackbar.LENGTH_SHORT).show()
                             })

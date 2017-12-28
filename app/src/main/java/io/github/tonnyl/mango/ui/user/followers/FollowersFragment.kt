@@ -60,11 +60,11 @@ class FollowersFragment : Fragment(), FollowersContract.View {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_simple_list, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_simple_list, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
@@ -97,7 +97,7 @@ class FollowersFragment : Fragment(), FollowersContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == android.R.id.home) {
-            activity.onBackPressed()
+            activity?.onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -120,9 +120,9 @@ class FollowersFragment : Fragment(), FollowersContract.View {
 
     override fun showFollowers(followers: List<Follower>) {
         if (mAdapter == null) {
-            mAdapter = FollowersAdapter(context, followers)
+            mAdapter = FollowersAdapter(context ?: return, followers)
             mAdapter?.setOnItemClickListener { _, position ->
-                context.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to followers[position].follower)
+                context?.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to followers[position].follower)
             }
             recycler_view.adapter = mAdapter
         }
@@ -144,7 +144,7 @@ class FollowersFragment : Fragment(), FollowersContract.View {
     private fun initViews() {
         mLayoutManager = LinearLayoutManager(context)
         recycler_view.layoutManager = mLayoutManager
-        refresh_layout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))
+        refresh_layout.setColorSchemeColors(ContextCompat.getColor(context ?: return, R.color.colorAccent))
     }
 
 }

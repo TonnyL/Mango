@@ -4,12 +4,12 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "io.github.tonnyl.mango"
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 2
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -19,6 +19,27 @@ android {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
+
+        Properties properties = new Properties()
+        boolean hasPropertiesFile = false
+        if (project.rootProject.file('mango.properties').exists()) {
+            hasPropertiesFile = true
+            properties.load(project.rootProject.file('mango.properties').newDataInputStream())
+        }
+
+        if (hasPropertiesFile) {
+            buildConfigField "String", "CLIENT_ID", "\"${properties.CLIENT_ID}\""
+            buildConfigField "String", "CLIENT_SECRET", "\"${properties.CLIENT_SECRET}\""
+            buildConfigField "String", "CLIENT_ACCESS_TOKEN", "\"${properties.CLIENT_ACCESS_TOKEN}\""
+        } else {
+            buildConfigField "String", "CLIENT_ID", "\"${System.getenv("CLIENT_ID")}\""
+            buildConfigField "String", "CLIENT_SECRET", "\"${System.getenv("CLIENT_SECRET")}\""
+            buildConfigField "String", "CLIENT_ACCESS_TOKEN", "\"${System.getenv("CLIENT_ACCESS_TOKEN")}\""
+        }
+    }
+
+    sourceSets {
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
 
     compileOptions {
@@ -43,10 +64,9 @@ android {
         abortOnError false
     }
 
-}
-
-kapt {
-    generateStubs = true
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 androidExtensions {
@@ -54,20 +74,21 @@ androidExtensions {
 }
 
 ext {
-    ankoLibVersion = "0.10.1"
-    supportLibVersion = '26.1.0'
+    ankoLibVersion = '0.10.3'
+    supportLibVersion = '27.0.2'
     gsonVersion = '2.8.0'
     rxKotlinVersion = '2.1.0'
     rxAndroidVersion = '2.0.1'
     retrofitVersion = '2.3.0'
-    glideVersion = '4.0.0'
+    loggingInterceptorVersion = '3.9.1'
+    glideVersion = '4.3.0'
     flexboxVersion = '0.3.1'
-    archRoomVersion = '1.0.0-rc1'
-    deeplinkDispatchVersion = "3.1.0"
-    constraintLayoutVersion = '1.0.2'
-    junitVersion = "4.12"
-    androidTestRunnerRulesVersion = "0.5"
-    espressoVersion = "2.2.2"
+    architectureComponentsVersion = '1.0.0'
+    deeplinkDispatchVersion = '3.1.1'
+    constraintLayoutVersion = '1.1.0-beta4'
+    junitVersion = '4.12'
+    androidTestRunnerRulesVersion = '0.5'
+    espressoVersion = "3.0.1"
 }
 
 dependencies {
@@ -95,6 +116,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
 
     // Glide
     implementation "com.github.bumptech.glide:glide:$glideVersion"
@@ -104,10 +126,10 @@ dependencies {
     // FlexBox layout
     implementation "com.google.android:flexbox:$flexboxVersion"
 
-    // Room
-    implementation "android.arch.persistence.room:runtime:$archRoomVersion"
-    implementation "android.arch.persistence.room:rxjava2:$archRoomVersion"
-    kapt "android.arch.persistence.room:compiler:$archRoomVersion"
+    // Architecture components
+    implementation "android.arch.persistence.room:runtime:$architectureComponentsVersion"
+    implementation "android.arch.persistence.room:rxjava2:$architectureComponentsVersion"
+    kapt "android.arch.persistence.room:compiler:$architectureComponentsVersion"
 
     // DeepLink dispatch
     implementation "com.airbnb:deeplinkdispatch:$deeplinkDispatchVersion"
@@ -118,8 +140,8 @@ dependencies {
 
     androidTestImplementation "com.android.support.test:rules:$androidTestRunnerRulesVersion"
     androidTestImplementation "com.android.support.test:runner:$androidTestRunnerRulesVersion"
-
     // Espresso
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
+
     testImplementation "junit:junit:$junitVersion"
 }

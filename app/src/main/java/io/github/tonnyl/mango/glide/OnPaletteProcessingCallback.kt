@@ -32,11 +32,11 @@ interface OnPaletteProcessingCallback {
     /**
      * The [Palette] finishes its work successfully.
      */
-    fun OnPaletteGenerated(palette: Palette?)
+    fun onPaletteGenerated(palette: Palette?)
 
     /**
      * The [Palette] finished its work with a failure.
      */
-    fun OnPaletteNotAvailable()
+    fun onPaletteNotAvailable()
 
 }

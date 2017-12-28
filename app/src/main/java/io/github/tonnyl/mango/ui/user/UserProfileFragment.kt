@@ -60,12 +60,12 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        return inflater?.inflate(R.layout.fragment_user_profile, container, false)
+        return inflater.inflate(R.layout.fragment_user_profile, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
@@ -73,13 +73,13 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
         mPresenter.subscribe()
 
         following.setOnClickListener {
-            context.startActivity<FollowingActivity>(
+            context?.startActivity<FollowingActivity>(
                     FollowingPresenter.EXTRA_USER_ID to mPresenter.getUser().id,
                     FollowingPresenter.EXTRA_FOLLOWING_TITLE to following.text)
         }
 
         followers.setOnClickListener {
-            context.startActivity<FollowersActivity>(
+            context?.startActivity<FollowersActivity>(
                     FollowersPresenter.EXTRA_USER_ID to mPresenter.getUser().id,
                     FollowersPresenter.EXTRA_FOLLOWERS_TITLE to followers.text)
         }
@@ -112,12 +112,12 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val id = item?.itemId
         when (id) {
-            android.R.id.home -> activity.onBackPressed()
+            android.R.id.home -> activity?.onBackPressed()
             R.id.action_follow_unfollow -> mPresenter.toggleFollow()
-            R.id.action_open_in_browser -> context.browse(mPresenter.getUser().htmlUrl)
+            R.id.action_open_in_browser -> context?.browse(mPresenter.getUser().htmlUrl)
         }
-        activity.invalidateOptionsMenu()
-        return true
+        activity?.invalidateOptionsMenu()
+        return super.onOptionsItemSelected(item)
     }
 
     override fun setPresenter(presenter: UserProfileContract.Presenter) {
@@ -165,12 +165,12 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
 
     override fun setFollowing(isFollowing: Boolean) {
         mIsFollowing = isFollowing
-        activity.invalidateOptionsMenu()
+        activity?.invalidateOptionsMenu()
     }
 
     override fun setFollowable(followable: Boolean) {
         mFollowable = followable
-        activity.invalidateOptionsMenu()
+        activity?.invalidateOptionsMenu()
     }
 
     override fun showNetworkError() {
@@ -183,7 +183,7 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
         act.setSupportActionBar(toolbar)
         act.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        view_pager.adapter = UserProfilePagerAdapter(context, mPresenter.getUser(), childFragmentManager)
+        view_pager.adapter = UserProfilePagerAdapter(context ?: return, mPresenter.getUser(), childFragmentManager)
         view_pager.offscreenPageLimit = 2
 
         tab_layout.setupWithViewPager(view_pager)

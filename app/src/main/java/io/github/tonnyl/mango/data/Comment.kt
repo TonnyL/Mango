@@ -22,10 +22,11 @@
 
 package io.github.tonnyl.mango.data
 
-import android.os.Parcel
+import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 /**
@@ -74,66 +75,34 @@ import java.util.*
  * }
  * }
  */
-data class Comment(
 
+@Parcelize
+@SuppressLint("ParcelCreator")
+data class Comment(
         @SerializedName("id")
         @Expose
-        var id: Long,
+        val id: Long,
         @SerializedName("body")
         @Expose
-        var body: String,
+        val body: String,
 
         @SerializedName("likes_count")
         @Expose
-        var likesCount: Int,
+        val likesCount: Int,
 
         @SerializedName("likes_url")
         @Expose
-        var likesUrl: String,
+        val likesUrl: String,
 
         @SerializedName("created_at")
         @Expose
-        var createdAt: Date,
+        val createdAt: Date,
 
         @SerializedName("updated_at")
         @Expose
-        var updatedAt: Date,
+        val updatedAt: Date,
 
         @SerializedName("user")
         @Expose
-        var user: User
-
-) : Parcelable {
-
-    constructor(parcel: Parcel) : this(
-            id = parcel.readLong(),
-            body = parcel.readString(),
-            likesCount = parcel.readInt(),
-            createdAt = Date(parcel.readLong()),
-            likesUrl = parcel.readString(),
-            updatedAt = Date(parcel.readLong()),
-            user = parcel.readParcelable(User::class.java.classLoader))
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeLong(id)
-        parcel.writeString(body)
-        parcel.writeInt(likesCount)
-        parcel.writeString(likesUrl)
-        parcel.writeLong(createdAt.time)
-        parcel.writeLong(updatedAt.time)
-        parcel.writeParcelable(user, flags)
-    }
-
-    override fun describeContents(): Int = 0
-
-    companion object CREATOR : Parcelable.Creator<Comment> {
-        override fun createFromParcel(parcel: Parcel): Comment {
-            return Comment(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Comment?> {
-            return arrayOfNulls(size)
-        }
-    }
-
-}
+        val user: User
+) : Parcelable

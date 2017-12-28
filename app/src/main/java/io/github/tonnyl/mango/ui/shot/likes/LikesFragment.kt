@@ -60,12 +60,12 @@ class LikesFragment : Fragment(), LikesContract.View {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        return inflater?.inflate(R.layout.fragment_simple_list, container, false)
+        return inflater.inflate(R.layout.fragment_simple_list, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
 
@@ -95,7 +95,7 @@ class LikesFragment : Fragment(), LikesContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == android.R.id.home) {
-            activity.onBackPressed()
+            activity?.onBackPressed()
         }
         return true
     }
@@ -120,9 +120,9 @@ class LikesFragment : Fragment(), LikesContract.View {
 
     override fun showLikes(likes: List<Like>) {
         if (mAdapter == null) {
-            mAdapter = LikesAdapter(context, likes)
+            mAdapter = LikesAdapter(context ?: return, likes)
             mAdapter?.setOnItemClickListener { _, position ->
-                context.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to likes[position].user)
+                context?.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to likes[position].user)
             }
             recycler_view.adapter = mAdapter
         }
@@ -147,7 +147,7 @@ class LikesFragment : Fragment(), LikesContract.View {
     private fun initViews() {
         mLayoutManager = LinearLayoutManager(context)
         recycler_view.layoutManager = mLayoutManager
-        refresh_layout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))
+        refresh_layout.setColorSchemeColors(ContextCompat.getColor(context ?: return, R.color.colorAccent))
     }
 
 }

@@ -55,40 +55,43 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
 
         setHasOptionsMenu(true)
 
-        mPresenter.computeCacheSize(activity)
+        mPresenter.computeCacheSize(activity ?: return)
 
         val clearCachePreference = findPreference("clear_cache")
         clearCachePreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            mPresenter.clearCache(activity)
+            activity?.let {
+                mPresenter.clearCache(it)
+            }
             true
         }
 
         findPreference("open_source_licenses").onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            context.startActivity<LicensesActivity>()
+            context?.startActivity<LicensesActivity>()
             true
         }
 
         findPreference("contributors").onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            context.browse(getString(R.string.contributors_desc), true)
+            context?.browse(getString(R.string.contributors_desc), true)
             true
         }
 
         findPreference("follow_on_github").onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            context.browse(getString(R.string.follow_me_on_github_desc), true)
+            context?.browse(getString(R.string.follow_me_on_github_desc), true)
+            true
         }
 
         findPreference("source_code").onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            context.browse(getString(R.string.source_code_desc), true)
+            context?.browse(getString(R.string.source_code_desc), true)
             true
         }
 
         findPreference("feedback").onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            context.email(getString(R.string.feedback_email), getString(R.string.feedback_email_subject))
+            context?.email(getString(R.string.feedback_email), getString(R.string.feedback_email_subject))
             true
         }
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mPresenter.subscribe()
     }
@@ -100,7 +103,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsContract.View {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == android.R.id.home) {
-            activity.onBackPressed()
+            activity?.onBackPressed()
         }
         return true
     }

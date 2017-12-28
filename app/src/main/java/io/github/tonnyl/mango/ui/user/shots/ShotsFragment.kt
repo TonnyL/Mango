@@ -59,11 +59,11 @@ class ShotsFragment : Fragment(), ShotsContract.View {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_simple_list, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_simple_list, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
@@ -103,9 +103,9 @@ class ShotsFragment : Fragment(), ShotsContract.View {
 
     override fun showShots(shots: List<Shot>) {
         if (mAdapter == null) {
-            mAdapter = ShotsAdapter(context, shots)
+            mAdapter = ShotsAdapter(context ?: return, shots)
             mAdapter?.setItemClickListener({ _, position ->
-                context.startActivity<ShotActivity>(ShotPresenter.EXTRA_SHOT to shots[position])
+                context?.startActivity<ShotActivity>(ShotPresenter.EXTRA_SHOT to shots[position])
             })
             recycler_view.adapter = mAdapter
         }
@@ -132,7 +132,7 @@ class ShotsFragment : Fragment(), ShotsContract.View {
     }
 
     private fun initViews() {
-        refresh_layout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))
+        refresh_layout.setColorSchemeColors(ContextCompat.getColor(context ?: return, R.color.colorAccent))
         recycler_view.layoutManager = GridLayoutManager(context, 2)
         recycler_view.setHasFixedSize(true)
     }

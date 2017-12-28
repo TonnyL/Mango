@@ -22,10 +22,11 @@
 
 package io.github.tonnyl.mango.data
 
-import android.os.Parcel
+import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 /**
@@ -140,44 +141,18 @@ import java.util.*
  * }
  */
 
+@Parcelize
+@SuppressLint("ParcelCreator")
 data class Like(
-
         @SerializedName("id")
         @Expose
-        var id: Long,
+        val id: Long,
 
         @SerializedName("created_at")
         @Expose
-        var createdAt: Date,
+        val createdAt: Date,
 
         @SerializedName("user")
         @Expose
-        var user: User
-
-) : Parcelable {
-
-    constructor(parcel: Parcel) : this(
-            id = parcel.readLong(),
-            createdAt = Date(parcel.readLong()),
-            user = parcel.readParcelable(User::class.java.classLoader)
-    )
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeLong(id)
-        parcel.writeLong(createdAt.time)
-        parcel.writeParcelable(user, flags)
-    }
-
-    override fun describeContents() = 0
-
-    companion object CREATOR : Parcelable.Creator<Like> {
-        override fun createFromParcel(parcel: Parcel): Like {
-            return Like(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Like?> {
-            return arrayOfNulls(size)
-        }
-    }
-
-}
+        val user: User
+) : Parcelable

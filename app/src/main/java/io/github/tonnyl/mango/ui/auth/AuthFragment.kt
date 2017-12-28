@@ -64,11 +64,11 @@ class AuthFragment : Fragment(), AuthContract.View {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_auth, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_auth, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mPresenter.subscribe()
 
@@ -97,7 +97,9 @@ class AuthFragment : Fragment(), AuthContract.View {
     }
 
     private fun navigateToMainActivity() {
-        context.startActivity(context.intentFor<MainActivity>().newTask().clearTask())
+        context?.let {
+            startActivity(it.intentFor<MainActivity>().newTask().clearTask())
+        }
     }
 
     override fun updateLoginStatus(accessToken: AccessToken) {
@@ -151,7 +153,7 @@ class AuthFragment : Fragment(), AuthContract.View {
                         setShortLabel(getString(R.string.popular))
                         setIcon(Icon.createWithResource(context, R.drawable.ic_shortcut_pop))
                         setIntent(
-                                Intent(context.applicationContext, MainActivity::class.java)
+                                Intent(context?.applicationContext, MainActivity::class.java)
                                         .apply {
                                             action = Constants.INTENT_ACTION_POPULAR
                                             addCategory(ShortcutInfo.SHORTCUT_CATEGORY_CONVERSATION)
@@ -165,7 +167,7 @@ class AuthFragment : Fragment(), AuthContract.View {
                         setShortLabel(getString(R.string.following))
                         setIcon(Icon.createWithResource(context, R.drawable.ic_shortcut_following))
                         setIntent(
-                                Intent(context.applicationContext, MainActivity::class.java)
+                                Intent(context?.applicationContext, MainActivity::class.java)
                                         .apply {
                                             action = Constants.INTENT_ACTION_FOLLOWING
                                             addCategory(ShortcutInfo.SHORTCUT_CATEGORY_CONVERSATION)
@@ -180,7 +182,7 @@ class AuthFragment : Fragment(), AuthContract.View {
                         setShortLabel(getString(R.string.recent))
                         setIcon(Icon.createWithResource(context, R.drawable.ic_shortcut_recent))
                         setIntent(
-                                Intent(context.applicationContext, MainActivity::class.java)
+                                Intent(context?.applicationContext, MainActivity::class.java)
                                         .apply {
                                             action = Constants.INTENT_ACTION_RECENT
                                             addCategory(ShortcutInfo.SHORTCUT_CATEGORY_CONVERSATION)
@@ -195,7 +197,7 @@ class AuthFragment : Fragment(), AuthContract.View {
                         setShortLabel(getString(R.string.debuts))
                         setIcon(Icon.createWithResource(context, R.drawable.ic_shortcut_debuts))
                         setIntent(
-                                Intent(context.applicationContext, MainActivity::class.java)
+                                Intent(context?.applicationContext, MainActivity::class.java)
                                         .apply {
                                             action = Constants.INTENT_ACTION_DEBUTS
                                             addCategory(ShortcutInfo.SHORTCUT_CATEGORY_CONVERSATION)
@@ -204,7 +206,7 @@ class AuthFragment : Fragment(), AuthContract.View {
                     }
                     .build()
 
-            activity.getSystemService(ShortcutManager::class.java).dynamicShortcuts = mutableListOf<ShortcutInfo>(pop, following, recent, debuts)
+            activity?.let { it.getSystemService(ShortcutManager::class.java).dynamicShortcuts = mutableListOf<ShortcutInfo>(pop, following, recent, debuts) }
 
         }
     }

@@ -59,11 +59,11 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_simple_list, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_simple_list, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mPresenter.subscribe()
 
@@ -97,9 +97,11 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
     }
 
     override fun initViews() {
-        refresh_layout.setColorSchemeColors(ContextCompat.getColor(context, R.color.colorAccent))
-        recycler_view.setHasFixedSize(true)
-        recycler_view.layoutManager = LinearLayoutManager(context)
+        context?.let {
+            refresh_layout.setColorSchemeColors(ContextCompat.getColor(it, R.color.colorAccent))
+            recycler_view.setHasFixedSize(true)
+            recycler_view.layoutManager = LinearLayoutManager(context)
+        }
     }
 
     override fun setLoadingIndicator(loading: Boolean) {
@@ -110,20 +112,22 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
 
     override fun showResults(results: List<Shot>) {
         if (mAdapter == null) {
-            mAdapter = ShotsAdapter(context, results)
-            mAdapter?.setItemClickListener(object : OnRecyclerViewItemClickListener {
+            context?.let {
+                mAdapter = ShotsAdapter(it, results)
+                mAdapter?.setItemClickListener(object : OnRecyclerViewItemClickListener {
 
-                override fun onItemClick(view: View, position: Int) {
-                    context.startActivity<ShotActivity>(ShotPresenter.EXTRA_SHOT to results[position])
-                }
-
-                override fun onAvatarClick(view: View, position: Int) {
-                    results[position].user?.let {
-                        context.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to it)
+                    override fun onItemClick(view: View, position: Int) {
+                        it.startActivity<ShotActivity>(ShotPresenter.EXTRA_SHOT to results[position])
                     }
-                }
 
-            })
+                    override fun onAvatarClick(view: View, position: Int) {
+                        results[position].user?.let {
+                            context?.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to it)
+                        }
+                    }
+
+                })
+            }
             recycler_view.adapter = mAdapter
         }
 

@@ -26,7 +26,6 @@ import android.content.Context
 import io.github.tonnyl.mango.data.User
 import io.github.tonnyl.mango.data.datasource.AuthUserDataSource
 import io.github.tonnyl.mango.database.AppDatabase
-import io.github.tonnyl.mango.database.DatabaseCreator
 import io.reactivex.Observable
 
 /**
@@ -37,60 +36,40 @@ import io.reactivex.Observable
 
 object AuthUserLocalDataSource : AuthUserDataSource {
 
-    private var mDatabase: AppDatabase? = null
+    private lateinit var mDatabase: AppDatabase
 
     override fun init(context: Context) {
-        if (!DatabaseCreator.isDatabaseCreated()) {
-            DatabaseCreator.createDb(context)
-        }
-        mDatabase = DatabaseCreator.getDatabase()
+        mDatabase = AppDatabase.getInstance(context)
     }
 
     override fun getAuthenticatedUser(userId: Long?): Observable<User> {
-        if (mDatabase == null) {
-            mDatabase = DatabaseCreator.getDatabase()
+        return if (userId != null) {
+            mDatabase.userDao().query(userId).toObservable()
+        } else {
+            Observable.empty()
         }
-
-        mDatabase?.let {
-            return if (userId != null) {
-                it.userDao().query(userId).toObservable()
-            } else {
-                Observable.empty()
-            }
-        }
-        return Observable.empty()
     }
 
     override fun saveAuthenticatedUser(user: User) {
-        if (mDatabase == null) {
-            mDatabase = DatabaseCreator.getDatabase()
-        }
-
-        mDatabase?.let {
-            Thread(Runnable {
+        Thread(Runnable {
+            with(mDatabase) {
                 try {
-                    it.beginTransaction()
-                    it.userDao().insert(user)
-                    it.setTransactionSuccessful()
+                    beginTransaction()
+                    userDao().insert(user)
+                    setTransactionSuccessful()
                 } finally {
-                    it.endTransaction()
+                    endTransaction()
                 }
-            }).start()
-        }
+            }
+        }).start()
     }
 
     override fun updateAuthenticatedUser(user: User) {
-        if (mDatabase == null) {
-            mDatabase = DatabaseCreator.getDatabase()
-        }
-        mDatabase?.userDao()?.update(user)
+        mDatabase.userDao().update(user)
     }
 
     override fun deleteAuthenticatedUser(user: User): Observable<Unit> {
-        if (mDatabase == null) {
-            mDatabase = DatabaseCreator.getDatabase()
-        }
-        return Observable.just(mDatabase?.userDao()?.delete(user))
+        return Observable.just(mDatabase.userDao().delete(user))
     }
 
     override fun refreshAuthenticatedUser(): Observable<User> {
