@@ -22,6 +22,8 @@
 
 package io.github.tonnyl.mango.retrofit
 
+import io.github.tonnyl.mango.BuildConfig
+
 /**
  * Created by lizhaotailang on 2017/6/24.
  *
@@ -58,10 +60,9 @@ class ApiConstants private constructor() {
 
     companion object {
 
-        // May be reset and not commit to github if they are abused.
-        val CLIENT_ID = "880e6d00af514d4c2046b3ea49c82397ddc0e81f3239dabd5a79a91dc9003aeb"
-        val CLIENT_SECRET = "da035b73967362330aea7fc9cc9ce66a6e945b87c34e3a7cbf1a871e4bf13c61"
-        val CLIENT_ACCESS_TOKEN = "2345496566b85d63b207200b6fa64a9de8dbe4654e9883ab67b477e47aa5230a"
+        val CLIENT_ID = BuildConfig.CLIENT_ID
+        val CLIENT_SECRET = BuildConfig.CLIENT_SECRET
+        val CLIENT_ACCESS_TOKEN = BuildConfig.CLIENT_ACCESS_TOKEN
 
         // Constant strings of Dribbble API
         val DRIBBBLE_V1_BASE_URL = "https://api.dribbble.com"
