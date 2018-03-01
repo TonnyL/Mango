@@ -65,6 +65,7 @@ Discussions and pull requests are welcomed. The [GitHub Contributors Page](https
 + German - [christopherkardas](https://github.com/christopherkardas)
 + Japanese - [jassica53](https://github.com/jassica53)
 + Korean - [prprpr](http://weibo.com/u/3883693517)
++ Spanish - [costular](https://github.com/costular)
 + Vietnamese - [ldhnam](https://github.com/ldhnam)
 
 ## License📚
