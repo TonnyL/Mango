@@ -1,0 +1,103 @@
+<!--
+  ~ Copyright (c) 2017 Lizhaotailang
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in
+  ~ all copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  ~ THE SOFTWARE.
+  -->
+
+<resources>
+    <string name="app_name">Mango</string>
+
+    <!--Common-->
+    <string name="empty_content">Oops…nada por aquí</string>
+    <string name="network_error">Error de conexión</string>
+    <string name="gif">GIF</string>
+
+    <!--Get started-->
+    <string name="get_started">EMPEZAR</string>
+    <string name="welcome_to_mango">BIENVENIDO A MANGO</string>
+    <string name="request_refresh_token_failed">Ha fallado la petición de refrescar el token</string>
+
+    <!--Main page-->
+    <string name="popular">Popular</string>
+    <string name="following">Siguiendo</string>
+    <string name="recent">Reciente</string>
+    <string name="debuts">Publicaciones</string>
+    <string name="shot_title">%1$s - %2$s</string>
+    <!--Main page menus-->
+    <string name="action_main">action_main</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="action_log_out">Salir</string>
+    <string name="log_out">Salir</string>
+    <string name="logout_message">Esperamos verte de nuevo pronto.</string>
+
+    <!--Shot detail-->
+    <string name="likes_formatted">Me gusta %1$d</string>
+    <string name="comments_formatted">Comentarios %1$d</string>
+    <string name="views_formatted">Visitas %1$d</string>
+    <string name="copy_to_clipboard">Copiar al portapapeles</string>
+    <string name="copied">Copiado</string>
+    <string name="share_to">Compartir</string>
+    <!--Shot detail menus-->
+    <string name="action_shot">action_shot</string>
+    <string name="action_share">Compartir</string>
+    <string name="action_open_in_browser">Abrir en navegador</string>
+
+    <!--Comments-->
+    <string name="add_comment_hint">Añadir comentario</string>
+    <string name="add_comment_failed">Ha fallado al añadir el comentario</string>
+
+    <!--User profile-->
+    <string name="followers_formatted">Seguidores %1$d</string>
+    <string name="following_formatted">Siguiendo %1$d</string>
+    <string name="follow">Seguir</string>
+    <string name="unfollow">Dejar de seguir</string>
+    <string name="tab_title_shots">FOTOS %1$d</string>
+    <string name="tab_title_likes">ME GUSTA %1$d</string>
+    <!--User profile menus-->
+    <string name="action_user">action_user</string>
+
+    <!--Settings-->
+    <string name="settings">Ajustes</string>
+    <string name="general">General</string>
+    <string name="clear_cache_desc">Tamaño caché: %1$d MB</string>
+    <string name="clear_cache">Limpiar Caché</string>
+    <string name="about">Sobre</string>
+    <string name="version">Versión</string>
+    <string name="version_desc">1.0.0</string>
+    <string name="open_source_licenses">Licencias Open Source</string>
+    <string name="authors">Autores</string>
+    <string name="contributors">Contribuidores</string>
+    <string name="contributors_desc">https://github.com/TonnyL/Mango/graphs/contributors</string>
+    <string name="follow_me_on_github">Sígueme en GitHub</string>
+    <string name="follow_me_on_github_desc">https://github.com/TonnyL</string>
+    <string name="support">Soporte</string>
+    <string name="source_code">Código fuente</string>
+    <string name="source_code_desc">https://github.com/TonnyL/Mango</string>
+    <string name="feedback">Feedback</string>
+    <string name="feedback_email">marktonymengyi@gmail.com</string>
+    <string name="feedback_email_subject">Feedback de Mango</string>
+    <string name="feedback_desc">Ayúdame a hacer Mango una app mejor</string>
+
+    <!--Image content descriptions-->
+    <string name="avatar_desc">Avatar</string>
+    <string name="send_desc">Enviar</string>
+    <string name="shot_desc">Foto</string>
+    <string name="like_desc">Me gusta</string>
+
+</resources>
