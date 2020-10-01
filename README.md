@@ -67,6 +67,7 @@ Discussions and pull requests are welcomed. The [GitHub Contributors Page](https
 + Korean - [prprpr](http://weibo.com/u/3883693517)
 + Spanish - [costular](https://github.com/costular)
 + Vietnamese - [ldhnam](https://github.com/ldhnam)
++ Italian - [MhzDev](https://github.com/MhzDev)
 
 ## License📚
 Mango is under an MIT license. See the [LICENSE](LICENSE) for more information.
