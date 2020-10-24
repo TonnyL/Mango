@@ -34,6 +34,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.LikedShot
+import io.github.tonnyl.mango.databinding.FragmentSimpleListBinding
 import io.github.tonnyl.mango.ui.shot.ShotActivity
 import io.github.tonnyl.mango.ui.shot.ShotPresenter
 import kotlinx.android.synthetic.main.fragment_simple_list.*
@@ -53,6 +54,9 @@ class LikedShotsFragment : Fragment(), LikedShotsContract.View {
     private var mIsLoading = false
     private var mLayoutManager: LinearLayoutManager? = null
 
+    private var _binding: FragmentSimpleListBinding? = null
+    private val binding get() =_binding!!
+
     companion object {
         @JvmStatic
         fun newInstance(): LikedShotsFragment {
@@ -61,7 +65,8 @@ class LikedShotsFragment : Fragment(), LikedShotsContract.View {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_simple_list, container, false)
+        _binding = FragmentSimpleListBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,15 +76,15 @@ class LikedShotsFragment : Fragment(), LikedShotsContract.View {
 
         mPresenter.subscribe()
 
-        refresh_layout.setOnRefreshListener {
+        binding.refreshLayout.setOnRefreshListener {
             mIsLoading = true
             mPresenter.loadLikedShots()
         }
 
-        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0 && (mLayoutManager?.findLastVisibleItemPosition() == recycler_view.adapter.itemCount - 1) && !mIsLoading) {
+                if (dy > 0 && (mLayoutManager?.findLastVisibleItemPosition() == binding.recyclerView.adapter.itemCount - 1) && !mIsLoading) {
                     mIsLoading = true
                     mPresenter.loadMoreLikedShots()
                 }
@@ -93,31 +98,36 @@ class LikedShotsFragment : Fragment(), LikedShotsContract.View {
         mPresenter.unsubscribe()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
     override fun setPresenter(presenter: LikedShotsContract.Presenter) {
         mPresenter = presenter
     }
 
     override fun setLoadingIndicator(loading: Boolean) {
-        refresh_layout.isRefreshing = loading
+        binding.refreshLayout.isRefreshing = loading
     }
 
     override fun showLikedShots(likeShots: List<LikedShot>) {
-        recycler_view.layoutManager = mLayoutManager
+        binding.recyclerView.layoutManager = mLayoutManager
         if (mAdapter == null) {
             mAdapter = LikedShotsAdapter(context ?: return, likeShots)
             mAdapter?.setItemClickListener({ _, position ->
                 context?.startActivity<ShotActivity>(ShotPresenter.EXTRA_SHOT to likeShots[position].shot)
             })
         }
-        recycler_view.adapter = mAdapter
+        binding.recyclerView.adapter = mAdapter
     }
 
     override fun setEmptyViewVisibility(visible: Boolean) {
-        empty_view.visibility = if (visible && (mAdapter == null)) View.VISIBLE else View.GONE
+        binding.emptyView.visibility = if (visible && (mAdapter == null)) View.VISIBLE else View.GONE
     }
 
     override fun showNetworkError() {
-        Snackbar.make(refresh_layout, R.string.network_error, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.refreshLayout, R.string.network_error, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun notifyDataAllRemoved(size: Int) {
@@ -131,8 +141,8 @@ class LikedShotsFragment : Fragment(), LikedShotsContract.View {
     }
 
     private fun initViews() {
-        refresh_layout.setColorSchemeColors(ContextCompat.getColor(context ?: return, R.color.colorAccent))
-        recycler_view.setHasFixedSize(true)
+        binding.refreshLayout.setColorSchemeColors(ContextCompat.getColor(context ?: return, R.color.colorAccent))
+        binding.recyclerView.setHasFixedSize(true)
         mLayoutManager = GridLayoutManager(context, 2)
     }
 

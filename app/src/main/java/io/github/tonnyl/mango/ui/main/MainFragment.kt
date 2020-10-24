@@ -31,6 +31,7 @@ import android.support.v7.app.AlertDialog
 import android.view.*
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.User
+import io.github.tonnyl.mango.databinding.FragmentShotsBinding
 import io.github.tonnyl.mango.glide.GlideLoader
 import io.github.tonnyl.mango.ui.auth.AuthActivity
 import io.github.tonnyl.mango.ui.settings.SettingsActivity
@@ -52,8 +53,13 @@ import org.jetbrains.anko.startActivity
 
 class MainFragment : Fragment(), MainContract.View {
 
+
+
     private lateinit var mPresenter: MainContract.Presenter
     private var mPagerAdapter: MainPagerAdapter? = null
+
+    private var _binding:FragmentShotsBinding? = null
+    private val binding get() = _binding!!
 
     companion object {
         @JvmStatic
@@ -64,7 +70,9 @@ class MainFragment : Fragment(), MainContract.View {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.fragment_shots, container, false)
+        _binding = FragmentShotsBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,7 +82,7 @@ class MainFragment : Fragment(), MainContract.View {
 
         mPresenter.subscribe()
 
-        user_info_layout.setOnClickListener {
+        binding.userInfoLayout.setOnClickListener {
             mPresenter.getUser()?.let {
                 context?.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to it)
             }
@@ -82,7 +90,7 @@ class MainFragment : Fragment(), MainContract.View {
 
         // Handle the intent actions from app shortcuts
         activity?.intent?.action?.let {
-            view_pager.currentItem = when (it) {
+            binding.viewPager.currentItem = when (it) {
                 Constants.INTENT_ACTION_FOLLOWING -> 1
                 Constants.INTENT_ACTION_RECENT -> 2
                 Constants.INTENT_ACTION_DEBUTS -> 3
@@ -95,6 +103,11 @@ class MainFragment : Fragment(), MainContract.View {
     override fun onDestroyView() {
         super.onDestroyView()
         mPresenter.unsubscribe()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -113,15 +126,15 @@ class MainFragment : Fragment(), MainContract.View {
     }
 
     override fun initViews() {
-        (activity as MainActivity).setSupportActionBar(toolbar)
+        (activity as MainActivity).setSupportActionBar(binding.toolbar)
 
         context?.let {
             mPagerAdapter = MainPagerAdapter(it, childFragmentManager)
-            view_pager.adapter = mPagerAdapter
-            view_pager.offscreenPageLimit = 4
+            binding.viewPager.adapter = mPagerAdapter
+            binding.viewPager.offscreenPageLimit = 4
         }
 
-        tab_layout.setupWithViewPager(view_pager)
+        binding.tabLayout.setupWithViewPager(binding.viewPager)
     }
 
     override fun setPresenter(presenter: MainContract.Presenter) {
@@ -129,8 +142,8 @@ class MainFragment : Fragment(), MainContract.View {
     }
 
     override fun showAuthUserInfo(user: User) {
-        user_name.text = user.name
-        GlideLoader.loadAvatar(avatar, user.avatarUrl)
+        binding.userName.text = user.name
+        GlideLoader.loadAvatar(binding.avatar, user.avatarUrl)
     }
 
     override fun navigateToLogin() {

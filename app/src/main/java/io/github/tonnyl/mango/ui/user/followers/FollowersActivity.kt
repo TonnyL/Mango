@@ -25,6 +25,7 @@ package io.github.tonnyl.mango.ui.user.followers
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import io.github.tonnyl.mango.R
+import io.github.tonnyl.mango.databinding.ActivityCommonBinding
 import kotlinx.android.synthetic.main.activity_common.*
 
 /**
@@ -36,9 +37,12 @@ class FollowersActivity : AppCompatActivity() {
 
     private lateinit var mFollowersFragment: FollowersFragment
 
+    private lateinit var binding: ActivityCommonBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_common)
+        binding = ActivityCommonBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

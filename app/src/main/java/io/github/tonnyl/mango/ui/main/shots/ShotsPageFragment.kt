@@ -33,6 +33,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Shot
+import io.github.tonnyl.mango.databinding.FragmentSimpleListBinding
 import io.github.tonnyl.mango.ui.shot.ShotActivity
 import io.github.tonnyl.mango.ui.shot.ShotPresenter
 import io.github.tonnyl.mango.ui.user.UserProfileActivity
@@ -52,6 +53,9 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
     private var mAdapter: ShotsAdapter? = null
     private var mIsLoading = false
 
+    private var _binding: FragmentSimpleListBinding? = null
+    private val binding get() = _binding!!
+
     companion object {
         @JvmStatic
         fun newInstance(): ShotsPageFragment {
@@ -60,7 +64,9 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_simple_list, container, false)
+        _binding = FragmentSimpleListBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,16 +75,16 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
 
         initViews()
 
-        refresh_layout.setOnRefreshListener {
+        binding.refreshLayout.setOnRefreshListener {
             mIsLoading = true
             mPresenter.listShots()
         }
 
-        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val layoutManager = recyclerView?.layoutManager as LinearLayoutManager
-                if (dy > 0 && layoutManager.findLastVisibleItemPosition() == recycler_view.adapter.itemCount - 1 && !mIsLoading) {
+                if (dy > 0 && layoutManager.findLastVisibleItemPosition() == binding.recyclerView.adapter.itemCount - 1 && !mIsLoading) {
                     mPresenter.listMoreShots()
                     mIsLoading = true
                 }
@@ -92,21 +98,26 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
         mPresenter.unsubscribe()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
     override fun setPresenter(presenter: ShotsPageContract.Presenter) {
         mPresenter = presenter
     }
 
     override fun initViews() {
         context?.let {
-            refresh_layout.setColorSchemeColors(ContextCompat.getColor(it, R.color.colorAccent))
-            recycler_view.setHasFixedSize(true)
-            recycler_view.layoutManager = LinearLayoutManager(context)
+            binding.refreshLayout.setColorSchemeColors(ContextCompat.getColor(it, R.color.colorAccent))
+            binding.recyclerView.setHasFixedSize(true)
+            binding.recyclerView.layoutManager = LinearLayoutManager(context)
         }
     }
 
     override fun setLoadingIndicator(loading: Boolean) {
-        refresh_layout.post({
-            refresh_layout.isRefreshing = loading
+        binding.refreshLayout.post({
+            binding.refreshLayout.isRefreshing = loading
         })
     }
 
@@ -128,7 +139,7 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
 
                 })
             }
-            recycler_view.adapter = mAdapter
+            binding.recyclerView.adapter = mAdapter
         }
 
         mIsLoading = false
@@ -136,11 +147,11 @@ class ShotsPageFragment : Fragment(), ShotsPageContract.View {
     }
 
     override fun showNetworkError() {
-        Snackbar.make(recycler_view, R.string.network_error, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.recyclerView, R.string.network_error, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun setEmptyContentVisibility(visible: Boolean) {
-        empty_view.visibility = if (visible && (mAdapter == null)) View.VISIBLE else View.GONE
+        binding.emptyView.visibility = if (visible && (mAdapter == null)) View.VISIBLE else View.GONE
     }
 
     override fun notifyDataAllRemoved(size: Int) {

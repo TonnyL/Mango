@@ -34,6 +34,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Shot
+import io.github.tonnyl.mango.databinding.FragmentSimpleListBinding
 import io.github.tonnyl.mango.ui.shot.ShotActivity
 import io.github.tonnyl.mango.ui.shot.ShotPresenter
 import kotlinx.android.synthetic.main.fragment_simple_list.*
@@ -52,6 +53,9 @@ class ShotsFragment : Fragment(), ShotsContract.View {
     private var mIsLoading = false
     private var mAdapter: ShotsAdapter? = null
 
+    private var _binding: FragmentSimpleListBinding? = null
+    private val binding get() =_binding!!
+
     companion object {
         @JvmStatic
         fun newInstance(): ShotsFragment {
@@ -60,7 +64,8 @@ class ShotsFragment : Fragment(), ShotsContract.View {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_simple_list, container, false)
+        _binding = FragmentSimpleListBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,16 +75,16 @@ class ShotsFragment : Fragment(), ShotsContract.View {
 
         mPresenter.subscribe()
 
-        refresh_layout.setOnRefreshListener {
+        binding.refreshLayout.setOnRefreshListener {
             mIsLoading = true
             mPresenter.loadShots()
         }
 
-        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val layoutManager = recyclerView?.layoutManager as GridLayoutManager
-                if (dy > 0 && layoutManager.findLastVisibleItemPosition() == recycler_view.adapter.itemCount - 1 && !mIsLoading) {
+                if (dy > 0 && layoutManager.findLastVisibleItemPosition() == binding.recyclerView.adapter.itemCount - 1 && !mIsLoading) {
                     Log.d("view", "load")
                     mPresenter.loadShotsOfNextPage()
                     mIsLoading = true
@@ -98,7 +103,7 @@ class ShotsFragment : Fragment(), ShotsContract.View {
     }
 
     override fun setLoadingIndicator(loading: Boolean) {
-        refresh_layout.isRefreshing = loading
+        binding.refreshLayout.isRefreshing = loading
     }
 
     override fun showShots(shots: List<Shot>) {
@@ -107,18 +112,18 @@ class ShotsFragment : Fragment(), ShotsContract.View {
             mAdapter?.setItemClickListener({ _, position ->
                 context?.startActivity<ShotActivity>(ShotPresenter.EXTRA_SHOT to shots[position])
             })
-            recycler_view.adapter = mAdapter
+            binding.recyclerView.adapter = mAdapter
         }
 
         mIsLoading = false
     }
 
     override fun setEmptyViewVisibility(visible: Boolean) {
-        empty_view.visibility = if (visible && (mAdapter == null)) View.VISIBLE else View.GONE
+        binding.emptyView.visibility = if (visible && (mAdapter == null)) View.VISIBLE else View.GONE
     }
 
     override fun showNetworkError() {
-        Snackbar.make(recycler_view, R.string.network_error, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.recyclerView, R.string.network_error, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun notifyDataAllRemoved(size: Int) {
@@ -132,9 +137,9 @@ class ShotsFragment : Fragment(), ShotsContract.View {
     }
 
     private fun initViews() {
-        refresh_layout.setColorSchemeColors(ContextCompat.getColor(context ?: return, R.color.colorAccent))
-        recycler_view.layoutManager = GridLayoutManager(context, 2)
-        recycler_view.setHasFixedSize(true)
+        binding.refreshLayout.setColorSchemeColors(ContextCompat.getColor(context ?: return, R.color.colorAccent))
+        binding.recyclerView.layoutManager = GridLayoutManager(context, 2)
+        binding.recyclerView.setHasFixedSize(true)
     }
 
 }

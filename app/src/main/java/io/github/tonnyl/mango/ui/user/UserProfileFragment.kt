@@ -30,6 +30,8 @@ import android.text.Html
 import android.view.*
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.User
+import io.github.tonnyl.mango.databinding.FragmentSimpleListBinding
+import io.github.tonnyl.mango.databinding.FragmentUserProfileBinding
 import io.github.tonnyl.mango.glide.GlideLoader
 import io.github.tonnyl.mango.ui.user.followers.FollowersActivity
 import io.github.tonnyl.mango.ui.user.followers.FollowersPresenter
@@ -52,6 +54,9 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
     private var mFollowable = false
     private var mIsFollowing = false
 
+    private var _binding: FragmentUserProfileBinding? = null
+    private val binding get() =_binding!!
+
     companion object {
 
         @JvmStatic
@@ -62,7 +67,8 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.fragment_user_profile, container, false)
+        _binding = FragmentUserProfileBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,13 +78,13 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
 
         mPresenter.subscribe()
 
-        following.setOnClickListener {
+        binding.following.setOnClickListener {
             context?.startActivity<FollowingActivity>(
                     FollowingPresenter.EXTRA_USER_ID to mPresenter.getUser().id,
                     FollowingPresenter.EXTRA_FOLLOWING_TITLE to following.text)
         }
 
-        followers.setOnClickListener {
+        binding.followers.setOnClickListener {
             context?.startActivity<FollowersActivity>(
                     FollowersPresenter.EXTRA_USER_ID to mPresenter.getUser().id,
                     FollowersPresenter.EXTRA_FOLLOWERS_TITLE to followers.text)
@@ -89,6 +95,11 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
     override fun onDestroyView() {
         super.onDestroyView()
         mPresenter.unsubscribe()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -125,37 +136,37 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
     }
 
     override fun showUserInfo(user: User) {
-        GlideLoader.loadAvatar(avatar, user.avatarUrl)
+        GlideLoader.loadAvatar(binding.avatar, user.avatarUrl)
 
         user.links.twitter?.let {
-            user_info_twitter.text = it
+            binding.userInfoTwitter.text = it
         } ?: run {
-            user_info_twitter.visibility = View.GONE
+            binding.userInfoTwitter.visibility = View.GONE
         }
 
         user.links.web?.let {
-            user_info_web.text = it
+            binding.userInfoWeb.text = it
         } ?: run {
-            user_info_web.visibility = View.GONE
+            binding.userInfoWeb.visibility = View.GONE
         }
 
         user.location?.let {
-            user_info_location.text = it
+            binding.userInfoLocation.text = it
         } ?: run {
-            user_info_location.visibility = View.GONE
+            binding.userInfoLocation.visibility = View.GONE
         }
 
-        followers.text = getString(R.string.followers_formatted).format(user.followersCount)
-        following.text = getString(R.string.following_formatted).format(user.followingsCount)
+        binding.followers.text = getString(R.string.followers_formatted).format(user.followersCount)
+        binding.following.text = getString(R.string.following_formatted).format(user.followingsCount)
 
         if (Build.VERSION.SDK_INT >= 24) {
-            bio.text = Html.fromHtml(user.bio, Html.FROM_HTML_MODE_LEGACY)
+            binding.bio.text = Html.fromHtml(user.bio, Html.FROM_HTML_MODE_LEGACY)
         } else {
-            bio.text = Html.fromHtml(user.bio)
+            binding.bio.text = Html.fromHtml(user.bio)
         }
 
-        tab_layout.getTabAt(0)?.text = getString(R.string.tab_title_shots).format(user.shotsCount)
-        tab_layout.getTabAt(1)?.text = getString(R.string.tab_title_likes).format(user.likesCount)
+        binding.tabLayout.getTabAt(0)?.text = getString(R.string.tab_title_shots).format(user.shotsCount)
+        binding.tabLayout.getTabAt(1)?.text = getString(R.string.tab_title_likes).format(user.likesCount)
 
         val act = activity as UserProfileActivity
         act.supportActionBar?.title = user.name
@@ -174,7 +185,7 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
     }
 
     override fun showNetworkError() {
-        Snackbar.make(view_pager, R.string.network_error, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.viewPager, R.string.network_error, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun initViews() {
@@ -183,10 +194,10 @@ class UserProfileFragment : Fragment(), UserProfileContract.View {
         act.setSupportActionBar(toolbar)
         act.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        view_pager.adapter = UserProfilePagerAdapter(context ?: return, mPresenter.getUser(), childFragmentManager)
-        view_pager.offscreenPageLimit = 2
+        binding.viewPager.adapter = UserProfilePagerAdapter(context ?: return, mPresenter.getUser(), childFragmentManager)
+        binding.viewPager.offscreenPageLimit = 2
 
-        tab_layout.setupWithViewPager(view_pager)
+        binding.tabLayout.setupWithViewPager(binding.viewPager)
     }
 
 }
