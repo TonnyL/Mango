@@ -22,7 +22,7 @@
 
 <resources>
     <!--Common-->
-    <string name="empty_content">Oops… Non c'é nulla qui</string>
+    <string name="empty_content">Oops… Non c\'é nulla qui</string>
     <string name="network_error">Errore di connessione</string>
     <string name="gif">GIF</string>
 

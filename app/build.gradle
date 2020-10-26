@@ -59,6 +59,9 @@ android {
             testCoverageEnabled true
         }
     }
+    buildFeatures {
+        viewBinding = true
+    }
 
     lintOptions {
         abortOnError false
@@ -95,7 +98,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     // Kotlin lib
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     // Anko lib
     implementation "org.jetbrains.anko:anko-commons:$ankoLibVersion"

@@ -40,6 +40,7 @@ import android.widget.TextView
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Shot
 import io.github.tonnyl.mango.data.User
+import io.github.tonnyl.mango.databinding.FragmentShotBinding
 import io.github.tonnyl.mango.glide.GlideLoader
 import io.github.tonnyl.mango.glide.OnPaletteProcessingCallback
 import io.github.tonnyl.mango.ui.shot.comments.CommentsActivity
@@ -65,6 +66,9 @@ class ShotFragment : Fragment(), ShotContract.View {
     private lateinit var mPresenter: ShotContract.Presenter
     private val rgbs = arrayListOf<Int>()
 
+    private var _binding:FragmentShotBinding? = null
+    private val binding get() = _binding!!
+
     companion object {
 
         @JvmStatic
@@ -75,7 +79,8 @@ class ShotFragment : Fragment(), ShotContract.View {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.fragment_shot, container, false)
+        _binding= FragmentShotBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,19 +89,19 @@ class ShotFragment : Fragment(), ShotContract.View {
 
         initView()
 
-        fab.setOnClickListener({
+        binding.fab.setOnClickListener({
             mPresenter.toggleLike()
         })
 
-        avatar.setOnClickListener({
+        binding.avatar.setOnClickListener({
             mPresenter.navigateToUserProfile()
         })
 
-        button_likes.setOnClickListener({
+        binding.buttonLikes.setOnClickListener({
             mPresenter.navigateToLikes()
         })
 
-        button_comments.setOnClickListener({
+        binding.buttonComments.setOnClickListener({
             mPresenter.navigateToComments()
         })
 
@@ -127,56 +132,56 @@ class ShotFragment : Fragment(), ShotContract.View {
     }
 
     override fun showNetworkError() {
-        Snackbar.make(fab, R.string.network_error, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.fab, R.string.network_error, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun show(shot: Shot) {
         // Show the menu_shot image
-        GlideLoader.loadHighQualityWithPalette(shot_image_view, shot.images.best(), object : OnPaletteProcessingCallback {
+        GlideLoader.loadHighQualityWithPalette(binding.shotImageView, shot.images.best(), object : OnPaletteProcessingCallback {
             override fun onPaletteGenerated(palette: Palette?) {
                 palette?.let {
                     showPalette(palette)
                 } ?: run {
-                    palette_layout.visibility = View.GONE
+                    binding.paletteLayout.visibility = View.GONE
                 }
             }
 
             override fun onPaletteNotAvailable() {
                 context?.runOnUiThread {
-                    palette_layout.visibility = View.GONE
+                    binding.paletteLayout.visibility = View.GONE
                 }
             }
         })
 
-        GlideLoader.loadAvatar(avatar, shot.user?.avatarUrl)
+        GlideLoader.loadAvatar(binding.avatar, shot.user?.avatarUrl)
 
-        toolbar.title = shot.title
+        binding.toolbar.title = shot.title
 
         if (shot.description != null) {
             if (Build.VERSION.SDK_INT >= 24) {
-                shot_description.text = Html.fromHtml(shot.description, Html.FROM_HTML_MODE_LEGACY)
+                binding.shotDescription.text = Html.fromHtml(shot.description, Html.FROM_HTML_MODE_LEGACY)
             } else {
-                shot_description.text = Html.fromHtml(shot.description)
+                binding.shotDescription.text = Html.fromHtml(shot.description)
             }
-            shot_description.movementMethod = LinkMovementMethod.getInstance()
+            binding.shotDescription.movementMethod = LinkMovementMethod.getInstance()
         } else {
-            shot_description.visibility = View.GONE
+            binding.shotDescription.visibility = View.GONE
         }
 
-        name.text = shot.user?.name
-        user_name.text = shot.user?.username
-        created_time.text = DateUtils.getRelativeTimeSpanString(shot.createdAt.time, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS)
+        binding.name.text = shot.user?.name
+        binding.userName.text = shot.user?.username
+        binding.createdTime.text = DateUtils.getRelativeTimeSpanString(shot.createdAt.time, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS)
 
-        button_likes.text = getString(R.string.likes_formatted).format(shot.likesCount)
-        button_views.text = getString(R.string.views_formatted).format(shot.viewsCount)
-        button_comments.text = getString(R.string.comments_formatted).format(shot.commentsCount)
+        binding.buttonLikes.text = getString(R.string.likes_formatted).format(shot.likesCount)
+        binding.buttonViews.text = getString(R.string.views_formatted).format(shot.viewsCount)
+        binding.buttonComments.text = getString(R.string.comments_formatted).format(shot.commentsCount)
 
         // Show the tags
         showTags(shot.tags)
     }
 
     override fun setLikeStatus(like: Boolean) {
-        fab.setImageResource(if (like) {
+        binding.fab.setImageResource(if (like) {
             R.drawable.ic_favorite_white_24dp
         } else {
             R.drawable.ic_favorite_border_white_24dp
@@ -184,7 +189,7 @@ class ShotFragment : Fragment(), ShotContract.View {
     }
 
     override fun updateLikeCount(count: Int) {
-        button_likes.text = getString(R.string.likes_formatted).format(count)
+        binding.buttonLikes.text = getString(R.string.likes_formatted).format(count)
     }
 
     override fun navigateToUserProfile(user: User) {
@@ -242,18 +247,18 @@ class ShotFragment : Fragment(), ShotContract.View {
                             .setAction(getString(R.string.copy_to_clipboard), {
                                 val manager = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                                 manager.primaryClip = ClipData.newPlainText("text", color)
-                                Snackbar.make(fab, R.string.copied, Snackbar.LENGTH_SHORT).show()
+                                Snackbar.make(binding.fab, R.string.copied, Snackbar.LENGTH_SHORT).show()
                             })
                             .show()
                 }
-                palette_layout.addView(textView)
+                binding.paletteLayout.addView(textView)
             }
         }
     }
 
     private fun initView() {
         val act = activity as ShotActivity
-        act.setSupportActionBar(toolbar)
+        act.setSupportActionBar(binding.toolbar)
         act.supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 

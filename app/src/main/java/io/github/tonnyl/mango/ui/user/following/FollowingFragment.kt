@@ -34,6 +34,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Followee
+import io.github.tonnyl.mango.databinding.FragmentSimpleListBinding
 import io.github.tonnyl.mango.ui.user.UserProfileActivity
 import io.github.tonnyl.mango.ui.user.UserProfilePresenter
 import kotlinx.android.synthetic.main.fragment_simple_list.*
@@ -52,6 +53,9 @@ class FollowingFragment : Fragment(), FollowingContract.View {
     private var mIsLoading = false
     private var mLayoutManager: LinearLayoutManager? = null
 
+    private var _binding: FragmentSimpleListBinding? = null
+    private val binding get() =_binding!!
+
     companion object {
         @JvmStatic
         fun newInstance(): FollowingFragment {
@@ -60,7 +64,8 @@ class FollowingFragment : Fragment(), FollowingContract.View {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_simple_list, container, false)
+        _binding = FragmentSimpleListBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,15 +77,15 @@ class FollowingFragment : Fragment(), FollowingContract.View {
 
         mPresenter.subscribe()
 
-        refresh_layout.setOnRefreshListener {
+        binding.refreshLayout.setOnRefreshListener {
             mIsLoading = true
             mPresenter.loadFollowing()
         }
 
-        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0 && (mLayoutManager?.findLastVisibleItemPosition() == recycler_view.adapter.itemCount - 1) && !mIsLoading) {
+                if (dy > 0 && (mLayoutManager?.findLastVisibleItemPosition() == binding.recyclerView.adapter.itemCount - 1) && !mIsLoading) {
                     mIsLoading = true
                     mPresenter.loadMoreFollowing()
                 }
@@ -92,6 +97,11 @@ class FollowingFragment : Fragment(), FollowingContract.View {
     override fun onDestroyView() {
         super.onDestroyView()
         mPresenter.unsubscribe()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -106,15 +116,15 @@ class FollowingFragment : Fragment(), FollowingContract.View {
     }
 
     override fun setLoadingIndicator(loading: Boolean) {
-        refresh_layout.isRefreshing = loading
+        binding.refreshLayout.isRefreshing = loading
     }
 
     override fun setEmptyViewVisibility(visible: Boolean) {
-        empty_view.visibility = if (visible && (mAdapter == null)) View.VISIBLE else View.GONE
+        binding.emptyView.visibility = if (visible && (mAdapter == null)) View.VISIBLE else View.GONE
     }
 
     override fun showNetworkError() {
-        Snackbar.make(recycler_view, R.string.network_error, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.recyclerView, R.string.network_error, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun showFollowings(followings: List<Followee>) {
@@ -123,7 +133,7 @@ class FollowingFragment : Fragment(), FollowingContract.View {
             mAdapter?.setOnItemClickListener { _, position ->
                 context?.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to followings[position].followee)
             }
-            recycler_view.adapter = mAdapter
+            binding.recyclerView.adapter = mAdapter
         }
 
         mIsLoading = false
@@ -141,8 +151,8 @@ class FollowingFragment : Fragment(), FollowingContract.View {
 
     private fun initViews() {
         mLayoutManager = LinearLayoutManager(context)
-        recycler_view.layoutManager = mLayoutManager
-        refresh_layout.setColorSchemeColors(ContextCompat.getColor(context ?: return, R.color.colorAccent))
+        binding.recyclerView.layoutManager = mLayoutManager
+        binding.refreshLayout.setColorSchemeColors(ContextCompat.getColor(context ?: return, R.color.colorAccent))
     }
 
 }

@@ -34,6 +34,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.tonnyl.mango.R
 import io.github.tonnyl.mango.data.Comment
+import io.github.tonnyl.mango.databinding.FragmentCommentsBinding
 import io.github.tonnyl.mango.glide.GlideLoader
 import io.github.tonnyl.mango.ui.user.UserProfileActivity
 import io.github.tonnyl.mango.ui.user.UserProfilePresenter
@@ -52,6 +53,9 @@ class CommentsFragment : Fragment(), CommentsContract.View {
     private var mCommentsAdapter: CommentsAdapter? = null
     private var mIsLoading = false
 
+    private var _binding: FragmentCommentsBinding? = null
+    private val binding get() = _binding!!
+
     companion object {
 
         @JvmStatic
@@ -62,7 +66,9 @@ class CommentsFragment : Fragment(), CommentsContract.View {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        return inflater.inflate(R.layout.fragment_comments, container, false)
+        _binding = FragmentCommentsBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,16 +77,16 @@ class CommentsFragment : Fragment(), CommentsContract.View {
 
         mPresenter.subscribe()
 
-        refresh_layout.setOnRefreshListener {
+        binding.refreshLayout.setOnRefreshListener {
             mPresenter.loadComments()
             mIsLoading = true
         }
 
-        recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val layoutManager = recyclerView?.layoutManager as LinearLayoutManager
-                if ((dy > 0) && (layoutManager.findLastVisibleItemPosition() == recycler_view.adapter.itemCount - 1)
+                if ((dy > 0) && (layoutManager.findLastVisibleItemPosition() == binding.recyclerView.adapter.itemCount - 1)
                         && !mIsLoading) {
                     mPresenter.loadMoreComments()
                     mIsLoading = true
@@ -92,6 +98,11 @@ class CommentsFragment : Fragment(), CommentsContract.View {
     override fun onDestroyView() {
         super.onDestroyView()
         mPresenter.unsubscribe()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -106,17 +117,17 @@ class CommentsFragment : Fragment(), CommentsContract.View {
     }
 
     override fun setLoadingIndicator(loading: Boolean) {
-        refresh_layout.post({
-            refresh_layout.isRefreshing = loading
+        binding.refreshLayout.post({
+            binding.refreshLayout.isRefreshing = loading
         })
     }
 
     override fun cancelSendingIndicator(clearText: Boolean) {
-        button_send.isEnabled = true
-        button_send.visibility = View.VISIBLE
-        progress_send.visibility = View.GONE
+        binding.buttonSend.isEnabled = true
+        binding.buttonSend.visibility = View.VISIBLE
+        binding.progressSend.visibility = View.GONE
         if (clearText) {
-            comment_edit.setText("")
+            binding.commentEdit.setText("")
         }
     }
 
@@ -128,7 +139,7 @@ class CommentsFragment : Fragment(), CommentsContract.View {
                 mCommentsAdapter?.setOnAvatarClickListener { _, position ->
                     it.startActivity<UserProfileActivity>(UserProfilePresenter.EXTRA_USER to comments[position].user)
                 }
-                recycler_view.adapter = mCommentsAdapter
+                binding.recyclerView.adapter = mCommentsAdapter
             }
         }
 
@@ -140,21 +151,21 @@ class CommentsFragment : Fragment(), CommentsContract.View {
     }
 
     override fun setEmptyViewVisibility(visible: Boolean) {
-        empty_view.visibility = if (visible && (mCommentsAdapter == null)) View.VISIBLE else View.GONE
+        binding.emptyView.visibility = if (visible && (mCommentsAdapter == null)) View.VISIBLE else View.GONE
     }
 
     override fun setEditorVisible(visible: Boolean, avatarUrl: String) {
-        layout_add_comment.visibility = if (visible) View.VISIBLE else View.GONE
-        GlideLoader.loadAvatar(avatar, avatarUrl)
+        binding.layoutAddComment.visibility = if (visible) View.VISIBLE else View.GONE
+        GlideLoader.loadAvatar(binding.avatar, avatarUrl)
     }
 
     private fun initViews() {
-        recycler_view.layoutManager = LinearLayoutManager(context)
-        refresh_layout.setColorSchemeColors(ContextCompat.getColor(context ?: return, R.color.colorAccent))
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.refreshLayout.setColorSchemeColors(ContextCompat.getColor(context ?: return, R.color.colorAccent))
     }
 
     override fun showNetworkError() {
-        Snackbar.make(refresh_layout, R.string.network_error, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.refreshLayout, R.string.network_error, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun notifyDataAllRemoved(size: Int) {
@@ -168,7 +179,7 @@ class CommentsFragment : Fragment(), CommentsContract.View {
     }
 
     override fun showCreateCommentFailed() {
-        Snackbar.make(layout_add_comment, R.string.add_comment_failed, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.layoutAddComment, R.string.add_comment_failed, Snackbar.LENGTH_SHORT).show()
     }
 
 }
